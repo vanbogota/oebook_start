@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --text: #080808;
 }
 
 @theme inline {
@@ -12,15 +13,30 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: black;
+  font-size: 16px;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
+  transition: all .3s;
+  margin-inline: auto;
 }
+
+body{
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+      width: 630px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+

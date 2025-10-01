@@ -1,103 +1,138 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+type SearchResult = {
+  id: string;
+  title: string;
+  authors: string[];
+  year: number | null;
+  imageId: string | null;
+  library: string | null;
+  isbn: string | null;
+};
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+export default function Home() {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSearch(e?: React.FormEvent<HTMLFormElement>) {
+    e?.preventDefault();
+    if (!query.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Search failed");
+      setResults(data.results || []);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      setError(message);
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <main className="font-sans min-h-screen p-8 mx-auto">
+      <h1 className="text-2xl font-semibold mb-6">Welcome to Open European Book</h1>
+      <h2 className="mb-2">Search a book you want to read or print:</h2>
+      <form onSubmit={onSearch} className="flex gap-2 mb-6 max-[400px]:flex-col max-[400px]:gap-3">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Title or author or ISBN"
+          className="flex-1 w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-2"
+          suppressHydrationWarning
+        />
+        <button
+          type="submit"
+          className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50 max-[400px]:w-full"
+          disabled={loading || !query.trim()}
+          suppressHydrationWarning
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          {loading ? "Searching..." : "Search"}
+        </button>
+      </form>
+
+      {error && (
+        <div className="mb-4 text-red-600 dark:text-red-400">{error}</div>
+      )}
+
+      {!loading && results.length === 0 && !error && (
+        <p className="text-sm text-black/60 dark:text-white/60">
+          Enter a query and press Search.
+        </p>
+      )}
+
+      <ul className="grid gap-4">
+        {results.map((r) => (
+          <li key={r.id} className="rounded-lg border border-black/10 dark:border-white/15 p-4">
+            <div className="flex items-center gap-4">
+              <Image
+                src={`https://api.finna.fi/Cover/Show?${new URLSearchParams({
+                  source: "Solr",
+                  author: r.authors[0] || "",
+                  callnumber: "",
+                  size: "large",
+                  title: r.title,
+                  recordid: r.id,
+                  ...(r.isbn ? ({ invisbn: r.isbn, "isbns[0]": r.isbn } as Record<string, string>) : {}),
+                  index: "0",
+                }).toString()}`}
+                alt={r.title}
+                width={64}
+                height={96}
+                className="w-16 h-24 object-cover rounded bg-black/5 dark:bg-white/10"
+              />
+              {/* {r.imageId ? (
+                <Image
+                  src={`https://api.finna.fi/Cover/Show?${new URLSearchParams({
+                    source: "Solr",
+                    author: r.authors[0] || "",
+                    callnumber: "",
+                    size: "large",
+                    title: r.title,
+                    recordid: r.id,
+                    ...(r.isbn ? ({ invisbn: r.isbn, "isbns[0]": r.isbn } as Record<string, string>) : {}),
+                    index: "0",
+                  }).toString()}`}
+                  alt={r.title}
+                  width={64}
+                  height={96}
+                  className="w-16 h-24 object-cover rounded"
+                />
+              ) : (
+                <div className="w-16 h-24 bg-black/5 dark:bg-white/10 rounded" />
+              )} */}
+              <div>
+                <a href={`https://finna.fi/Record/${r.id}`} className="font-medium leading-tight" target="_blank">{r.title}</a>
+                {r.authors.length > 0 && (
+                  <p className="text-sm text-black/70 dark:text-white/70 mt-1">
+                    Authors: {r.authors.join(", ")}
+                  </p>
+                )}
+                {r.year && (
+                  <p className="text-sm text-black/70 dark:text-white/70">Year: {r.year}</p>
+                )}
+                {r.library && (
+                  <p className="text-sm text-black/70 dark:text-white/70">Library: {r.library}</p>
+                )}
+              </div>
+              <button className="w-min h-24 bg-black/5 dark:bg-white/10 rounded ml-auto">
+                Request to scan
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }
