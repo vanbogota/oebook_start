@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { useAuth } from "@/contexts/LocalAuthContext";
+import { useRouter } from "next/navigation";
 
 type SearchResult = {
   id: string;
@@ -13,6 +15,8 @@ type SearchResult = {
 };
 
 export default function Home() {
+  const { userProfile } = useAuth();
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -41,8 +45,25 @@ export default function Home() {
 
   return (
     <main className="font-sans min-h-screen p-8 mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">Welcome to Open European Book</h1>
-      <h2 className="mb-2">Search a book you want to read or print:</h2>
+      {/* Header with user info */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-semibold">Welcome to Open European Book</h1>
+          {userProfile && (
+            <p className="text-sm text-black/70 dark:text-white/70 mt-1">
+              Hello, {userProfile.nickname}!
+            </p>
+          )}
+        </div>
+        <button
+          onClick={() => router.push('/profile')}
+          className="text-sm bg-black/5 dark:bg-white/10 px-3 py-2 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
+        >
+          Личный кабинет
+        </button>
+      </div>
+
+      <h2 className="mb-2">Find a book you want to read or print:</h2>
       <form onSubmit={onSearch} className="flex gap-2 mb-6 max-[400px]:flex-col max-[400px]:gap-3">
         <input
           type="text"
