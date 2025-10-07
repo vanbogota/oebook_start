@@ -32,6 +32,12 @@ export default function PWAInstaller() {
           // Слушаем сообщения от Service Worker
           navigator.serviceWorker.addEventListener('message', (event) => {
             console.log('Message from Service Worker:', event.data);
+
+            // Если Service Worker сообщает об обновлении, перезагружаем страницу
+            if (event.data?.action === 'SW_UPDATED') {
+              console.log('Service Worker updated, reloading page...');
+              window.location.reload();
+            }
           });
 
         } catch (error) {

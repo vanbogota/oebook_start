@@ -101,7 +101,7 @@ export default function ProfilePage() {
             </p>
           </div>
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.back()}
             className="text-sm text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
           >
             ← Back to search

@@ -1,7 +1,7 @@
 /* eslint-disable */
-const CACHE_NAME = 'oebook-v1';
-const STATIC_CACHE_NAME = 'oebook-static-v1';
-const DYNAMIC_CACHE_NAME = 'oebook-dynamic-v1';
+const CACHE_NAME = 'oebook-v3';
+const STATIC_CACHE_NAME = 'oebook-static-v3';
+const DYNAMIC_CACHE_NAME = 'oebook-dynamic-v3';
 
 // Список файлов для кэширования
 const STATIC_FILES = [
@@ -59,6 +59,14 @@ self.addEventListener('activate', (event) => {
       .then(() => {
         // Принимаем управление всеми клиентами
         return self.clients.claim();
+      })
+      .then(() => {
+        // Уведомляем всех клиентов об обновлении
+        return self.clients.matchAll().then(clients => {
+          clients.forEach(client => {
+            client.postMessage({ action: 'SW_UPDATED' });
+          });
+        });
       })
       .catch((error) => {
         console.error('Error during activate:', error);

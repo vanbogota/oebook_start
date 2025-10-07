@@ -4,23 +4,22 @@ import Image from "next/image";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { usePWA } from "@/components/PWAInstaller";
 import { useRouter } from "next/navigation";
-
-type SearchResult = {
-  id: string;
-  title: string;
-  authors: string[];
-  year: number | null;
-  imageId: string | null;
-  library: string | null;
-  isbn: string | null;
-};
+import { useSearchCache } from "@/hooks/useSearchCache";
+import type { SearchResult } from "@/utils/searchCache";
 
 export default function Home() {
   const { userProfile } = useAuth();
   const { installApp, isInstallable, isStandalone } = usePWA();
   const router = useRouter();
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const {
+    query,
+    results,
+    updateSearchResults,
+    clearSearch,
+    setQueryOnly
+  } = useSearchCache();
+
+  console.log('useSearchCache hook result:', { query, results: results.length, setQueryOnly: typeof setQueryOnly });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,15 +34,29 @@ export default function Home() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Search failed");
-      setResults(data.results || []);
+
+      const searchResults = data.results || [];
+      updateSearchResults(query, searchResults);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unknown error";
       setError(message);
-      setResults([]);
+      clearSearch();
     } finally {
       setLoading(false);
     }
   }
+
+  const handleScanRequest = (book: SearchResult) => {
+    const params = new URLSearchParams({
+      id: book.id,
+      title: book.title,
+      authors: book.authors.join(','),
+      ...(book.year && { year: book.year.toString() }),
+      ...(book.library && { library: book.library }),
+      ...(book.isbn && { isbn: book.isbn }),
+    });
+    router.push(`/scan-request?${params.toString()}`);
+  };
 
   return (
     <main className="font-sans min-h-screen p-8 mx-auto">
@@ -51,11 +64,6 @@ export default function Home() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Hello, {userProfile?.nickname}!</h1>
-          {/* {userProfile && (
-            <p className="text-sm text-black/70 dark:text-white/70 mt-1">
-              Hello, {userProfile.nickname}!
-            </p>
-          )} */}
         </div>
         <div className="flex gap-2">
           {isInstallable() && !isStandalone() && (
@@ -81,19 +89,33 @@ export default function Home() {
         <input
           type="text"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQueryOnly(e.target.value)}
           placeholder="Title or author or ISBN"
           className="flex-1 w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-2"
           suppressHydrationWarning
         />
-        <button
-          type="submit"
-          className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50 max-[400px]:w-full"
-          disabled={loading || !query.trim()}
-          suppressHydrationWarning
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
+        <div className="flex gap-2 max-[400px]:flex-col max-[400px]:gap-2">
+          <button
+            type="submit"
+            className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50 max-[400px]:w-full"
+            disabled={loading || !query.trim()}
+            suppressHydrationWarning
+          >
+            {loading ? "Searching..." : "Search"}
+          </button>
+          {results.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setError(null);
+                clearSearch();
+              }}
+              className="rounded-md bg-red-600 text-white px-4 py-2 hover:bg-red-700 max-[400px]:w-full text-sm"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </form>
 
       {error && (
@@ -160,7 +182,10 @@ export default function Home() {
                   <p className="text-sm text-black/70 dark:text-white/70">Library: {r.library}</p>
                 )}
               </div>
-              <button className="w-min h-24 bg-black/5 dark:bg-white/10 rounded ml-auto">
+              <button
+                onClick={() => handleScanRequest(r)}
+                className="rounded-md bg-foreground text-background px-4 ml-auto w-min h-24 text-sm"
+              >
                 Request to scan
               </button>
             </div>
