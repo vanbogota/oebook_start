@@ -30,39 +30,58 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+    const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Симуляция проверки аутентификации при загрузке
-    const initAuth = async () => {
+      // Устанавливаем флаг что компонент смонтирован (избегаем проблем с гидратацией)
+      setMounted(true);
+  }, []);
+
+    useEffect(() => {
+        // Инициализация только после монтирования на клиенте
+        if (!mounted) return;
+
+        const initAuth = () => {
       setLoading(true);
       
-      // Проверяем localStorage на наличие сохраненного пользователя
-      const savedUser = localStorage.getItem('oebook_user');
-      const savedProfile = localStorage.getItem('oebook_profile');
-      
-      if (savedUser && savedProfile) {
-        setUser(JSON.parse(savedUser));
-        const profile = JSON.parse(savedProfile);
-        setUserProfile({
-          ...profile,
-          createdAt: new Date(profile.createdAt),
-          updatedAt: new Date(profile.updatedAt),
-        });
+        try {
+          // Проверяем localStorage на наличие сохраненного пользователя
+          const savedUser = localStorage.getItem('oebook_user');
+          const savedProfile = localStorage.getItem('oebook_profile');
+
+          if (savedUser && savedProfile) {
+              setUser(JSON.parse(savedUser));
+              const profile = JSON.parse(savedProfile);
+              setUserProfile({
+                  ...profile,
+                  createdAt: new Date(profile.createdAt),
+                  updatedAt: new Date(profile.updatedAt),
+              });
+          }
+      } catch (error) {
+          console.error('Error loading saved data:', error);
+          // Очищаем поврежденные данные
+          localStorage.removeItem('oebook_user');
+          localStorage.removeItem('oebook_profile');
       }
       
       setLoading(false);
     };
 
     initAuth();
-  }, []);
+  }, [mounted]);
 
   const signInAnonymous = async () => {
+      if (!mounted) return;
+
     try {
       setLoading(true);
       
-      // Создаем анонимного пользователя
+        // Создаем анонимного пользователя с более стабильным ID
+        const timestamp = Date.now();
+        const randomSuffix = Math.floor(Math.random() * 1000);
       const newUser = {
-        uid: 'demo-user-' + Date.now(),
+          uid: `demo-user-${timestamp}-${randomSuffix}`,
       };
       
       setUser(newUser);
@@ -76,6 +95,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
+      if (!mounted) return;
+
     try {
       setUser(null);
       setUserProfile(null);
@@ -88,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const updateUserProfile = async (data: Partial<UserProfile>) => {
-    if (!user) return;
+      if (!user || !mounted) return;
 
     try {
       const updatedProfile = {
@@ -106,7 +127,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const completeProfile = async (nickname: string, library: string) => {
-    if (!user) return;
+      if (!user || !mounted) return;
 
     try {
       const profileData = {
@@ -135,6 +156,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     updateUserProfile,
     completeProfile,
   };
+
+    // Пока компонент не смонтирован, показываем загрузку
+    if (!mounted) {
+        return (
+            <AuthContext.Provider value={{
+                user: null,
+                userProfile: null,
+                loading: true,
+                signInAnonymous: async () => { },
+                signOut: async () => { },
+                updateUserProfile: async () => { },
+                completeProfile: async () => { },
+            }}>
+                {children}
+            </AuthContext.Provider>
+        );
+    }
 
   return (
     <AuthContext.Provider value={value}>

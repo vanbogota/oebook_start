@@ -70,7 +70,7 @@ export default function OnboardingPage() {
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              placeholder="Введите ваш никнейм"
+              placeholder="Enter your nickname"
               className="w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-3 focus:outline-none focus:ring-2 focus:ring-foreground/20"
               maxLength={50}
               required

@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+FIREBASE_SETUP.md
+METADATA_FIX.md
+METADATABASE_FIX.md
+PWA_REPORT.md
+PWA_SETUP.md

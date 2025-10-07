@@ -44,12 +44,12 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     if (!nickname.trim()) {
-      setError('Никнейм не может быть пустым');
+      setError('Nickname cannot be empty');
       return;
     }
 
     if (!library) {
-      setError('Пожалуйста, выберите библиотеку');
+      setError('Please select a library');
       return;
     }
 
@@ -63,7 +63,7 @@ export default function ProfilePage() {
       });
       setIsEditing(false);
     } catch (err) {
-      setError('Ошибка при сохранении изменений');
+      setError('Error saving changes');
       console.error('Profile update error:', err);
     } finally {
       setLoading(false);
@@ -83,7 +83,7 @@ export default function ProfilePage() {
     return (
       <main className="font-sans min-h-screen p-8 mx-auto flex items-center justify-center">
         <div className="text-center">
-          <p>Загрузка профиля...</p>
+          <p>Loading profile...</p>
         </div>
       </main>
     );
@@ -95,29 +95,29 @@ export default function ProfilePage() {
         {/* Заголовок */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-semibold">Личный кабинет</h1>
+            <h1 className="text-2xl font-semibold">Profile</h1>
             <p className="text-black/70 dark:text-white/70 mt-1">
-              Управление вашим профилем
+              Manage your profile
             </p>
           </div>
           <button
             onClick={() => router.push('/')}
             className="text-sm text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
           >
-            ← Вернуться к поиску
+            ← Back to search
           </button>
         </div>
 
         {/* Информация о профиле */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-medium">Информация о профиле</h2>
+            <h2 className="text-lg font-medium">Profile Information</h2>
             {!isEditing && (
               <button
                 onClick={handleEdit}
                 className="text-sm bg-black/5 dark:bg-white/10 px-3 py-1 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
               >
-                Редактировать
+                Edit
               </button>
             )}
           </div>
@@ -125,7 +125,7 @@ export default function ProfilePage() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">
-                Никнейм
+                Nickname
               </label>
               {isEditing ? (
                 <input
@@ -144,7 +144,7 @@ export default function ProfilePage() {
 
             <div>
               <label className="block text-sm font-medium mb-1">
-                Библиотека
+                Library
               </label>
               {isEditing ? (
                 <select
@@ -152,7 +152,7 @@ export default function ProfilePage() {
                   onChange={(e) => setLibrary(e.target.value)}
                   className="w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-2"
                 >
-                  <option value="">Выберите библиотеку</option>
+                  <option value="">Choose library</option>
                   {LIBRARIES.map((lib) => (
                     <option key={lib.id} value={lib.id}>
                       {lib.name}
@@ -168,10 +168,10 @@ export default function ProfilePage() {
 
             <div>
               <label className="block text-sm font-medium mb-1">
-                Дата регистрации
+                Registration Date
               </label>
               <p className="text-black/70 dark:text-white/70">
-                {userProfile.createdAt.toLocaleDateString('ru-RU')}
+                {userProfile.createdAt.toLocaleDateString('en-US')}
               </p>
             </div>
           </div>
@@ -189,46 +189,46 @@ export default function ProfilePage() {
                 disabled={loading}
                 className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50"
               >
-                {loading ? 'Сохранение...' : 'Сохранить'}
+                {loading ? 'Saving...' : 'Save'}
               </button>
               <button
                 onClick={handleCancel}
                 disabled={loading}
                 className="rounded-md border border-black/10 dark:border-white/20 px-4 py-2 disabled:opacity-50"
               >
-                Отмена
+                Abort
               </button>
             </div>
           )}
         </div>
 
-        {/* Статистика */}
+        {/* Statistics */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
-          <h2 className="text-lg font-medium mb-4">Статистика</h2>
+          <h2 className="text-lg font-medium mb-4">Statistics</h2>
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="p-4 bg-black/5 dark:bg-white/5 rounded-lg">
               <div className="text-2xl font-semibold">0</div>
               <div className="text-sm text-black/60 dark:text-white/60">
-                Запросов на сканирование
+                Scan requests
               </div>
             </div>
             <div className="p-4 bg-black/5 dark:bg-white/5 rounded-lg">
               <div className="text-2xl font-semibold">0</div>
               <div className="text-sm text-black/60 dark:text-white/60">
-                Найденных книг
+                Found books
               </div>
             </div>
           </div>
         </div>
 
-        {/* Действия */}
+        {/* Actions */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6">
-          <h2 className="text-lg font-medium mb-4">Действия</h2>
+          <h2 className="text-lg font-medium mb-4">Actions</h2>
           <button
             onClick={handleSignOut}
             className="w-full rounded-md border border-red-300 text-red-600 dark:text-red-400 px-4 py-2 hover:bg-red-50 dark:hover:bg-red-900/20"
           >
-            Выйти из аккаунта
+            Sign out
           </button>
         </div>
       </div>

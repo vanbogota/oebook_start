@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/LocalAuthContext";
+import { usePWA } from "@/components/PWAInstaller";
 import { useRouter } from "next/navigation";
 
 type SearchResult = {
@@ -16,6 +17,7 @@ type SearchResult = {
 
 export default function Home() {
   const { userProfile } = useAuth();
+  const { installApp, isInstallable, isStandalone } = usePWA();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -55,12 +57,23 @@ export default function Home() {
             </p>
           )}
         </div>
-        <button
-          onClick={() => router.push('/profile')}
-          className="text-sm bg-black/5 dark:bg-white/10 px-3 py-2 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
-        >
-          Личный кабинет
-        </button>
+        <div className="flex gap-2">
+          {isInstallable() && !isStandalone() && (
+            <button
+              onClick={() => installApp()}
+              className="text-sm bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700"
+              title="Install as app"
+            >
+              📱 Install App
+            </button>
+          )}
+          <button
+            onClick={() => router.push('/profile')}
+            className="text-sm bg-black/5 dark:bg-white/10 px-3 py-2 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
+          >
+            Profile
+          </button>
+        </div>
       </div>
 
       <h2 className="mb-2">Find a book you want to read or print:</h2>
