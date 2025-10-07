@@ -1,6 +1,9 @@
 "use client";
 import { useEffect } from 'react';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 export default function PWAInstaller() {
   useEffect(() => {
     // Регистрируем Service Worker только в браузере

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const CACHE_NAME = 'oebook-v1';
 const STATIC_CACHE_NAME = 'oebook-static-v1';
 const DYNAMIC_CACHE_NAME = 'oebook-dynamic-v1';
