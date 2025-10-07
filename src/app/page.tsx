@@ -50,12 +50,12 @@ export default function Home() {
       {/* Header with user info */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold">Welcome to Open European Book</h1>
-          {userProfile && (
+          <h1 className="text-2xl font-semibold">Hello, {userProfile?.nickname}!</h1>
+          {/* {userProfile && (
             <p className="text-sm text-black/70 dark:text-white/70 mt-1">
               Hello, {userProfile.nickname}!
             </p>
-          )}
+          )} */}
         </div>
         <div className="flex gap-2">
           {isInstallable() && !isStandalone() && (
