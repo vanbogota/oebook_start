@@ -46,12 +46,15 @@ export default function OnboardingPage() {
   };
 
   return (
-    <main className="font-sans min-h-screen p-8 mx-auto flex items-center justify-center">
+    <main className="font-sans min-h-screen px-8 pb-6 pt-8 mx-auto flex justify-center">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-semibold mb-4">
+          <h1 className="text-3xl font-semibold mb-2">
             Welcome to<br />Open European Book
           </h1>
+          <p className="text-black/70 dark:text-white/70 mb-2">
+            (Application is in test mode)
+          </p>
           <p className="text-black/70 dark:text-white/70">
             To get started, please complete your profile
           </p>
@@ -106,6 +109,16 @@ export default function OnboardingPage() {
             </div>
           )}
 
+          <div>
+            <p className="block text-sm font-medium mb-2">Please confirm you are a human</p>
+            <button
+              type="button"
+              className="w-full rounded-md bg-foreground text-background px-4 py-3 font-medium transition-opacity hover:opacity-80 mb-4"
+            >
+              Confirm
+            </button>
+          </div>
+
           <button
             type="submit"
             disabled={loading || !nickname.trim() || !library}
@@ -115,7 +128,8 @@ export default function OnboardingPage() {
           </button>
         </form>
 
-        <div className="mt-8 text-center text-sm text-black/60 dark:text-white/60">
+        <div className="flex mt-8 text-center text-sm text-black/60 dark:text-white/60">
+          <input type="checkbox" className="mr-2" />
           <p>
             Here will be sign for agree with terms of use
           </p>
