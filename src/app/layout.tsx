@@ -26,12 +26,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
-  title: "Open European Book",
+  title: "Open Europe Books",
   description: "Search and request European library books",
   keywords: ["books", "library", "european", "search", "reading", "finna"],
-  authors: [{ name: "Open European Book Team" }],
-  creator: "Open European Book",
-  publisher: "Open European Book",
+  authors: [{ name: "Open Europe Books Team" }],
+  creator: "Open Europe Books",
+  publisher: "Open Europe Books",
   formatDetection: {
     email: false,
     address: false,
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Open European Book",
+    title: "Open Europe Books",
   },
-  applicationName: "Open European Book",
+  applicationName: "Open Europe Books",
   referrer: "origin-when-cross-origin",
   robots: {
     index: true,
@@ -69,21 +69,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "Open European Book",
-    title: "Open European Book",
+    siteName: "Open Europe Books",
+    title: "Open Europe Books",
     description: "Search and request European library books",
     images: [
       {
         url: "/icons/icon-512x512.svg",
         width: 512,
         height: 512,
-        alt: "Open European Book Logo",
+        alt: "Open Europe Books Logo",
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Open European Book",
+    title: "Open Europe Books",
     description: "Search and request European library books",
     images: ["/icons/icon-512x512.svg"],
   },

@@ -1,4 +1,4 @@
-# Open European Book
+# Open Europe Books
 https://democratizing-access-lc3vtqz.gamma.site/
 
 ## Getting Started

@@ -1,5 +1,5 @@
 {
-  "name": "Open European Book",
+  "name": "Open Europe Books",
   "short_name": "OEBook",
   "description": "Search and request European library books",
   "start_url": "/",
@@ -33,7 +33,7 @@
   ],
   "shortcuts": [
     {
-      "name": "Search Books",
+      "name": "Open Europe Books",
       "short_name": "Search",
       "description": "Search for European library books",
       "url": "/?shortcut=search"
