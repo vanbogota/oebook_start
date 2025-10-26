@@ -46,10 +46,9 @@ export default function OnboardingPage() {
   };
 
   return (
-    <main className="font-sans min-h-screen px-8 pb-6 pt-8 mx-auto flex justify-center">
-      <div className="w-full max-w-md">
+    <main className="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col justify-between">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-semibold mb-2">
+        <h1 className="flex-1 text-xl font-bold text-gray-900 dark:text-white pr-8">
             Welcome to<br />Open Europe Books
           </h1>
           <p className="text-black/70 dark:text-white/70 mb-2">
@@ -60,25 +59,18 @@ export default function OnboardingPage() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label 
-              htmlFor="nickname" 
-              className="block text-sm font-medium mb-2"
-            >
-              Desired nickname
-            </label>
-            <input
-              id="nickname"
-              type="text"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              placeholder="Enter your nickname"
-              className="w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-3 focus:outline-none focus:ring-2 focus:ring-foreground/20"
-              maxLength={50}
-              required
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="px-6 pt-8 space-y-6">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Create Nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            className="w-full bg-white/50 dark:bg-black/20 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 border border-gray-300 dark:border-gray-700 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-primary"
+            required
+            maxLength={50}
+          />
+        </div>
 
           <div>
             <label 
@@ -119,6 +111,13 @@ export default function OnboardingPage() {
             </button>
           </div>
 
+        <div className="flex mt-8 text-center text-sm text-black/60 dark:text-white/60">
+          <input type="checkbox" className="mr-2" />
+          <p>
+            Here will be sign for agree with terms of use
+          </p>
+        </div>
+
           <button
             type="submit"
             disabled={loading || !nickname.trim() || !library}
@@ -128,13 +127,6 @@ export default function OnboardingPage() {
           </button>
         </form>
 
-        <div className="flex mt-8 text-center text-sm text-black/60 dark:text-white/60">
-          <input type="checkbox" className="mr-2" />
-          <p>
-            Here will be sign for agree with terms of use
-          </p>
-        </div>
-      </div>
     </main>
   );
 }
