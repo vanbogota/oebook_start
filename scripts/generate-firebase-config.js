@@ -25,12 +25,16 @@ const missingVars = Object.entries(config)
   .filter(([_, value]) => !value)
   .map(([key]) => key);
 
-if (missingVars.length > 0) {
+// Only fail on missing variables in production
+if (process.env.NODE_ENV === 'production' && missingVars.length > 0) {
   console.error('Error: Missing required environment variables:');
   missingVars.forEach(varName => {
     console.error(`  - NEXT_PUBLIC_FIREBASE_${varName.replace(/([A-Z])/g, '_$1').toUpperCase().replace(/^_/, '')}`);
   });
   process.exit(1);
+} else if (missingVars.length > 0) {
+  console.warn('Warning: Missing some Firebase environment variables (non-production)');
+  console.warn('Missing:', missingVars.join(', '));
 }
 
 const configContent = `// This file is generated from environment variables
