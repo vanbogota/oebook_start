@@ -10,97 +10,97 @@ export type UserProfile = {
   updatedAt: Date;
 };
 
-type User = {
-  uid: string;
-};
+// type User = {
+//   uid: string;
+// };
 
 type AuthContextType = {
-  user: User | null;
+  // user: User | null;
   userProfile: UserProfile | null;
   loading: boolean;
-  signInAnonymous: () => Promise<void>;
+  // signInAnonymous: () => Promise<void>;
   signOut: () => Promise<void>;
   updateUserProfile: (data: Partial<UserProfile>) => Promise<void>;
-  completeProfile: (nickname: string, library: string) => Promise<void>;
+  createUserProfile: (nickname: string, library: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-    const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-      // Устанавливаем флаг что компонент смонтирован (избегаем проблем с гидратацией)
-      setMounted(true);
+    // Устанавливаем флаг что компонент смонтирован (избегаем проблем с гидратацией)
+    setMounted(true);
   }, []);
 
-    useEffect(() => {
-        // Инициализация только после монтирования на клиенте
-        if (!mounted) return;
+  useEffect(() => {
+    // Инициализация только после монтирования на клиенте
+    if (!mounted) return;
 
-        const initAuth = () => {
+    const initAuth = () => {
       setLoading(true);
-      
-        try {
-          // Проверяем localStorage на наличие сохраненного пользователя
-          const savedUser = localStorage.getItem('oebook_user');
-          const savedProfile = localStorage.getItem('oebook_profile');
 
-          if (savedUser && savedProfile) {
-              setUser(JSON.parse(savedUser));
-              const profile = JSON.parse(savedProfile);
-              setUserProfile({
-                  ...profile,
-                  createdAt: new Date(profile.createdAt),
-                  updatedAt: new Date(profile.updatedAt),
-              });
-          }
+      try {
+      // Проверяем localStorage на наличие сохраненного пользователя
+        // const savedUser = localStorage.getItem('oebook_user');
+        const savedProfile = localStorage.getItem('oebook_profile');
+
+        if (savedProfile) {
+          // setUser(JSON.parse(savedUser));
+          const profile = JSON.parse(savedProfile);
+          setUserProfile({
+            ...profile,
+            createdAt: new Date(profile.createdAt),
+            updatedAt: new Date(profile.updatedAt),
+          });
+        }
       } catch (error) {
-          console.error('Error loading saved data:', error);
-          // Очищаем поврежденные данные
-          localStorage.removeItem('oebook_user');
-          localStorage.removeItem('oebook_profile');
+        console.error('Error loading saved data:', error);
+        // Очищаем поврежденные данные
+        // localStorage.removeItem('oebook_user');
+        localStorage.removeItem('oebook_profile');
       }
-      
+
       setLoading(false);
     };
 
     initAuth();
   }, [mounted]);
 
-  const signInAnonymous = async () => {
-      if (!mounted) return;
+  // const signInAnonymous = async () => {
+  //   if (!mounted) return;
 
-    try {
-      setLoading(true);
-      
-        // Создаем анонимного пользователя с более стабильным ID
-        const timestamp = Date.now();
-        const randomSuffix = Math.floor(Math.random() * 1000);
-      const newUser = {
-          uid: `demo-user-${timestamp}-${randomSuffix}`,
-      };
-      
-      setUser(newUser);
-      localStorage.setItem('oebook_user', JSON.stringify(newUser));
-    } catch (error) {
-      console.error('Error signing in:', error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   try {
+  //     setLoading(true);
+
+  //     // Создаем анонимного пользователя с более стабильным ID
+  //     const timestamp = Date.now();
+  //     const randomSuffix = Math.floor(Math.random() * 1000);
+  //     const newUser = {
+  //       uid: `demo-user-${timestamp}-${randomSuffix}`,
+  //     };
+
+  //     setUser(newUser);
+  //     localStorage.setItem('oebook_user', JSON.stringify(newUser));
+  //   } catch (error) {
+  //     console.error('Error signing in:', error);
+  //     throw error;
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const signOut = async () => {
-      if (!mounted) return;
+    if (!mounted) return;
 
     try {
-      setUser(null);
+      // setUser(null);
       setUserProfile(null);
-      localStorage.removeItem('oebook_user');
+      // localStorage.removeItem('oebook_user');
       localStorage.removeItem('oebook_profile');
     } catch (error) {
       console.error('Error signing out:', error);
@@ -109,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const updateUserProfile = async (data: Partial<UserProfile>) => {
-      if (!user || !mounted) return;
+    if (!mounted) return;
 
     try {
       const updatedProfile = {
@@ -126,12 +126,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const completeProfile = async (nickname: string, library: string) => {
-      if (!user || !mounted) return;
+  const createUserProfile = async (nickname: string, library: string) => {
+    if (!mounted) return;
+
+    const timestamp = Date.now();
+    const randomSuffix = Math.floor(Math.random() * 1000);
+    const newUid = `demo-user-${timestamp}-${randomSuffix}`;
 
     try {
       const profileData = {
-        uid: user.uid,
+        uid: newUid,
         nickname,
         library,
         isProfileComplete: true,
@@ -148,31 +152,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const value = {
-    user,
+    // user,
     userProfile,
     loading,
-    signInAnonymous,
+    // signInAnonymous,
     signOut,
     updateUserProfile,
-    completeProfile,
+    createUserProfile,
   };
 
-    // Пока компонент не смонтирован, показываем загрузку
-    if (!mounted) {
-        return (
-            <AuthContext.Provider value={{
-                user: null,
-                userProfile: null,
-                loading: true,
-                signInAnonymous: async () => { },
-                signOut: async () => { },
-                updateUserProfile: async () => { },
-                completeProfile: async () => { },
-            }}>
-                {children}
-            </AuthContext.Provider>
-        );
-    }
+  // Пока компонент не смонтирован, показываем загрузку
+  if (!mounted) {
+    return (
+      <AuthContext.Provider value={{
+        // user: null,
+        userProfile: null,
+        loading: true,
+        // signInAnonymous: async () => { },
+        signOut: async () => { },
+        updateUserProfile: async () => { },
+        createUserProfile: async () => { },
+      }}>
+        {children}
+      </AuthContext.Provider>
+    );
+  }
 
   return (
     <AuthContext.Provider value={value}>

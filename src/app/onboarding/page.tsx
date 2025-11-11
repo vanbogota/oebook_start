@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/LocalAuthContext';
 
+//NOT IN USE
 // Пример списка библиотек (позже можете заменить на динамический список)
 const LIBRARIES = [
   { id: 'national-library-finland', name: 'National Library of Finland' },
@@ -46,7 +47,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <main className="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col justify-between">
+    <main className="bg-background font-display flex flex-col justify-between">
         <div className="text-center mb-8">
         <h1 className="flex-1 text-xl font-bold text-gray-900 dark:text-white pr-8">
             Welcome to<br />Open Europe Books
@@ -121,7 +122,7 @@ export default function OnboardingPage() {
           <button
             type="submit"
             disabled={loading || !nickname.trim() || !library}
-            className="w-full rounded-md bg-foreground text-background px-4 py-3 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+          className="w-full bg-primary text-white font-bold py-4 rounded-lg shadow-lg hover:bg-primary/90 transition-colors duration-300"
           >
             {loading ? 'Saving...' : 'Continue'}
           </button>

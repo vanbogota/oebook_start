@@ -1,197 +1,147 @@
-"use client";
-import { useState } from "react";
-import Image from "next/image";
+'use client';
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/LocalAuthContext";
-import { usePWA } from "@/components/PWAInstaller";
+import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
+
 import { useRouter } from "next/navigation";
-import { useSearchCache } from "@/hooks/useSearchCache";
-import type { SearchResult } from "@/utils/searchCache";
+import { useEffect } from "react";
 
 export default function Home() {
   const { userProfile } = useAuth();
-  const { installApp, isInstallable, isStandalone } = usePWA();
   const router = useRouter();
-  const {
-    query,
-    results,
-    updateSearchResults,
-    clearSearch,
-    setQueryOnly
-  } = useSearchCache();
 
-  console.log('useSearchCache hook result:', { query, results: results.length, setQueryOnly: typeof setQueryOnly });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function onSearch(e?: React.FormEvent<HTMLFormElement>) {
-    e?.preventDefault();
-    if (!query.trim()) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`, {
-        method: "GET",
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Search failed");
-
-      const searchResults = data.results || [];
-      updateSearchResults(query, searchResults);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
-      setError(message);
-      clearSearch();
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    // Если профиль заполнен и пользователь на onboarding, перенаправляем на главную
+    if (userProfile?.isProfileComplete) {
+      router.push('/book-search');
+      return;
     }
-  }
+  }, [userProfile, router]);
 
-  const handleScanRequest = (book: SearchResult) => {
-    const params = new URLSearchParams({
-      id: book.id,
-      title: book.title,
-      authors: book.authors.join(','),
-      ...(book.year && { year: book.year.toString() }),
-      ...(book.library && { library: book.library }),
-      ...(book.isbn && { isbn: book.isbn }),
-    });
-    router.push(`/scan-request?${params.toString()}`);
-  };
+  const features = [
+    {
+      icon: Search,
+      title: "Find Rare Books",
+      description: "Search through collections of European libraries to locate rare and hard-to-find books",
+    },
+    {
+      icon: Scan,
+      title: "Request Scans",
+      description: "Ask other users to scan and share pages from books in their local libraries",
+    },
+    {
+      icon: BookOpenText,
+      title: "Print Your Book",
+      description: "Order a printed copy of the book you found from us in two clicks",
+    },
+  ];
 
   return (
-    <main className="font-sans min-h-screen p-8 mx-auto">
-      {/* Header with user info */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-semibold">Hello, {userProfile?.nickname}!</h1>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('/library-hero.jpg')`,
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
         </div>
-        <div className="flex gap-2">
-          {isInstallable() && !isStandalone() && (
-            <button
-              onClick={() => installApp()}
-              className="text-sm bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700"
-              title="Install as app"
+
+        <div className="relative z-10 text-center space-y-8 px-4 max-w-4xl mx-auto">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-3xl shadow-2xl mb-4">
+            <BookOpen className="w-10 h-10 text-primary-foreground" />
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+            Open Europe Book
+          </h1>
+
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Discover rare books across European libraries and connect with readers who can help you digitize them
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Button
+              size="lg"
+              className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+              onClick={() => router.push("/signup")}
             >
-              📱 Install App
-            </button>
-          )}
-          <button
-            onClick={() => router.push('/profile')}
-            className="text-sm bg-black/5 dark:bg-white/10 px-3 py-2 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
-          >
-            Profile
-          </button>
-        </div>
-      </div>
-
-      <h2 className="mb-2">Find a book you want to read or print:</h2>
-      <form onSubmit={onSearch} className="flex gap-2 mb-6 max-[400px]:flex-col max-[400px]:gap-3">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQueryOnly(e.target.value)}
-          placeholder="Title or author or ISBN"
-          className="flex-1 w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-2"
-          suppressHydrationWarning
-        />
-        <div className="flex gap-2 max-[400px]:flex-col max-[400px]:gap-2">
-          <button
-            type="submit"
-            className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50 max-[400px]:w-full"
-            disabled={loading || !query.trim()}
-            suppressHydrationWarning
-          >
-            {loading ? "Searching..." : "Search"}
-          </button>
-          {results.length > 0 && (
-            <button
-              type="button"
-              onClick={() => {
-                setError(null);
-                clearSearch();
-              }}
-              className="rounded-md bg-red-600 text-white px-4 py-2 hover:bg-red-700 max-[400px]:w-full text-sm"
+              Get Started
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 bg-card/80 backdrop-blur-sm hover:bg-card transition-all"
             >
-              Clear
-            </button>
-          )}
+              Learn More
+            </Button>
+          </div>
         </div>
-      </form>
+      </section>
 
-      {error && (
-        <div className="mb-4 text-red-600 dark:text-red-400">{error}</div>
-      )}
+      {/* Features Section */}
+      <section className="py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Join a community dedicated to preserving and sharing access to rare books
+            </p>
+          </div>
 
-      {!loading && results.length === 0 && !error && (
-        <p className="text-sm text-black/60 dark:text-white/60">
-          Enter a query and press Search.
-        </p>
-      )}
-
-      <ul className="grid gap-4">
-        {results.map((r) => (
-          <li key={r.id} className="rounded-lg border border-black/10 dark:border-white/15 p-4">
-            <div className="flex items-center gap-4">
-              <Image
-                src={`https://api.finna.fi/Cover/Show?${new URLSearchParams({
-                  source: "Solr",
-                  author: r.authors[0] || "",
-                  callnumber: "",
-                  size: "large",
-                  title: r.title,
-                  recordid: r.id,
-                  ...(r.isbn ? ({ invisbn: r.isbn, "isbns[0]": r.isbn } as Record<string, string>) : {}),
-                  index: "0",
-                }).toString()}`}
-                alt={r.title}
-                width={64}
-                height={96}
-                className="w-16 h-24 object-cover rounded bg-black/5 dark:bg-white/10"
-              />
-              {/* {r.imageId ? (
-                <Image
-                  src={`https://api.finna.fi/Cover/Show?${new URLSearchParams({
-                    source: "Solr",
-                    author: r.authors[0] || "",
-                    callnumber: "",
-                    size: "large",
-                    title: r.title,
-                    recordid: r.id,
-                    ...(r.isbn ? ({ invisbn: r.isbn, "isbns[0]": r.isbn } as Record<string, string>) : {}),
-                    index: "0",
-                  }).toString()}`}
-                  alt={r.title}
-                  width={64}
-                  height={96}
-                  className="w-16 h-24 object-cover rounded"
-                />
-              ) : (
-                <div className="w-16 h-24 bg-black/5 dark:bg-white/10 rounded" />
-              )} */}
-              <div>
-                <a href={`https://finna.fi/Record/${r.id}`} className="font-medium leading-tight" target="_blank">{r.title}</a>
-                {r.authors.length > 0 && (
-                  <p className="text-sm text-black/70 dark:text-white/70 mt-1">
-                    Authors: {r.authors.join(", ")}
-                  </p>
-                )}
-                {r.year && (
-                  <p className="text-sm text-black/70 dark:text-white/70">Year: {r.year}</p>
-                )}
-                {r.library && (
-                  <p className="text-sm text-black/70 dark:text-white/70">Library: {r.library}</p>
-                )}
-              </div>
-              <button
-                onClick={() => handleScanRequest(r)}
-                className="rounded-md bg-foreground text-background px-4 ml-auto w-min h-24 text-sm"
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card
+                key={index}
+                className="border-2 hover:border-primary/50 transition-all hover:shadow-lg"
               >
-                Request to scan
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </main>
+                <CardHeader>
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl flex items-center justify-center mb-4">
+                    <feature.icon className="w-7 h-7 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base leading-relaxed">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <Card className="border-2 border-primary/20 shadow-2xl bg-gradient-to-br from-card to-secondary/30">
+            <CardHeader className="space-y-4 pb-8">
+              <CardTitle className="text-4xl md:text-5xl">
+                Ready to Start?
+              </CardTitle>
+              <CardDescription className="text-lg">
+                Join thousands of book enthusiasts preserving literary heritage
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pb-10">
+              <Button
+                size="lg"
+                className="text-lg px-12 py-6 shadow-lg hover:shadow-xl transition-all"
+                onClick={() => router.push("/signup")}
+              >
+                Create Your Account
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    </div>
   );
-}
+};

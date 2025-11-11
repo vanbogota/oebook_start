@@ -2,12 +2,13 @@
 import { useEffect } from 'react';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 export default function PWAInstaller() {
   useEffect(() => {
-    // Регистрируем Service Worker только в браузере
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    // Регистрируем Service Worker только в браузере и только в production
+    // => в development регистрация отключена, чтобы SW не кэшировал файлы
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
       // Ждем загрузки страницы
       window.addEventListener('load', async () => {
         try {
@@ -46,22 +47,16 @@ export default function PWAInstaller() {
       });
 
       // Обработка события beforeinstallprompt для кастомного баннера установки
-      let deferredPrompt: any = null;
-      
-      window.addEventListener('beforeinstallprompt', (e) => {
-        // Предотвращаем показ стандартного баннера
-        e.preventDefault();
-        // Сохраняем событие для дальнейшего использования
-        deferredPrompt = e;
-        
-        console.log('PWA install prompt available');
-        // Здесь можно показать кастомную кнопку "Установить приложение"
+      // Сохраняем событие в глобальной переменной, чтобы хук usePWA мог его использовать
+      window.addEventListener('beforeinstallprompt', (e: Event) => {
+        (window as any).deferredPrompt = e;
+      console.log('PWA install prompt available');
       });
 
       // Обработка успешной установки
       window.addEventListener('appinstalled', () => {
         console.log('PWA was installed');
-        deferredPrompt = null;
+        (window as any).deferredPrompt = null;
       });
     }
 

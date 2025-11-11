@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/contexts/LocalAuthContext";
 import AuthWrapper from "@/components/AuthWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -99,11 +102,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <AuthWrapper>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AuthProvider>
+            {/* <AuthWrapper> */}
             {children}
-          </AuthWrapper>
-        </AuthProvider>
+            {/* </AuthWrapper> */}
+          </AuthProvider>
+        </TooltipProvider>
         <PWAInstaller />
       </body>
     </html>
