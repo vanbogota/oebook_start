@@ -80,14 +80,8 @@ self.addEventListener('activate', (event) => {
 });
 
 //пример работы с firebase messaging взят из другого проекта
-const firebaseConfig = {
-  apiKey: "AIzaSyBVMFMDJVME1UpqeU13eiCiG7oi2pLE4Gs",
-  authDomain: "oebook-start.firebaseapp.com",
-  projectId: "oebook-start",
-  storageBucket: "oebook-start.firebasestorage.app",
-  messagingSenderId: "943800312675",
-  appId: "1:943800312675:web:73a31e1509615f16dfe956"
-};
+// Firebase configuration is loaded from environment variables
+importScripts('/firebase-config.js');
 
 firebase.initializeApp(firebaseConfig);
 
