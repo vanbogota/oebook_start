@@ -7,10 +7,13 @@ import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Home() {
   const { userProfile } = useAuth();
   const router = useRouter();
+  const t = useTranslations("Home");
 
   useEffect(() => {
     // Если профиль заполнен и пользователь на onboarding, перенаправляем на главную
@@ -40,6 +43,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <LanguageSwitcher />
       {/* Hero Section */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         <div
@@ -57,7 +61,7 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            Open Europe Book
+            {t("hero-title")}
           </h1>
 
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -72,6 +76,7 @@ export default function Home() {
             >
               Get Started
             </Button>
+            <a href="#learn-more">
             <Button
               size="lg"
               variant="outline"
@@ -79,12 +84,13 @@ export default function Home() {
             >
               Learn More
             </Button>
+            </a>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
+      <section className="py-24 px-4 bg-gradient-to-b from-background to-secondary/30" id="learn-more">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
