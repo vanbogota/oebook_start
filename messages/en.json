@@ -1,5 +1,19 @@
 {
   "Home": {
-    "hero-title": "Open Europe Book"
+    "hero-title": "Open Europe Book",
+    "hero-subtitle": "Discover rare books across European libraries and connect with readers who can help you digitize them",
+    "search-title": "Find Rare Books",
+    "search-description": "Search through collections of European libraries to locate rare and hard-to-find books",
+    "scan-title": "Request Scans",
+    "scan-description": "Ask other users to scan and share pages from books in their local libraries",
+    "print-title": "Print Your Book",
+    "print-description": "Order a printed copy of the book you found from us in two clicks",
+    "how-it-works": "How It Works",
+    "join-community": "Join a community dedicated to preserving and sharing access to rare books",
+    "ready-to-start": "Ready to Start?",
+    "join-thousands": "Join thousands of book enthusiasts preserving literary heritage",
+    "create-account": "Create Your Account",
+    "get-started": "Get Started",
+    "learn-more": "Learn More"
   }
 }
