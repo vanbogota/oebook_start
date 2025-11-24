@@ -70,5 +70,11 @@
     "search": "Hae",
     "location": "Sijainti",
     "year": "Vuosi"
+  },
+  "UserDropdown": {
+    "myAccount": "Oma tili",
+    "profile": "Profiili",
+    "settings": "Asetukset",
+    "logOut": "Kirjaudu ulos"
   }
 }

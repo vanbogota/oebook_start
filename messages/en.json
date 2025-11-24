@@ -74,5 +74,11 @@
     "search": "Search",
     "location": "Location",
     "year": "Year"
+  },
+  "UserDropdown": {
+    "myAccount": "My Account",
+    "profile": "Profile",
+    "logOut": "Log out",
+    "settings": "Settings"
   }
 }
