@@ -1,8 +1,8 @@
 "use client";
-
+import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
-import { Globe } from "lucide-react";
+import { Globe, Loader2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,9 +20,14 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
+  const [isLoading, setIsLoading] = useState(false);
 
   const switchLanguage = (newLocale: string) => {
-    router.replace(`/${newLocale}${pathname.substring(3)}`);
+	if (isLoading || newLocale === locale) return;
+
+    setIsLoading(true);
+    router.push(`/${newLocale}${pathname.substring(3)}`);
+	setTimeout(() => setIsLoading(false), 500);
   };
 
   return (
@@ -31,13 +36,15 @@ export default function LanguageSwitcher() {
         <Button
           variant="outline"
           size="sm"
-          className="absolute z-50 right-5 top-5 flex items-center gap-2 min-w-[4.5rem] justify-between focus:outline-none focus-visible:none hover:bg-background"
+          className="flex items-center gap-2 min-w-[2rem] border rounded-full justify-between focus:outline-none focus-visible:none hover:bg-background"
         >
           <div className="flex items-center gap-2">
+            {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
             <Globe className="h-4 w-4" />
-            <span className="flex items-center gap-1">
+          )}
               <span>{locale.toUpperCase()}</span>
-            </span>
           </div>
         </Button>
       </DropdownMenuTrigger>
