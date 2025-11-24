@@ -1,9 +1,16 @@
-import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { useEffect } from "react";
 
 export const useNavigation = () => {
   const router = useRouter();
   const locale = useLocale();
+
+  useEffect(() => {
+    router.prefetch(`/${locale}/book-search`);
+    router.prefetch(`/${locale}/profile`);
+    router.prefetch(`/${locale}`);
+  }, [locale, router]);
 
   const navigateToSearch = () => {
     router.push(`/${locale}/book-search`);
@@ -18,14 +25,14 @@ export const useNavigation = () => {
   };
 
   const navigateToScan = (params: string) => {
-	router.push(`/${locale}/scan-request?${params}`);
-  }
+    router.push(`/${locale}/scan-request?${params}`);
+  };
 
   return {
     navigateToSearch,
     navigateToProfile,
     navigateToHome,
-	  navigateToScan,
+    navigateToScan,
     router,
     locale,
   };
