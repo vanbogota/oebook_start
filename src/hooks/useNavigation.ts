@@ -24,8 +24,9 @@ export const useNavigation = () => {
     router.push(`/${locale}`);
   };
 
-  const navigateToScan = (params: string) => {
-    router.push(`/${locale}/scan-request?${params}`);
+  const navigateToScan = (params?: string) => {
+    const url = params ? `/${locale}/scan?${params}` : `/${locale}/scan`;
+    router.push(url);
   };
 
   return {
