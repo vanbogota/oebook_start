@@ -15,5 +15,64 @@
     "create-account": "Create Your Account",
     "get-started": "Get Started",
     "learn-more": "Learn More"
+  },
+  "Profile": {
+    "title": "Profile",
+    "manage-profile": "Manage your profile",
+    "back-to-search": "Back to search",
+    "profile-info": "Profile Information",
+    "nickname-label": "Nickname",
+    "library-label": "Library",
+    "library-placeholder":"Select library",
+    "registration-date": "Registration Date",
+    "saving": "Saving...",
+    "save": "Save",
+    "edit-button": "Edit",
+    "save-button": "Save Changes",
+    "cancel-button": "Cancel",
+    "signout-button": "Sign Out",
+
+    "nickname-required": "Nickname cannot be empty.",
+    "library-required": "Please select a library.",
+    "error-saving": "Error saving changes. Please try again.",
+
+    "loading-message": "Loading profile...",
+    "statistics": "Statistics",
+    "scan-requests": "Scan Requests",
+    "found-books": "Found Books"
+  },
+  "SignUp":{
+    "title": "Join Open Europe Book",
+    "description": "Connect with readers across Europe to find and share rare books",
+    "nickname-label":"Create Nickname",
+    "nickname-placeholder":"Enter your nickname",
+    "library-label":"Choose NearestLibrary",
+    "library-placeholder":"Select library",
+    "create-account-button":"Create Account",
+    "terms-label":"I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.",
+    "create-account":"Create Account",
+
+    "nickname-required": "Please enter a nickname",
+    "library-required":"Please select your nearest library",
+    "terms-required":"Please accept the terms of service",
+    "create-account-error":"Error while creating profile. ",
+    "create-account-error-description":"Please try again.",
+
+    "loading-message":"Creating account..."
+  },
+  "Search": {
+    "title": "Find Rare Books",
+    "sub-title": "Search across European library collections",
+    "card-title": "Search for Books",
+    "card-description": "Enter book title, author name, or ISBN",
+    "clear-button": "Clear",
+    "search-results": "Search Results",
+    "request-scan": "Request Scan",
+    "no-results": "No books found. Try different keywords.",
+    "loading-message": "Searching for books...",
+    "searching": "Searching...",
+    "search": "Search",
+    "location": "Location",
+    "year": "Year"
   }
 }
