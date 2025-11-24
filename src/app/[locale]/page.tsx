@@ -14,7 +14,6 @@ import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Home() {
   const { userProfile } = useAuth();
@@ -50,7 +49,6 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <LanguageSwitcher />
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
