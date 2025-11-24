@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/common/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
 
@@ -13,9 +13,8 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // Если профиль заполнен и пользователь на onboarding, перенаправляем на главную
     if (userProfile?.isProfileComplete) {
-      router.push('/book-search');
+      router.push('/main');
       return;
     }
   }, [userProfile, router]);

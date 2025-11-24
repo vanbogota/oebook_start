@@ -1,11 +1,11 @@
 'use client'
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/common/button";
+import { Input } from "@/components/common/input";
+import { Label } from "@/components/common/label";
+import { Checkbox } from "@/components/common/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/common/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
 import { BookOpen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/LocalAuthContext";
@@ -45,7 +45,7 @@ export const SignupForm = () => {
       await createUserProfile(nickname.trim(), selectedLibrary);
       
       // Профиль создан успешно, перенаправляем на страницу поиска
-      router.push("/book-search");
+      router.push("/main");
     } catch (error) {
       console.error('Error creating profile:', error);
       toast({

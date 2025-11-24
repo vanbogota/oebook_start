@@ -7,13 +7,15 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+} from "@/components/common/dropdown-menu";
+import { Button } from "@/components/common/button";
+import { Avatar, AvatarFallback } from "@/components/common/avatar";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useRouter } from "next/navigation";
+import { usePWA } from "./PWAInstaller";
 
 export const Header: React.FC = () => {
+    const { installApp, isInstallable, isStandalone } = usePWA();
     const { userProfile, signOut } = useAuth();
     const router = useRouter();
 
@@ -29,7 +31,7 @@ export const Header: React.FC = () => {
     return (
         <header className="w-full border-b bg-card shadow-sm sticky top-0 z-50">
             <div className="container mx-auto px-4 py-3 max-w-6xl flex items-center justify-between">
-                <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/book-search')}>
+                <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/main')}>
                     <BookOpen className="w-6 h-6 text-primary" />
                     <h2 className="text-lg font-semibold">How It Works</h2>
                 </div>

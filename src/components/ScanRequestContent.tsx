@@ -3,8 +3,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { clearSearchCache, hasSavedResults, type SearchResult as BookDetails } from "@/utils/searchCache";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./common/card";
+import { Button } from "./common/button";
 
 
 export function ScanRequestContent() {
@@ -47,17 +47,6 @@ export function ScanRequestContent() {
         }
     };
 
-    const handleBackToSearch = () => {
-        // Проверяем, есть ли сохраненные результаты поиска
-        if (hasSavedResults()) {
-            // Если есть сохраненные результаты, возвращаемся на главную страницу
-            router.push('/book-search');
-        } else {
-            // Если нет сохраненных результатов, используем browser.back()
-            router.back();
-        }
-    };
-
     if (submitted) {
         return (
             <main className="font-sans min-h-screen p-8 mx-auto max-w-2xl">
@@ -74,7 +63,7 @@ export function ScanRequestContent() {
 
                     <div className="flex gap-3 justify-center">
                         <button
-                            onClick={() => router.push('/book-search')}
+                            onClick={() => router.push('/main')}
                             className="px-4 py-2 bg-black/5 dark:bg-white/10 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
                         >
                             Back to Search Page
@@ -100,7 +89,7 @@ export function ScanRequestContent() {
                         No book information was provided. Please go back to search and select a book.
                     </p>
                     <button
-                        onClick={() => router.push('/book-search')}
+                        onClick={() => router.push('/main')}
                         className="px-4 py-2 bg-foreground text-background rounded-md hover:opacity-90"
                     >
                         Back to Search

@@ -1,4 +1,6 @@
-const LIBRARIES = [
+import { Library } from "@/types/interfaces";
+
+const LIBRARIES: Library[] = [
   { id: 'national-library-finland', name: 'National Library of Finland' },
   { id: 'helsinki-city-library', name: 'Helsinki City Library' },
   { id: 'turku-city-library', name: 'Turku City Library' },

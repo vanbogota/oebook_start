@@ -3,9 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/contexts/LocalAuthContext";
 import AuthWrapper from "@/components/AuthWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/common/tooltip";
+import { Toaster } from "@/components/common/toaster";
+import { Toaster as Sonner } from "@/components/common/sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -98,8 +98,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body
+        suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TooltipProvider>
