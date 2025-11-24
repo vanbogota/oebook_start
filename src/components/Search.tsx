@@ -8,14 +8,15 @@ import { Search as SearchIcon, BookOpen, BrushCleaning } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { SearchResult } from "@/utils/searchCache";
 import { usePWA } from "./PWAInstaller";
-import { useRouter } from "next/navigation";
 import { useSearchCache } from "@/hooks/useSearchCache";
 import { Header } from "./Header";
+import { useNavigation } from "@/hooks/useNavigation";
+import { useTranslations } from "next-intl";
 
 export const Search = () => {
   // const { userProfile } = useAuth();
   const { installApp, isInstallable, isStandalone } = usePWA();
-  const router = useRouter();
+  const { navigateToScan } = useNavigation();
   const {
     query,
     results,
@@ -26,6 +27,7 @@ export const Search = () => {
 
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("Search");
 
   async function handleSearch() {
     if (!query.trim()) return;
@@ -58,7 +60,7 @@ export const Search = () => {
       ...(book.library && { library: book.library }),
       ...(book.isbn && { isbn: book.isbn }),
     });
-    router.push(`/scan-request?${params.toString()}`);
+    navigateToScan(params.toString());
   };
 
   return (
@@ -67,27 +69,27 @@ export const Search = () => {
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Header */}
         <div className={`text-center mb-12 transition-all duration-500 ease-out ${
-          results.length > 0 
-          ? 'opacity-0 max-h-0 overflow-hidden mb-0' 
+          results.length > 0
+          ? 'opacity-0 max-h-0 overflow-hidden mb-0'
           : 'opacity-100 max-h-96'}`}
         >
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl shadow-lg mb-4">
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Find Rare Books
+            {t("title")}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Search across European library collections
+            {t("sub-title")}
           </p>
         </div>
 
         {/* Search Bar */}
         <Card className="mb-12 shadow-lg">
           <CardHeader>
-            <CardTitle>Search for Books</CardTitle>
+            <CardTitle>{t("card-title")}</CardTitle>
             <CardDescription>
-              Enter book title, author name, or ISBN
+              {t("card-description")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -105,7 +107,7 @@ export const Search = () => {
                 disabled={isSearching}
               >
                 <SearchIcon className="mr-2 h-4 w-4" />
-                {isSearching ? "Searching..." : "Search"}
+                {isSearching ? t("searching") : t("search")}
               </Button>
               {results.length > 0 && (
                 <Button
@@ -116,7 +118,7 @@ export const Search = () => {
                   className="rounded-md bg-red-600 text-white px-4 py-2 hover:bg-red-700 max-[400px]:w-full text-sm"
                 >
                   <BrushCleaning className="mr-2 h-4 w-4" />
-                  Clear
+                  {t("clear-button")}
                 </Button>
               )}
             </div>
@@ -131,7 +133,7 @@ export const Search = () => {
         {results.length > 0 && (
           <div>
             <h2 className="text-2xl font-bold mb-6">
-              Search Results ({results.length})
+              {t("search-results")} ({results.length})
             </h2>
             <div className="flex flex-col gap-4">
               {results.map((book) => (
@@ -181,12 +183,12 @@ export const Search = () => {
                       )}
                       {book.year && (
                         <p className="text-sm">
-                          <span className="font-semibold">Year:</span> {book.year}
+                          <span className="font-semibold">{t("year")}:</span> {book.year}
                         </p>
                       )}
                       {book.library && (
                         <p className="text-sm text-muted-foreground">
-                          <span className="font-semibold">Location:</span> {book.library}
+                          <span className="font-semibold">{t("location")}:</span> {book.library}
                         </p>
                       )}
                       </div>
@@ -194,7 +196,7 @@ export const Search = () => {
                       <Button
                         onClick={() => handleRequestScan(book)}
                       >
-                        Request Scan
+                        {t("request-scan")}
                       </Button>
                     </div>
                   </div>
@@ -208,7 +210,7 @@ export const Search = () => {
         {results.length === 0 && query && !isSearching && (
           <div className="text-center py-12">
             <SearchIcon className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">No results found</h3>
+            <h3 className="text-xl font-semibold mb-2">{t("no-results")}</h3>
           </div>
         )}
       </div>
