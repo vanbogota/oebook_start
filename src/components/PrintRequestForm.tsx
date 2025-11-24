@@ -1,41 +1,20 @@
 "use client";
 
 import { Printer, Upload } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./common/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./common/card";
 import { Input } from "./common/input";
 import { useToast } from "@/hooks/use-toast";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./common/select";
 import { Label } from "./common/label";
-import DELIVERY_PROVIDERS from "@/data/delivery-providers";
-import { Locker } from "@/types/interfaces";
 
 export default function PrintRequestForm() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [selectedProvider, setSelectedProvider] = useState<string>();
     const [zipCode, setZipCode] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
     const { toast } = useToast();
-    const [lockers, setLockers] = useState<Locker[]>([]);
-    const [selectedLocker, setSelectedLocker] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
-    const [additionalInfo, setAdditionalInfo] = useState<string>("");
-
-    useEffect(() => {
-        async function fetchLockers() {
-            if (!selectedProvider) return;
-            setLoading(true);
-            try {
-                const res = await fetch(`/api/lockers?provider=${selectedProvider}&zipCode=${zipCode}`);
-                const data = await res.json();
-                console.log("Fetched lockers:", data);
-                setLockers(data || []);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchLockers();
-    }, [zipCode, selectedProvider]);
+    const [address, setAddress] = useState<string>("");
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -64,7 +43,7 @@ export default function PrintRequestForm() {
             return;
         }
 
-        if (!selectedProvider || !zipCode || !selectedLocker) {
+        if (!phone || !zipCode || !address) {
             toast({
                 variant: "destructive",
                 title: "Error",
@@ -74,11 +53,11 @@ export default function PrintRequestForm() {
         }
 
         const formData = new FormData();
-        formData.append('file', selectedFile);
-        formData.append('provider', selectedProvider);
+        formData.append('phone', phone);
         formData.append('zipCode', zipCode);
-        formData.append('locker', selectedLocker);
-        formData.append('additionalInfo', additionalInfo);
+        formData.append('address', address);
+        formData.append('file', selectedFile);
+
 
         // TODO: Implement API call to upload file
         toast({
@@ -107,62 +86,46 @@ Parcel Locker FI123456
     return (
         <Card className="shadow-lg">
             <CardHeader>
-                <CardTitle>Book Print Order</CardTitle>
+                <CardTitle>Paper Book Order</CardTitle>
                 <CardDescription>
-                    Fill out the form to order the printing of a book
+                    Fill out the form to order the paper book
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="provider">Choose Delivery Provider</Label>
-                    <Select value={selectedProvider} onValueChange={setSelectedProvider} required>
-                        <SelectTrigger id="provider" className="transition-all focus:ring-2 focus:ring-primary/20">
-                            <SelectValue placeholder="Select a delivery provider" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-popover">
-                            {DELIVERY_PROVIDERS.map((provider) => (
-                                <SelectItem key={provider.id} value={provider.id}>
-                                    {provider.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                    <Label htmlFor="phone">Enter Your Phone Number</Label>
+                    <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="transition-all focus:ring-2 focus:ring-primary/20"
+                        required
+                        disabled={loading}
+                    />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="zipCode">Enter Your Zip Code</Label>
+                    <Label htmlFor="zipCode">Postal Code of Delivery Address</Label>
                     <Input
                         id="zipCode"
                         type="number"
-                        placeholder={selectedProvider ? `Enter your zip code` : `Choose a delivery provider first...`}
+                        placeholder="Enter your postal code"
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
                         className="transition-all focus:ring-2 focus:ring-primary/20"
                         required
-                        // disabled={loading}
+                        disabled={loading}
                     />
-                </div>
+                </div>                
                 <div className="space-y-2">
-                    <Label htmlFor="locker">Choose Delivery Locker</Label>
-                    <Select value={selectedLocker} onValueChange={setSelectedLocker} required>
-                        <SelectTrigger id="locker" className="transition-all focus:ring-2 focus:ring-primary/20">
-                            <SelectValue placeholder={selectedProvider ? zipCode ? `Select a parcel locker` : `Enter your zip code first...` : `Choose a delivery provider first...`} />
-                        </SelectTrigger>
-                        <SelectContent className="bg-popover">
-                            {lockers.map((locker) => (
-                                <SelectItem key={locker.id} value={locker.name}>
-                                    {locker.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="additionalInfo" className="text-sm font-medium">Additional Information</Label>
+                    <Label htmlFor="address" className="text-sm font-medium">Delivery Address</Label>
                     <Input 
-                        id="additionalInfo" 
-                        placeholder="Special requests" 
-                        value={additionalInfo}
-                        onChange={(e) => setAdditionalInfo(e.target.value)}
+                        id="address"
+                        placeholder="Street Name, Apt.Number, City"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        disabled={loading}
                     />
                 </div>
                 <div className="space-y-2">
