@@ -7,22 +7,24 @@ import {
   LogOut,
 } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/common/dropdown-menu";
+import { Button } from "@/components/common/button";
+import { Avatar, AvatarFallback } from "@/components/common/avatar";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useRouter } from "next/navigation";
+import { usePWA } from "./PWAInstaller";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from "next-intl";
 
 export const Header: React.FC = () => {
+    const { installApp, isInstallable, isStandalone } = usePWA();
   const { userProfile, signOut } = useAuth();
   const router = useRouter();
   const { navigateToSearch, navigateToProfile } = useNavigation();
