@@ -10,7 +10,6 @@ import { useTranslations } from "next-intl";
 
 
 export function ScanRequestContent() {
-    const router = useRouter();
     const { navigateToMain, navigateToProfile } = useNavigation();
     const searchParams = useSearchParams();
     const { userProfile } = useAuth();
@@ -106,7 +105,7 @@ export function ScanRequestContent() {
     return (
         <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
             <button
-                onClick={() => router.back()}
+                onClick={() => navigateToMain()}
                 className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white mb-4"
             >
                 ← {t("back-to-search-results")}
@@ -169,7 +168,7 @@ export function ScanRequestContent() {
 
                     <div className="flex gap-3">
                         <Button
-                            onClick={() => router.back()}
+                            onClick={() => navigateToMain()}
                             className="flex-1 text-lg px-8 py-6 shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all"
                             disabled={isSubmitting}
                             size="lg"
