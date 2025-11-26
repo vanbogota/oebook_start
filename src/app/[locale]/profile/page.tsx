@@ -9,7 +9,7 @@ import { useNavigation } from '@/hooks/useNavigation';
 export default function ProfilePage() {
   const { userProfile, updateUserProfile, signOut } = useAuth();
   const t = useTranslations('Profile');
-  const { navigateToSearch, navigateToHome } = useNavigation();
+  const { navigateToMain, navigateToHome } = useNavigation();
 
 
   const [isEditing, setIsEditing] = useState(false);
@@ -96,7 +96,7 @@ export default function ProfilePage() {
             </p>
           </div>
           <button
-            onClick={navigateToSearch}
+            onClick={navigateToMain}
             className="text-sm text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
           >
             ← {t("back-to-search")}
@@ -199,7 +199,7 @@ export default function ProfilePage() {
 
         {/* Statistics */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
-          <h2 className="text-lg font-medium mb-4">Statistics</h2>
+          <h2 className="text-lg font-medium mb-4">{t("statistics")}</h2>
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="p-4 bg-black/5 dark:bg-white/5 rounded-lg">
               <div className="text-2xl font-semibold">0</div>

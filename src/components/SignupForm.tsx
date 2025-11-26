@@ -21,7 +21,7 @@ export const SignupForm = () => {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const t = useTranslations("SignUp");
-  const { navigateToSearch } = useNavigation();
+  const { navigateToMain } = useNavigation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ export const SignupForm = () => {
       await createUserProfile(nickname.trim(), selectedLibrary);
 
       // Профиль создан успешно, перенаправляем на страницу поиска
-      navigateToSearch();
+      navigateToMain();
     } catch (error) {
       console.error('Error creating profile:', error);
       toast({

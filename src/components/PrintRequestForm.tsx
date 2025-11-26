@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "./com
 import { Input } from "./common/input";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "./common/label";
+import { useTranslations } from "next-intl";
 
 export default function PrintRequestForm() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -15,6 +16,7 @@ export default function PrintRequestForm() {
     const { toast } = useToast();
     const [loading, setLoading] = useState<boolean>(false);
     const [address, setAddress] = useState<string>("");
+    const t = useTranslations("PrintRequest");
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -27,7 +29,7 @@ export default function PrintRequestForm() {
             if (validTypes.includes(file.type)) {
                 setSelectedFile(file);
             } else {
-                alert('Please select a Word or PDF file');
+                alert(t("alert-message"));
                 e.target.value = '';
             }
         }
@@ -38,7 +40,7 @@ export default function PrintRequestForm() {
             toast({
                 variant: "destructive",
                 title: "Error",
-                description: "Please select a file",
+                description: t("alert-no-file"),
             });
             return;
         }
@@ -47,7 +49,7 @@ export default function PrintRequestForm() {
             toast({
                 variant: "destructive",
                 title: "Error",
-                description: "Please fill in all required fields",
+                description: t("required-fields"),
             });
             return;
         }
@@ -61,7 +63,7 @@ export default function PrintRequestForm() {
 
         // TODO: Implement API call to upload file
         toast({
-            title: "File ready for upload",
+            title: t("file-ready"),
             description: (
                 <div className="whitespace-pre-line">
                     {`1. Go to the Posti website:
@@ -86,18 +88,18 @@ Parcel Locker FI123456
     return (
         <Card className="shadow-lg">
             <CardHeader>
-                <CardTitle>Paper Book Order</CardTitle>
+                <CardTitle>{t("title")}</CardTitle>
                 <CardDescription>
-                    Fill out the form to order the paper book
+                    {t("description")}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="phone">Enter Your Phone Number</Label>
+                    <Label htmlFor="phone">{t("phone-label")}</Label>
                     <Input
                         id="phone"
                         type="tel"
-                        placeholder="Enter your phone number"
+                        placeholder={t("phone-placeholder")}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="transition-all focus:ring-2 focus:ring-primary/20"
@@ -106,30 +108,30 @@ Parcel Locker FI123456
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="zipCode">Postal Code of Delivery Address</Label>
+                    <Label htmlFor="zipCode">{t("zip-label")}</Label>
                     <Input
                         id="zipCode"
                         type="number"
-                        placeholder="Enter your postal code"
+                        placeholder={t("zip-placeholder")}
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
                         className="transition-all focus:ring-2 focus:ring-primary/20"
                         required
                         disabled={loading}
                     />
-                </div>                
+                </div>
                 <div className="space-y-2">
-                    <Label htmlFor="address" className="text-sm font-medium">Delivery Address</Label>
-                    <Input 
+                    <Label htmlFor="address" className="text-sm font-medium">{t("address-label")}</Label>
+                    <Input
                         id="address"
-                        placeholder="Street Name, Apt.Number, City"
+                        placeholder={t("address-placeholder")}
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         disabled={loading}
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="fileUpload" className="text-sm font-medium">Upload the Source File of the Book (in Word or PDF)</Label>
+                    <Label htmlFor="fileUpload" className="text-sm font-medium">{t("upload-label")}</Label>
                     <div className="flex items-center gap-2">
                         <Input
                             id="fileUpload"
@@ -148,7 +150,7 @@ Parcel Locker FI123456
                 </div>
                 <Button className="w-full" size="lg" onClick={handleSubmit} disabled={loading}>
                     <Printer className="mr-2 h-4 w-4" />
-                    Submit Order
+                    {t("submit-button")}
                 </Button>
             </CardContent>
         </Card>

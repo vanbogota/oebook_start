@@ -8,18 +8,19 @@ import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useNavigation } from "@/hooks/useNavigation";
 
 export default function Home() {
   const { userProfile } = useAuth();
-  const router = useRouter();
   const t = useTranslations("Home");
+  const { navigateToSignup, navigateToMain } = useNavigation();
 
   useEffect(() => {
     if (userProfile?.isProfileComplete) {
-      router.push('/main');
+      navigateToMain();
       return;
     }
-  }, [userProfile, router]);
+  }, [userProfile, navigateToMain]);
 
   const features = [
     {
@@ -69,7 +70,7 @@ export default function Home() {
             <Button
               size="lg"
               className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-              onClick={() => router.push("/signup")}
+              onClick={() => navigateToSignup()}
             >
               {t("get-started")}
             </Button>
@@ -140,7 +141,7 @@ export default function Home() {
               <Button
                 size="lg"
                 className="text-lg px-12 py-6 shadow-lg hover:shadow-xl transition-all"
-                onClick={() => router.push("/signup")}
+                onClick={() => navigateToSignup()}
               >
                 {t("create-account")}
               </Button>
