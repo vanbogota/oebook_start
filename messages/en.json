@@ -23,7 +23,7 @@
     "profile-info": "Profile Information",
     "nickname-label": "Nickname",
     "library-label": "Library",
-    "library-placeholder":"Select library",
+    "library-placeholder": "Select library",
     "registration-date": "Registration Date",
     "saving": "Saving...",
     "save": "Save",
@@ -31,34 +31,30 @@
     "save-button": "Save Changes",
     "cancel-button": "Cancel",
     "signout-button": "Sign Out",
-
     "nickname-required": "Nickname cannot be empty.",
     "library-required": "Please select a library.",
     "error-saving": "Error saving changes. Please try again.",
-
     "loading-message": "Loading profile...",
     "statistics": "Statistics",
     "scan-requests": "Scan Requests",
     "found-books": "Found Books"
   },
-  "SignUp":{
+  "SignUp": {
     "title": "Join Open Europe Book",
     "description": "Connect with readers across Europe to find and share rare books",
-    "nickname-label":"Create Nickname",
-    "nickname-placeholder":"Enter your nickname",
-    "library-label":"Choose NearestLibrary",
-    "library-placeholder":"Select library",
-    "create-account-button":"Create Account",
-    "terms-label":"I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.",
-    "create-account":"Create Account",
-
+    "nickname-label": "Create Nickname",
+    "nickname-placeholder": "Enter your nickname",
+    "library-label": "Choose NearestLibrary",
+    "library-placeholder": "Select library",
+    "create-account-button": "Create Account",
+    "terms-label": "I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.",
+    "create-account": "Create Account",
     "nickname-required": "Please enter a nickname",
-    "library-required":"Please select your nearest library",
-    "terms-required":"Please accept the terms of service",
-    "create-account-error":"Error while creating profile. ",
-    "create-account-error-description":"Please try again.",
-
-    "loading-message":"Creating account..."
+    "library-required": "Please select your nearest library",
+    "terms-required": "Please accept the terms of service",
+    "create-account-error": "Error while creating profile. ",
+    "create-account-error-description": "Please try again.",
+    "loading-message": "Creating account..."
   },
   "Search": {
     "title": "Find Rare Books",
@@ -80,5 +76,53 @@
     "profile": "Profile",
     "logOut": "Log out",
     "settings": "Settings"
+  },
+  "MainPage": {
+    "search-button": "Book Search",
+    "print-book-button": "Print Order"
+  },
+  "ScanRequest": {
+    "title": "Request Submitted Successfully!",
+    "description": "Ask a fellow reader to scan pages from a rare book in their local library",
+    "submit-button": "Submit Scan Request",
+    "submitting": "Submitting...",
+    "confirmation-message": "Your scan request has been submitted. We&apos;ll process it and get back to you soon.",
+
+    "error-message": "There was an error submitting your scan request. Please try again.",
+    "no-book-selected": "No Book Selected",
+    "no-book-info": "No book information was provided. Please go back to search and select a book.",
+    "back-to-search": "Back to Search Page",
+    "back-to-search-results": "Back to Search Results",
+    "view-profile": "View Your Profile",
+    "confirm-scan-request": "Confirm Scan Request",
+    "confirm-details": "Please confirm the details of the book you want to request for scanning",
+    "request-info": "Request Information",
+    "request-date": "Request Date",
+    "year": "Year",
+    "book-title": "Title",
+    "book-authors": "Authors",
+    "book-isbn": "ISBN",
+    "book-details": "Book Details",
+    "cancel": "Cancel",
+    "confirm-request": "Confirm Request"
+  },
+  "PrintRequest": {
+    "title": "Paper Book Order",
+    "description": "Fill out the form to order the paper book",
+    "phone-label": "Enter Your Phone Number",
+    "phone-placeholder": "Enter your phone number",
+    "zip-label": "Postal Code of Delivery Address",
+    "zip-placeholder": "Enter your postal code",
+    "address-label": "Delivery Address",
+    "address-placeholder": "Street Name, Apt.Number, City",
+    "upload-label": "Upload the Source File of the Book (in Word or PDF)",
+    "submit-button": "Submit Order",
+    "submitting": "Submitting...",
+    "success-message": "Your print order has been submitted successfully. We will process it and ship it to your address soon.",
+    "error-message": "There was an error submitting your print order. Please try again.",
+    "alert-message": "Please select a Word or PDF file to upload.",
+    "alert-no-file": "Please select a file",
+    "required-fields": "Please fill in all required fields",
+    "file-ready": "File is ready for upload"
   }
 }

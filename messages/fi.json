@@ -76,5 +76,64 @@
     "profile": "Profiili",
     "settings": "Asetukset",
     "logOut": "Kirjaudu ulos"
+  },
+  "MainPage": {
+    "search-button": "Kirjahaku",
+    "print-book-button": "Tulostustilaus"
+  },
+  "ScanRequest": {
+    "title": "Pyyntö lähetetty onnistuneesti!",
+    "description": "Pyydä toista lukijaa skannaamaan sivuja harvinaisesta kirjasta heidän paikallisessa kirjastossaan",
+    "submit-button": "Lähetä skannauspyyntö",
+    "submitting": "Lähetetään...",
+    "confirmation-message": "Skannauspyyntösi on lähetetty. Käsittelemme sen ja otamme sinuun pian yhteyttä.",
+
+    "error-message": "Skannauspyynnön lähettäminen epäonnistui. Yritä uudelleen.",
+    "no-book-selected": "Kirjaa ei valittu",
+    "no-book-info": "Kirjan tietoja ei ole saatavilla. Palaa hakuun ja valitse kirja.",
+    "back-to-search": "Takaisin hakusivulle",
+    "back-to-search-results": "Takaisin hakutuloksiin",
+    "view-profile": "Näytä profiilisi",
+
+    "confirm-scan-request": "Vahvista skannauspyyntö",
+    "confirm-details": "Vahvista skannattavaksi pyydettävän kirjan tiedot",
+
+    "request-info": "Pyynnön tiedot",
+    "request-date": "Pyynnön päivämäärä",
+    "year": "Vuosi",
+
+    "book-title": "Nimi",
+    "book-authors": "Kirjoittajat",
+    "book-isbn": "ISBN",
+    "book-details": "Kirjan tiedot",
+
+    "cancel": "Peruuta",
+    "confirm-request": "Vahvista pyyntö"
+  },
+
+  "PrintRequest": {
+    "title": "Paperikirjan tilaus",
+    "description": "Täytä lomake tilataksesi paperikirjan",
+
+    "phone-label": "Anna puhelinnumerosi",
+    "phone-placeholder": "Syötä puhelinnumerosi",
+
+    "zip-label": "Toimitusosoitteen postinumero",
+    "zip-placeholder": "Syötä postinumero",
+
+    "address-label": "Toimitusosoite",
+    "address-placeholder": "Katuosoite, asunnon numero, kaupunki",
+
+    "upload-label": "Lataa kirjan lähdetiedosto (Word tai PDF)",
+    "submit-button": "Lähetä tilaus",
+    "submitting": "Lähetetään...",
+
+    "success-message": "Tilauksesi on lähetetty onnistuneesti. Käsittelemme sen ja toimitamme kirjan osoitteeseesi pian.",
+    "error-message": "Tilauksen lähettämisessä tapahtui virhe. Yritä uudelleen.",
+
+    "alert-message": "Valitse ladattavaksi Word- tai PDF-tiedosto.",
+    "alert-no-file": "Valitse tiedosto",
+    "required-fields": "Täytä kaikki vaaditut kentät",
+    "file-ready": "Tiedosto valmis ladattavaksi"
   }
 }
