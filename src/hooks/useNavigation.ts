@@ -7,13 +7,13 @@ export const useNavigation = () => {
   const locale = useLocale();
 
   useEffect(() => {
-    router.prefetch(`/${locale}/book-search`);
+    router.prefetch(`/${locale}/main`);
     router.prefetch(`/${locale}/profile`);
     router.prefetch(`/${locale}`);
   }, [locale, router]);
 
-  const navigateToSearch = () => {
-    router.push(`/${locale}/book-search`);
+  const navigateToMain = () => {
+    router.push(`/${locale}/main`);
   };
 
   const navigateToProfile = () => {
@@ -24,16 +24,21 @@ export const useNavigation = () => {
     router.push(`/${locale}`);
   };
 
+  const navigateToSignup = () => {
+    router.push(`/${locale}/signup`);
+  };
+
   const navigateToScan = (params?: string) => {
-    const url = params ? `/${locale}/scan?${params}` : `/${locale}/scan`;
+    const url = params ? `/${locale}/scan-request?${params}` : `/${locale}/scan-request`;
     router.push(url);
   };
 
   return {
-    navigateToSearch,
+    navigateToMain,
     navigateToProfile,
     navigateToHome,
     navigateToScan,
+    navigateToSignup,
     router,
     locale,
   };
