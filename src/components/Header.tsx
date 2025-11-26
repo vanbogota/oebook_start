@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
   const { installApp, isInstallable, isStandalone } = usePWA();
   const { userProfile, signOut } = useAuth();
   const { navigateToHome } = useNavigation();
-  const t = useTranslations("UserDropdown");
+  const t = useTranslations("Header");
   const locale = useLocale();
 
   const handleSignOut = async () => {
@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
           className="flex items-center gap-2 cursor-pointer"
         >
           <BookOpen className="w-6 h-6 text-primary" />
-          <h2 className="text-lg font-semibold">How It Works</h2>
+          <h2 className="text-lg font-semibold">{t("title")}</h2>
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
