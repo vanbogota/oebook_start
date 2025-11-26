@@ -8,8 +8,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+} from "@/components/common/dropdown-menu";
+import { Button } from "@/components/common/button";
 
 const locales = [
   { code: "en", name: "English" },
