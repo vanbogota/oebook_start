@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Globe, Loader2 } from "lucide-react";
 import {
@@ -19,18 +19,24 @@ const locales = [
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const locale = useLocale();
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParamsString, setSearchParamsString] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSearchParamsString(window.location.search);
+    }
+  }, []);
 
   const switchLanguage = (newLocale: string) => {
     if (isLoading || newLocale === locale) return;
 
     setIsLoading(true);
     // Preserve all search parameters when switching language
-    const newPathname = pathname.replace(/^\/[^/]+/, '');
-    const queryString = searchParams.toString();
-    const newUrl = `/${newLocale}${newPathname}${queryString ? `?${queryString}` : ''}`;
+    const newPathname = pathname.replace(/^\/[^/]+/, "");
+
+    const newUrl = `/${newLocale}${newPathname}${searchParamsString}`;
 
     router.push(newUrl);
     setTimeout(() => setIsLoading(false), 500);
