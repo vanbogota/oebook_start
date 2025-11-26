@@ -127,7 +127,7 @@ export default async function LocalLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning={true}>
+    <html className="scroll-smooth" lang={locale} suppressHydrationWarning={true}>
       <body
         suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
