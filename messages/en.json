@@ -44,7 +44,7 @@
     "description": "Connect with readers across Europe to find and share rare books",
     "nickname-label": "Create Nickname",
     "nickname-placeholder": "Enter your nickname",
-    "library-label": "Choose NearestLibrary",
+    "library-label": "Choose Nearest Library",
     "library-placeholder": "Select library",
     "create-account-button": "Create Account",
     "terms-label": "I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.",
@@ -71,7 +71,8 @@
     "location": "Location",
     "year": "Year"
   },
-  "UserDropdown": {
+  "Header": {
+    "title": "How it works",
     "myAccount": "My Account",
     "profile": "Profile",
     "logOut": "Log out",

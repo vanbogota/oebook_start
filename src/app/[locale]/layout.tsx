@@ -8,7 +8,7 @@ import { Toaster } from "@/components/common/toaster";
 import { Toaster as Sonner } from "@/components/common/sonner";
 import "../globals.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import HomeHeader from "@/components/HomeHeader";
@@ -23,10 +23,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const locales = ["en", "fi"];
-
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export const viewport: Viewport = {
@@ -125,6 +123,7 @@ export default async function LocalLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  setRequestLocale(locale);
   const messages = await getMessages();
 
   return (

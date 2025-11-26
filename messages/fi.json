@@ -71,7 +71,8 @@
     "location": "Sijainti",
     "year": "Vuosi"
   },
-  "UserDropdown": {
+  "Header": {
+    "title": "Miten se toimii",
     "myAccount": "Oma tili",
     "profile": "Profiili",
     "settings": "Asetukset",
