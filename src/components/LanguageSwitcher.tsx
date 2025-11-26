@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Globe, Loader2 } from "lucide-react";
 import {
@@ -19,15 +19,21 @@ const locales = [
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const locale = useLocale();
   const [isLoading, setIsLoading] = useState(false);
 
   const switchLanguage = (newLocale: string) => {
-	if (isLoading || newLocale === locale) return;
+    if (isLoading || newLocale === locale) return;
 
     setIsLoading(true);
-    router.push(`/${newLocale}${pathname.substring(3)}`);
-	setTimeout(() => setIsLoading(false), 500);
+    // Preserve all search parameters when switching language
+    const newPathname = pathname.replace(/^\/[^/]+/, '');
+    const queryString = searchParams.toString();
+    const newUrl = `/${newLocale}${newPathname}${queryString ? `?${queryString}` : ''}`;
+
+    router.push(newUrl);
+    setTimeout(() => setIsLoading(false), 500);
   };
 
   return (
@@ -40,11 +46,11 @@ export default function LanguageSwitcher() {
         >
           <div className="flex items-center gap-2">
             {isLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Globe className="h-4 w-4" />
-          )}
-              <span>{locale.toUpperCase()}</span>
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Globe className="h-4 w-4" />
+            )}
+            <span>{locale.toUpperCase()}</span>
           </div>
         </Button>
       </DropdownMenuTrigger>
