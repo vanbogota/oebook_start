@@ -18,14 +18,12 @@ export default function MainPage() {
   const [activeTab, setActiveTab] = useState<string>("print");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedTab = sessionStorage.getItem("activeTab");
+    const savedTab = sessionStorage.getItem("activeTab");
 
-      if (savedTab === "search") {
-        setActiveTab("search");
-      } else {
-        setActiveTab("print");
-      }
+    if (savedTab === "search") {
+      setActiveTab("search");
+    } else {
+      setActiveTab("print");
     }
   }, []);
 
