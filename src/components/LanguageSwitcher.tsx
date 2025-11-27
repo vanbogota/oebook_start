@@ -21,22 +21,20 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const locale = useLocale();
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParamsString, setSearchParamsString] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setSearchParamsString(window.location.search);
-    }
-  }, []);
 
   const switchLanguage = (newLocale: string) => {
     if (isLoading || newLocale === locale) return;
 
     setIsLoading(true);
+
+    // Get current search params at the moment of switching
+    const currentSearchParams =
+      typeof window !== "undefined" ? window.location.search : "";
+
     // Preserve all search parameters when switching language
     const newPathname = pathname.replace(/^\/[^/]+/, "");
 
-    const newUrl = `/${newLocale}${newPathname}${searchParamsString}`;
+    const newUrl = `/${newLocale}${newPathname}${currentSearchParams}`;
 
     router.push(newUrl);
     setTimeout(() => setIsLoading(false), 500);

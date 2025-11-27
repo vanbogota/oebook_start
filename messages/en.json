@@ -87,7 +87,7 @@
     "description": "Ask a fellow reader to scan pages from a rare book in their local library",
     "submit-button": "Submit Scan Request",
     "submitting": "Submitting...",
-    "confirmation-message": "Your scan request has been submitted. We&apos;ll process it and get back to you soon.",
+    "confirmation-message": "Your scan request has been submitted. We'll process it and get back to you soon.",
 
     "error-message": "There was an error submitting your scan request. Please try again.",
     "no-book-selected": "No Book Selected",
