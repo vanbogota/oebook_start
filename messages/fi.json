@@ -1,0 +1,140 @@
+{
+  "Home": {
+    "hero-title": "Open Europe Book",
+    "hero-subtitle": "Löydä harvinaisia kirjoja Euroopan kirjastoista ja yhdistä lukijoihin, jotka voivat auttaa sinua digitoimaan ne",
+    "search-title": "Etsi harvinaisia kirjoja",
+    "search-description": "Selaa eurooppalaisten kirjastojen kokoelmia löytääksesi harvinaisia ja vaikeasti löydettäviä kirjoja",
+    "scan-title": "Pyydä skannauksia",
+    "scan-description": "Pyydä muita käyttäjiä skannaamaan ja jakamaan sivuja heidän paikallisista kirjastoistaan",
+    "print-title": "Tulosta kirjasi",
+    "print-description": "Tilaa meiltä tulostettu kopio löytämästäsi kirjasta kahdella klikkauksella",
+    "how-it-works": "Miten se toimii",
+    "join-community": "Liity yhteisöön, joka on omistautunut harvinaisten kirjojen säilyttämiseen ja saatavuuden jakamiseen",
+    "ready-to-start": "Oletko valmis aloittamaan?",
+    "join-thousands": "Liity tuhansien kirjallisuuden ystävien joukkoon vaalimaan kulttuuriperintöä",
+    "create-account": "Luo tilisi",
+    "get-started": "Aloita",
+    "learn-more": "Lue lisää"
+  },
+  "Profile": {
+    "title": "Profiili",
+    "manage-profile": "Hallitse profiiliasi",
+    "back-to-search": "Takaisin hakuun",
+    "profile-info": "Profiilitiedot",
+    "nickname-label": "Nimimerkki",
+    "library-label": "Kirjasto",
+    "library-placeholder": "Valitse kirjasto",
+    "registration-date": "Rekisteröitymispäivä",
+    "saving": "Tallennetaan...",
+    "save": "Tallenna",
+    "edit-button": "Muokkaa",
+    "save-button": "Tallenna muutokset",
+    "cancel-button": "Peruuta",
+    "signout-button": "Kirjaudu ulos",
+    "nickname-required": "Nimimerkki ei voi olla tyhjä.",
+    "library-required": "Valitse kirjasto.",
+    "error-saving": "Muutosten tallentaminen epäonnistui. Yritä uudelleen.",
+    "loading-message": "Ladataan profiilia...",
+    "statistics": "Tilastot",
+    "scan-requests": "Skannauspyynnöt",
+    "found-books": "Löydetyt kirjat"
+  },
+  "SignUp": {
+    "title": "Liity Open Europe Bookiin",
+    "description": "Yhdisty lukijoihin ympäri Eurooppaa löytääksesi ja jakaaksesi harvinaisia kirjoja",
+    "nickname-label": "Luo nimimerkki",
+    "nickname-placeholder": "Anna nimimerkkisi",
+    "library-label": "Valitse lähin kirjasto",
+    "library-placeholder": "Valitse kirjasto",
+    "create-account-button": "Luo tili",
+    "terms-label": "Hyväksyn palveluehdot. Ymmärrän, että kirjojen kopiointi tällä alustalla on VAIN YKSITYISKÄYTTÖÖN. Olen tarkistanut maani tekijänoikeuslait ja vahvistan, että minulla on lupa kopioida kirjoja henkilökohtaiseen käyttöön.",
+    "create-account": "Luo tili",
+    "nickname-required": "Anna nimimerkki",
+    "library-required": "Valitse lähin kirjasto",
+    "terms-required": "Hyväksy palveluehdot",
+    "create-account-error": "Tilin luominen epäonnistui.",
+    "create-account-error-description": "Yritä uudelleen.",
+    "loading-message": "Luodaan tiliä..."
+  },
+  "Search": {
+    "title": "Etsi harvinaisia kirjoja",
+    "sub-title": "Hae eurooppalaisten kirjastojen kokoelmista",
+    "card-title": "Hae kirjoja",
+    "card-description": "Syötä kirjan nimi, kirjailija tai ISBN",
+    "clear-button": "Tyhjennä",
+    "search-results": "Hakutulokset",
+    "request-scan": "Pyydä skannausta",
+    "no-results": "Kirjoja ei löytynyt. Kokeile muita hakusanoja.",
+    "loading-message": "Haetaan kirjoja...",
+    "searching": "Etsitään...",
+    "search": "Hae",
+    "location": "Sijainti",
+    "year": "Vuosi"
+  },
+  "Header": {
+    "title": "Miten se toimii",
+    "myAccount": "Oma tili",
+    "profile": "Profiili",
+    "settings": "Asetukset",
+    "logOut": "Kirjaudu ulos"
+  },
+  "MainPage": {
+    "search-button": "Kirjahaku",
+    "print-book-button": "Tulostustilaus"
+  },
+  "ScanRequest": {
+    "title": "Pyyntö lähetetty onnistuneesti!",
+    "description": "Pyydä toista lukijaa skannaamaan sivuja harvinaisesta kirjasta heidän paikallisessa kirjastossaan",
+    "submit-button": "Lähetä skannauspyyntö",
+    "submitting": "Lähetetään...",
+    "confirmation-message": "Skannauspyyntösi on lähetetty. Käsittelemme sen ja otamme sinuun pian yhteyttä.",
+
+    "error-message": "Skannauspyynnön lähettäminen epäonnistui. Yritä uudelleen.",
+    "no-book-selected": "Kirjaa ei valittu",
+    "no-book-info": "Kirjan tietoja ei ole saatavilla. Palaa hakuun ja valitse kirja.",
+    "back-to-search": "Takaisin hakusivulle",
+    "back-to-search-results": "Takaisin hakutuloksiin",
+    "view-profile": "Näytä profiilisi",
+
+    "confirm-scan-request": "Vahvista skannauspyyntö",
+    "confirm-details": "Vahvista skannattavaksi pyydettävän kirjan tiedot",
+
+    "request-info": "Pyynnön tiedot",
+    "request-date": "Pyynnön päivämäärä",
+    "year": "Vuosi",
+
+    "book-title": "Nimi",
+    "book-authors": "Kirjoittajat",
+    "book-isbn": "ISBN",
+    "book-details": "Kirjan tiedot",
+
+    "cancel": "Peruuta",
+    "confirm-request": "Vahvista pyyntö"
+  },
+
+  "PrintRequest": {
+    "title": "Paperikirjan tilaus",
+    "description": "Täytä lomake tilataksesi paperikirjan",
+
+    "phone-label": "Anna puhelinnumerosi",
+    "phone-placeholder": "Syötä puhelinnumerosi",
+
+    "zip-label": "Toimitusosoitteen postinumero",
+    "zip-placeholder": "Syötä postinumero",
+
+    "address-label": "Toimitusosoite",
+    "address-placeholder": "Katuosoite, asunnon numero, kaupunki",
+
+    "upload-label": "Lataa kirjan lähdetiedosto (Word tai PDF)",
+    "submit-button": "Lähetä tilaus",
+    "submitting": "Lähetetään...",
+
+    "success-message": "Tilauksesi on lähetetty onnistuneesti. Käsittelemme sen ja toimitamme kirjan osoitteeseesi pian.",
+    "error-message": "Tilauksen lähettämisessä tapahtui virhe. Yritä uudelleen.",
+
+    "alert-message": "Valitse ladattavaksi Word- tai PDF-tiedosto.",
+    "alert-no-file": "Valitse tiedosto",
+    "required-fields": "Täytä kaikki vaaditut kentät",
+    "file-ready": "Tiedosto valmis ladattavaksi"
+  }
+}

@@ -1,14 +1,17 @@
 "use client";
 import { useState } from 'react';
 import { useAuth } from '@/contexts/LocalAuthContext';
-import { useRouter } from 'next/navigation';
 import LIBRARIES from '@/data/libraries';
+import { useTranslations } from 'next-intl';
+import { useNavigation } from '@/hooks/useNavigation';
 
 
 export default function ProfilePage() {
   const { userProfile, updateUserProfile, signOut } = useAuth();
-  const router = useRouter();
-  
+  const t = useTranslations('Profile');
+  const { navigateToMain, navigateToHome } = useNavigation();
+
+
   const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState(userProfile?.nickname || '');
   const [library, setLibrary] = useState(userProfile?.library || '');
@@ -36,12 +39,12 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     if (!nickname.trim()) {
-      setError('Nickname cannot be empty');
+      setError(t("nickname-required"));
       return;
     }
 
     if (!library) {
-      setError('Please select a library');
+      setError(t("library-required"));
       return;
     }
 
@@ -55,7 +58,7 @@ export default function ProfilePage() {
       });
       setIsEditing(false);
     } catch (err) {
-      setError('Error saving changes');
+      setError(t("error-saving"));
       console.error('Profile update error:', err);
     } finally {
       setLoading(false);
@@ -65,7 +68,7 @@ export default function ProfilePage() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      router.push('/');
+      navigateToHome();
     } catch (err) {
       console.error('Sign out error:', err);
     }
@@ -75,7 +78,7 @@ export default function ProfilePage() {
     return (
       <main className="font-sans min-h-screen p-8 mx-auto flex items-center justify-center">
         <div className="text-center">
-          <p>Loading profile...</p>
+          <p>{t("loading-message")}</p>
         </div>
       </main>
     );
@@ -87,29 +90,29 @@ export default function ProfilePage() {
         {/* Заголовок */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-semibold">Profile</h1>
+            <h1 className="text-2xl font-semibold">{t("title")}</h1>
             <p className="text-black/70 dark:text-white/70 mt-1">
-              Manage your profile
+              {t("manage-profile")}
             </p>
           </div>
           <button
-            onClick={() => router.back()}
+            onClick={navigateToMain}
             className="text-sm text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
           >
-            ← Back to search
+            ← {t("back-to-search")}
           </button>
         </div>
 
         {/* Информация о профиле */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-medium">Profile Information</h2>
+            <h2 className="text-lg font-medium">{t("profile-info")}</h2>
             {!isEditing && (
               <button
                 onClick={handleEdit}
                 className="text-sm bg-black/5 dark:bg-white/10 px-3 py-1 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
               >
-                Edit
+                {t("edit-button")}
               </button>
             )}
           </div>
@@ -117,7 +120,7 @@ export default function ProfilePage() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">
-                Nickname
+                {t("nickname-label")}
               </label>
               {isEditing ? (
                 <input
@@ -136,7 +139,7 @@ export default function ProfilePage() {
 
             <div>
               <label className="block text-sm font-medium mb-1">
-                Library
+                {t("library-label")}
               </label>
               {isEditing ? (
                 <select
@@ -144,7 +147,7 @@ export default function ProfilePage() {
                   onChange={(e) => setLibrary(e.target.value)}
                   className="w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-2"
                 >
-                  <option value="">Choose library</option>
+                  <option value="">{t("library-placeholder")}</option>
                   {LIBRARIES.map((lib) => (
                     <option key={lib.id} value={lib.id}>
                       {lib.name}
@@ -160,7 +163,7 @@ export default function ProfilePage() {
 
             <div>
               <label className="block text-sm font-medium mb-1">
-                Registration Date
+                {t("registration-date")}
               </label>
               <p className="text-black/70 dark:text-white/70">
                 {userProfile.createdAt.toLocaleDateString('en-US')}
@@ -181,14 +184,14 @@ export default function ProfilePage() {
                 disabled={loading}
                 className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50"
               >
-                {loading ? 'Saving...' : 'Save'}
+                {loading ? t('saving') : t('save')}
               </button>
               <button
                 onClick={handleCancel}
                 disabled={loading}
                 className="rounded-md border border-black/10 dark:border-white/20 px-4 py-2 disabled:opacity-50"
               >
-                Abort
+                {t("cancel-button")}
               </button>
             </div>
           )}
@@ -196,18 +199,18 @@ export default function ProfilePage() {
 
         {/* Statistics */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
-          <h2 className="text-lg font-medium mb-4">Statistics</h2>
+          <h2 className="text-lg font-medium mb-4">{t("statistics")}</h2>
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="p-4 bg-black/5 dark:bg-white/5 rounded-lg">
               <div className="text-2xl font-semibold">0</div>
               <div className="text-sm text-black/60 dark:text-white/60">
-                Scan requests
+                {t("scan-requests")}
               </div>
             </div>
             <div className="p-4 bg-black/5 dark:bg-white/5 rounded-lg">
               <div className="text-2xl font-semibold">0</div>
               <div className="text-sm text-black/60 dark:text-white/60">
-                Found books
+                {t("found-books")}
               </div>
             </div>
           </div>
@@ -220,7 +223,7 @@ export default function ProfilePage() {
             onClick={handleSignOut}
             className="w-full rounded-md border border-red-300 text-red-600 dark:text-red-400 px-4 py-2 hover:bg-red-50 dark:hover:bg-red-900/20"
           >
-            Sign out
+            {t("signout-button")}
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/common/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
@@ -7,33 +7,36 @@ import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { useNavigation } from "@/hooks/useNavigation";
 
 export default function Home() {
   const { userProfile } = useAuth();
-  const router = useRouter();
+  const t = useTranslations("Home");
+  const { navigateToSignup, navigateToMain } = useNavigation();
 
   useEffect(() => {
     if (userProfile?.isProfileComplete) {
-      router.push('/main');
+      navigateToMain();
       return;
     }
-  }, [userProfile, router]);
+  }, [userProfile, navigateToMain]);
 
   const features = [
     {
       icon: Search,
-      title: "Find Rare Books",
-      description: "Search through collections of European libraries to locate rare and hard-to-find books",
+      title: t("search-title"),
+      description: t("search-description"),
     },
     {
       icon: Scan,
-      title: "Request Scans",
-      description: "Ask other users to scan and share pages from books in their local libraries",
+      title: t("scan-title"),
+      description: t("scan-description"),
     },
     {
       icon: BookOpenText,
-      title: "Print Your Book",
-      description: "Order a printed copy of the book you found from us in two clicks",
+      title: t("print-title"),
+      description: t("print-description"),
     },
   ];
 
@@ -56,41 +59,46 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            Open Europe Book
+            {t("hero-title")}
           </h1>
 
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Discover rare books across European libraries and connect with readers who can help you digitize them
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto bg-background/70 p-2 border rounded-lg text-color-foreground leading-relaxed">
+            {t("hero-subtitle")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button
               size="lg"
               className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-              onClick={() => router.push("/signup")}
+              onClick={() => navigateToSignup()}
             >
-              Get Started
+              {t("get-started")}
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 bg-card/80 backdrop-blur-sm hover:bg-card transition-all"
-            >
-              Learn More
-            </Button>
+            <a href="#learn-more">
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 bg-card/80 backdrop-blur-sm hover:bg-card transition-all"
+              >
+                {t("learn-more")}
+              </Button>
+            </a>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-background to-secondary/30">
+      <section
+        className="py-24 px-4 bg-gradient-to-b from-background to-secondary/30"
+        id="learn-more"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              How It Works
+              {t("how-it-works")}
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join a community dedicated to preserving and sharing access to rare books
+              {t("join-community")}
             </p>
           </div>
 
@@ -123,19 +131,19 @@ export default function Home() {
           <Card className="border-2 border-primary/20 shadow-2xl bg-gradient-to-br from-card to-secondary/30">
             <CardHeader className="space-y-4 pb-8">
               <CardTitle className="text-4xl md:text-5xl">
-                Ready to Start?
+                {t("ready-to-start")}
               </CardTitle>
               <CardDescription className="text-lg">
-                Join thousands of book enthusiasts preserving literary heritage
+                {t("join-thousands")}
               </CardDescription>
             </CardHeader>
             <CardContent className="pb-10">
               <Button
                 size="lg"
                 className="text-lg px-12 py-6 shadow-lg hover:shadow-xl transition-all"
-                onClick={() => router.push("/signup")}
+                onClick={() => navigateToSignup()}
               >
-                Create Your Account
+                {t("create-account")}
               </Button>
             </CardContent>
           </Card>
@@ -143,4 +151,4 @@ export default function Home() {
       </section>
     </div>
   );
-};
+}

@@ -7,49 +7,51 @@ import { Checkbox } from "@/components/common/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/common/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
 import { BookOpen } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useToast } from "@/hooks/use-toast";
 import LIBRARIES from "@/data/libraries";
+import { useNavigation } from "@/hooks/useNavigation";
+import { useTranslations } from 'use-intl';
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
-  const router = useRouter();
   const [nickname, setNickname] = useState("");
   const [selectedLibrary, setSelectedLibrary] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const t = useTranslations("SignUp");
+  const { navigateToMain } = useNavigation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!nickname.trim()) {
-      setError("Please enter a nickname");
+      setError(t("nickname-required"));
       return;
     }
-    
+
     if (!selectedLibrary) {
-      setError("Please select your nearest library");
+      setError(t("library-required"));
       return;
     }
-    
+
     if (!acceptedTerms) {
-      setError("Please accept the terms of service");
+      setError(t("terms-required"));
       return;
     }
 
     setError(null);
-    
+
     try {
       await createUserProfile(nickname.trim(), selectedLibrary);
-      
+
       // Профиль создан успешно, перенаправляем на страницу поиска
-      router.push("/main");
+      navigateToMain();
     } catch (error) {
       console.error('Error creating profile:', error);
       toast({
-        title: "Error while creating profile", 
+        title: "Error while creating profile",
         description: "Please try again.",
         variant: "destructive"
       });
@@ -64,20 +66,20 @@ export const SignupForm = () => {
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
           <div>
-            <CardTitle className="text-3xl">Join Open Europe Book</CardTitle>
+            <CardTitle className="text-3xl">{t("title")}</CardTitle>
             <CardDescription className="text-base mt-2">
-              Connect with readers across Europe to find and share rare books
+              {t("description")}
             </CardDescription>
           </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="nickname">Create Nickname</Label>
+              <Label htmlFor="nickname">{t("nickname-label")}</Label>
               <Input
                 id="nickname"
                 type="text"
-                placeholder="Enter your nickname"
+                placeholder={t("nickname-placeholder")}
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
                 className="transition-all focus:ring-2 focus:ring-primary/20"
@@ -86,10 +88,10 @@ export const SignupForm = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="library">Choose Nearest Library</Label>
+              <Label htmlFor="library">{t("library-label")}</Label>
               <Select value={selectedLibrary} onValueChange={setSelectedLibrary} required>
                 <SelectTrigger id="library" className="transition-all focus:ring-2 focus:ring-primary/20">
-                  <SelectValue placeholder="Select a library" />
+                  <SelectValue placeholder={t("library-placeholder")} />
                 </SelectTrigger>
                 <SelectContent className="bg-popover">
                   {LIBRARIES.map((library) => (
@@ -112,7 +114,7 @@ export const SignupForm = () => {
                 htmlFor="terms"
                 className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
               >
-                I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.
+                {t("terms-label")}
               </Label>
             </div>
 
@@ -122,12 +124,12 @@ export const SignupForm = () => {
               </div>
             )}
 
-            <Button 
-              type="submit" 
-              className="w-full" 
-              size="lg"              
+            <Button
+              type="submit"
+              className="w-full"
+              size="lg"
               disabled={!acceptedTerms || !nickname.trim() || !selectedLibrary}>
-                Create Account
+                {t("create-account")}
             </Button>
           </form>
         </CardContent>
