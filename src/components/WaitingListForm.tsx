@@ -58,34 +58,51 @@ export default function WaitingListForm() {
             return;
         }
 
+        setLoading(true);
+
         const formData = new FormData();
         formData.append('email', email);
         formData.append('zipCode', zipCode);
         formData.append('file', selectedFile);
         formData.append('link', link);
 
-        // TODO: Implement API call to upload file
-        toast({
-            title: "File is ready to be sent",
-            description: (
-                <div className="whitespace-pre-line">
-                    {`1. Go to the Posti website:
-https://www.posti.fi/en/private/send
+        try {
+            const response = await fetch('/api/waiting-list', {
+                method: 'POST',
+                body: formData,
+            });
 
-2. Select "Send Parcel"
+            const data = await response.json();
 
-3. Enter the sending address:
-{Adress of Smartpaper}
+            if (response.ok) {
+                toast({
+                    title: "Success!",
+                    description: "You've been added to the waiting list!",
+                });
 
-4. Enter your delivery address:
-Parcel Locker FI123456
-
-5. Enter your phone number
-
-6. Pay for delivery`}
-                </div>
-            ),
-        });
+                setEmail('');
+                setZipCode('');
+                setLink('');
+                setSelectedFile(null);
+                const fileInput = document.getElementById('fileUpload') as HTMLInputElement;
+                if (fileInput) fileInput.value = '';
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Error",
+                    description: data.error || "Failed to submit form. Please try again.",
+                });
+            }
+        } catch (error) {
+            console.error('Submit error:', error);
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Network error. Please check your connection and try again.",
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

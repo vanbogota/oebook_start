@@ -47,8 +47,8 @@ export const SignupForm = () => {
       await createUserProfile(nickname.trim(), selectedLibrary);
 
       toast({
-        title: t("success-title"),
-        description: t("success-description"),
+        title: "Success",
+        description: "Successfully created your profile.",
       });
 
       navigateToMain();
