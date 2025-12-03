@@ -40,7 +40,7 @@
     "found-books": "Löydetyt kirjat"
   },
   "SignUp": {
-    "title": "Liity Open Europe Bookiin",
+    "title": "Liity",
     "description": "Yhdisty lukijoihin ympäri Eurooppaa löytääksesi ja jakaaksesi harvinaisia kirjoja",
     "nickname-label": "Luo nimimerkki",
     "nickname-placeholder": "Anna nimimerkkisi",
@@ -80,7 +80,7 @@
   },
   "MainPage": {
     "search-button": "Kirjahaku",
-    "print-book-button": "Tulostustilaus"
+    "print-book-button": "Tilaa paperikirja"
   },
   "ScanRequest": {
     "title": "Pyyntö lähetetty onnistuneesti!",
@@ -133,6 +133,25 @@
     "error-message": "Tilauksen lähettämisessä tapahtui virhe. Yritä uudelleen.",
 
     "alert-message": "Valitse ladattavaksi Word- tai PDF-tiedosto.",
+    "alert-no-file": "Valitse tiedosto",
+    "required-fields": "Täytä kaikki vaaditut kentät",
+    "file-ready": "Tiedosto valmis ladattavaksi"
+  },
+  "WaitingListForm": {
+    "title": "Liity tulostusjonoon",
+    "description": "Ole ensimmäinen, joka saa tulostetun kirjan",
+    "email-label": "Sähköpostiosoitteesi",
+    "email-placeholder": "Syötä sähköpostiosoitteesi",
+    "zip-label": "Toimitusosoitteen postinumero",
+    "zip-placeholder": "Syötä toimitusosoitteen postinumero",
+    "link-label": "Lisää linkki kirjatiedostoon",
+    "link-placeholder": "Syötä linkki kirjatiedostoon",
+    "upload-label": "Lisää kuva kirjaston lainakuitista",
+    "submit-button": "Liity jonoon",
+    "submitting": "Lähetetään...",
+    "success-message": "Skannauspyyntösi on lähetetty onnistuneesti. Käsittelemme sen ja otamme sinuun pian yhteyttä.",
+    "error-message": "Skannauspyynnön lähettämisessä tapahtui virhe. Yritä uudelleen.",
+    "alert-message": "Valitse kuvatiedosto.",
     "alert-no-file": "Valitse tiedosto",
     "required-fields": "Täytä kaikki vaaditut kentät",
     "file-ready": "Tiedosto valmis ladattavaksi"
