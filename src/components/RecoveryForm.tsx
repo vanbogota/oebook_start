@@ -6,22 +6,14 @@ import { Label } from "@/components/common/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
 import { KeyRound } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigation } from "@/hooks/useNavigation";
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import { formatRecoveryCode, isValidRecoveryCode } from '@/utils/recoveryCode';
-import { UserProfile } from '@/types/interfaces';
 
 export const RecoveryForm = () => {
   const [recoveryCode, setRecoveryCode] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
-  const { navigateToMain } = useNavigation();
 
   const handleRecoveryCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatRecoveryCode(e.target.value);
-    setRecoveryCode(formatted);
+    setRecoveryCode(e.target.value);
     setError(null);
   };
 
@@ -29,68 +21,17 @@ export const RecoveryForm = () => {
     e.preventDefault();
 
     if (!recoveryCode.trim()) {
-      setError("Please enter your recovery code");
+      setError("Please enter your user ID");
       return;
     }
 
-    if (!isValidRecoveryCode(recoveryCode)) {
-      setError("Invalid recovery code format. Expected format: XXXX-XXXX-XXXX-XXXX");
-      return;
-    }
+    setError("Profile recovery is not available in demo mode. Your profile is stored locally on this device only.");
 
-    setError(null);
-    setLoading(true);
-
-    try {
-      // Ищем пользователя по recovery code в Firebase
-      const usersRef = collection(db, 'users');
-      const q = query(usersRef, where('recoveryCode', '==', recoveryCode));
-      const querySnapshot = await getDocs(q);
-      
-      if (querySnapshot.empty) {
-        setError("Recovery code not found. Please check and try again.");
-        setLoading(false);
-        return;
-      }
-
-      // Получаем первый (и единственный) документ
-      const userDoc = querySnapshot.docs[0];
-      const userData = userDoc.data();
-      const uid = userDoc.id;
-
-      const userProfile: UserProfile = {
-        uid,
-        nickname: userData.nickname,
-        library: userData.library,
-        recoveryCode: userData.recoveryCode,
-        createdAt: userData.createdAt?.toDate() || new Date(),
-        updatedAt: userData.updatedAt?.toDate() || new Date(),
-      };
-
-      // Сохраняем в localStorage
-      localStorage.setItem('oebook_uid', uid);
-      localStorage.setItem('oebook_profile', JSON.stringify(userProfile));
-
-      toast({
-        title: "Account restored successfully!",
-        description: `Welcome back, ${userData.nickname}!`,
-      });
-
-      // Перенаправляем на главную страницу
-      setTimeout(() => {
-        navigateToMain();
-      }, 500);
-    } catch (error) {
-      console.error('Error restoring account:', error);
-      setError("Failed to restore account. Please try again.");
-      toast({
-        title: "Error restoring account",
-        description: "Please check your recovery code and try again.",
-        variant: "destructive"
-      });
-    } finally {
-      setLoading(false);
-    }
+    toast({
+      title: "Recovery not available",
+      description: "Without a backend database, profiles cannot be recovered across devices. Your data is stored locally only.",
+      variant: "destructive"
+    });
   };
 
   return (
@@ -114,16 +55,14 @@ export const RecoveryForm = () => {
               <Input
                 id="recovery-code"
                 type="text"
-                placeholder="XXXX-XXXX-XXXX-XXXX"
+                placeholder="demo-user-XXXXX"
                 value={recoveryCode}
                 onChange={handleRecoveryCodeChange}
                 className="transition-all focus:ring-2 focus:ring-primary/20 font-mono text-lg"
-                maxLength={19}
                 required
-                disabled={loading}
               />
               <p className="text-xs text-muted-foreground">
-                Enter the 16-character code you received when you created your account
+                Note: Profile recovery is not available without a backend. Profiles are stored locally only.
               </p>
             </div>
 
@@ -137,9 +76,9 @@ export const RecoveryForm = () => {
               type="submit"
               className="w-full"
               size="lg"
-              disabled={!recoveryCode.trim() || loading}
+              disabled={!recoveryCode.trim()}
             >
-              {loading ? "Restoring..." : "Restore Account"}
+              Try Recovery (Demo Mode)
             </Button>
           </form>
         </CardContent>

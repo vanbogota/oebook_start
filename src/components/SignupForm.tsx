@@ -6,13 +6,12 @@ import { Label } from "@/components/common/label";
 import { Checkbox } from "@/components/common/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/common/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
-import { BookOpen, Copy, Check } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useToast } from "@/hooks/use-toast";
 import LIBRARIES from "@/data/libraries";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from 'use-intl';
-import { useRouter } from 'next/navigation';
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
@@ -20,8 +19,6 @@ export const SignupForm = () => {
   const [selectedLibrary, setSelectedLibrary] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [recoveryCode, setRecoveryCode] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
   const { toast } = useToast();
   const t = useTranslations("SignUp");
   const { navigateToMain, router } = useNavigation();
@@ -48,6 +45,12 @@ export const SignupForm = () => {
 
     try {
       await createUserProfile(nickname.trim(), selectedLibrary);
+
+      toast({
+        title: t("success-title"),
+        description: t("success-description"),
+      });
+
       navigateToMain();
     } catch (error) {
       console.error('Error creating profile:', error);
@@ -57,22 +60,6 @@ export const SignupForm = () => {
         variant: "destructive"
       });
     }
-  };
-
-  const handleCopyCode = async () => {
-    if (recoveryCode) {
-      await navigator.clipboard.writeText(recoveryCode);
-      setCopied(true);
-      toast({
-        title: "Recovery code copied!",
-        description: "Save it in a safe place.",
-      });
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
-  const handleContinue = () => {
-    navigateToMain();
   };
 
   return (
@@ -90,8 +77,7 @@ export const SignupForm = () => {
           </div>
         </CardHeader>
         <CardContent>
-          {!recoveryCode ? (
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="nickname">{t("nickname-label")}</Label>
                 <Input
@@ -163,78 +149,7 @@ export const SignupForm = () => {
                   Restore from Recovery Code
                 </Button>
               </div>
-            </form>
-          ) : (
-            <div className="space-y-6">
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-                <p className="text-sm font-medium text-green-800 dark:text-green-200 mb-2">
-                  ✓ Account created successfully!
-                </p>
-                <p className="text-xs text-green-700 dark:text-green-300">
-                  Your recovery code has been generated. Save it in a safe place - you&apos;ll need it to restore access to your account.
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="recovery-code" className="text-base font-semibold">
-                  Your Recovery Code
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="recovery-code"
-                    type="text"
-                    value={recoveryCode}
-                    readOnly
-                    className="font-mono text-lg pr-12 bg-muted/50 cursor-text select-all"
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-1 top-1/2 -translate-y-1/2"
-                    onClick={handleCopyCode}
-                  >
-                    {copied ? (
-                      <Check className="w-4 h-4 text-green-600" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Write this code down or save it securely. You won&apos;t be able to see it again.
-                </p>
-              </div>
-
-              <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-                <p className="text-xs text-amber-800 dark:text-amber-200">
-                  <strong>Important:</strong> This recovery code is the only way to restore access to your account on another device. Keep it safe!
-                </p>
-              </div>
-
-              <Button
-                onClick={handleContinue}
-                className="w-full"
-                size="lg"
-              >
-                Continue to App
-              </Button>
-
-              <div className="text-center pt-4 border-t">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Already have an account?
-                </p>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.push('/restore')}
-                  className="w-full"
-                >
-                  Restore from Recovery Code
-                </Button>
-              </div>
-            </div>
-          )}
+          </form>
         </CardContent>
       </Card>
     </div>
