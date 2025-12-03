@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { google } from "googleapis";
-import { env } from "process";
 
 export async function POST(request: NextRequest) {
   try {
