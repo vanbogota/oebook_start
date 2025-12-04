@@ -12,3 +12,12 @@ export interface Library {
     id: string;
     name: string;
 }
+
+export interface UserProfile {
+    uid: string;
+    nickname: string;
+    library: string;
+    recoveryCode: string;
+    createdAt: Date;
+    updatedAt: Date;
+}

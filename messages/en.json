@@ -40,7 +40,7 @@
     "found-books": "Found Books"
   },
   "SignUp": {
-    "title": "Join Open Europe Book",
+    "title": "Join",
     "description": "Connect with readers across Europe to find and share rare books",
     "nickname-label": "Create Nickname",
     "nickname-placeholder": "Enter your nickname",
@@ -83,7 +83,7 @@
   },
   "MainPage": {
     "search-button": "Book Search",
-    "print-book-button": "Print Order"
+    "print-book-button": "Order Paper Book"
   },
   "ScanRequest": {
     "title": "Request Submitted Successfully!",
@@ -125,6 +125,25 @@
     "success-message": "Your print order has been submitted successfully. We will process it and ship it to your address soon.",
     "error-message": "There was an error submitting your print order. Please try again.",
     "alert-message": "Please select a Word or PDF file to upload.",
+    "alert-no-file": "Please select a file",
+    "required-fields": "Please fill in all required fields",
+    "file-ready": "File is ready for upload"
+  },
+  "WaitingListForm": {
+    "title": "Join The Printing Queue",
+    "description": "Be the first one to receive the printed book",
+    "email-label": "Enter Your Email Address",
+    "email-placeholder": "Enter your email address",
+    "zip-label": "Postal Code of Delivery Location",
+    "zip-placeholder": "Enter delivery postal code",
+    "link-label": "Add Link to Source With Your Book File",
+    "link-placeholder": "Enter link to the book file",    
+    "upload-label": "Add a Photo of The Library Checkout Receipt",
+    "submit-button": "Join Queue",
+    "submitting": "Submitting...",
+    "success-message": "Your scan request has been submitted successfully. We will process it and get back to you soon.",
+    "error-message": "There was an error submitting your scan request. Please try again.",
+    "alert-message": "Please select a picture file.",
     "alert-no-file": "Please select a file",
     "required-fields": "Please fill in all required fields",
     "file-ready": "File is ready for upload"

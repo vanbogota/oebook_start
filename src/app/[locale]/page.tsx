@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
 
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useNavigation } from "@/hooks/useNavigation";
@@ -13,7 +12,7 @@ import { useNavigation } from "@/hooks/useNavigation";
 export default function Home() {
   const { userProfile } = useAuth();
   const t = useTranslations("Home");
-  const { navigateToSignup, navigateToMain } = useNavigation();
+  const { navigateToSignup, navigateToMain, router } = useNavigation();
 
   useEffect(() => {
     if (userProfile?.isProfileComplete) {
@@ -58,11 +57,11 @@ export default function Home() {
             <BookOpen className="w-10 h-10 text-primary-foreground" />
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            {t("hero-title")}
+          <h1 className="text-[9vw] sm:text-5xl md:text-7xl font-bold leading-tight">
+            OpenEuropeBooks™
           </h1>
 
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto bg-background/70 p-2 border rounded-lg text-color-foreground leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto bg-background/70 p-2 border rounded-lg text-color-foreground">
             {t("hero-subtitle")}
           </p>
 
@@ -74,15 +73,14 @@ export default function Home() {
             >
               {t("get-started")}
             </Button>
-            <a href="#learn-more">
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 bg-card/80 backdrop-blur-sm hover:bg-card transition-all"
-              >
-                {t("learn-more")}
-              </Button>
-            </a>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 bg-card/80 backdrop-blur-sm hover:bg-card transition-all"
+              onClick={() => router.push("#learn-more")}
+            >
+              {t("learn-more")}
+            </Button>
           </div>
         </div>
       </section>
