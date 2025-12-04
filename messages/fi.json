@@ -40,21 +40,24 @@
     "found-books": "Löydetyt kirjat"
   },
   "SignUp": {
-    "title": "Liity Open Europe Bookiin",
+    "title": "Liity Open Europe Book",
     "description": "Yhdisty lukijoihin ympäri Eurooppaa löytääksesi ja jakaaksesi harvinaisia kirjoja",
     "nickname-label": "Luo nimimerkki",
     "nickname-placeholder": "Anna nimimerkkisi",
     "library-label": "Valitse lähin kirjasto",
     "library-placeholder": "Valitse kirjasto",
     "create-account-button": "Luo tili",
-    "terms-label": "Hyväksyn palveluehdot. Ymmärrän, että kirjojen kopiointi tällä alustalla on VAIN YKSITYISKÄYTTÖÖN. Olen tarkistanut maani tekijänoikeuslait ja vahvistan, että minulla on lupa kopioida kirjoja henkilökohtaiseen käyttöön.",
+    "terms-dialog-title": "Palveluehdot",
+    "terms-label": "Hyväksyn <guidelines>palveluehdot</guidelines>.",
+    "terms": "Ymmärrän, että kirjojen kopiointi tällä alustalla on VAIN YKSITYISKÄYTTÖÖN. Olen tarkistanut maani tekijänoikeuslait ja vahvistan, että minulla on lupa kopioida kirjoja henkilökohtaiseen käyttöön.",
     "create-account": "Luo tili",
     "nickname-required": "Anna nimimerkki",
     "library-required": "Valitse lähin kirjasto",
     "terms-required": "Hyväksy palveluehdot",
     "create-account-error": "Tilin luominen epäonnistui.",
     "create-account-error-description": "Yritä uudelleen.",
-    "loading-message": "Luodaan tiliä..."
+    "loading-message": "Luodaan tiliä...",
+    "close": "Sulje"
   },
   "Search": {
     "title": "Etsi harvinaisia kirjoja",

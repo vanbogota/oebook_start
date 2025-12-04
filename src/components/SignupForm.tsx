@@ -1,17 +1,30 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Label } from "@/components/common/label";
 import { Checkbox } from "@/components/common/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/common/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/common/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/common/card";
 import { BookOpen } from "lucide-react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useToast } from "@/hooks/use-toast";
 import LIBRARIES from "@/data/libraries";
 import { useNavigation } from "@/hooks/useNavigation";
-import { useTranslations } from 'use-intl';
+import { useTranslations } from "use-intl";
+import Dialog from "./common/dialog";
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
@@ -22,6 +35,7 @@ export const SignupForm = () => {
   const { toast } = useToast();
   const t = useTranslations("SignUp");
   const { navigateToMain } = useNavigation();
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,13 +63,20 @@ export const SignupForm = () => {
       // Профиль создан успешно, перенаправляем на страницу поиска
       navigateToMain();
     } catch (error) {
-      console.error('Error creating profile:', error);
+      console.error("Error creating profile:", error);
       toast({
         title: "Error while creating profile",
         description: "Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
+  };
+
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+    console.log(
+      "I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country's copyright laws and confirm that I am allowed to copy books for personal use."
+    );
   };
 
   return (
@@ -89,8 +110,15 @@ export const SignupForm = () => {
 
             <div className="space-y-2">
               <Label htmlFor="library">{t("library-label")}</Label>
-              <Select value={selectedLibrary} onValueChange={setSelectedLibrary} required>
-                <SelectTrigger id="library" className="transition-all focus:ring-2 focus:ring-primary/20">
+              <Select
+                value={selectedLibrary}
+                onValueChange={setSelectedLibrary}
+                required
+              >
+                <SelectTrigger
+                  id="library"
+                  className="transition-all focus:ring-2 focus:ring-primary/20"
+                >
                   <SelectValue placeholder={t("library-placeholder")} />
                 </SelectTrigger>
                 <SelectContent className="bg-popover">
@@ -103,18 +131,31 @@ export const SignupForm = () => {
               </Select>
             </div>
 
-            <div className="flex items-start space-x-3">
+            <div className="flex space-x-3 items-center">
               <Checkbox
                 id="terms"
                 checked={acceptedTerms}
-                onCheckedChange={(checked) => setAcceptedTerms(checked as boolean)}
+                onCheckedChange={(checked) =>
+                  setAcceptedTerms(checked as boolean)
+                }
                 className="mt-1"
               />
               <Label
                 htmlFor="terms"
                 className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
               >
-                {t("terms-label")}
+                {t.rich("terms-label", {
+                  guidelines: (chunks) => (
+                    <Button
+                      variant="link"
+                      className="p-0 underline"
+                      asChild
+                      onClick={() => toggleModal()}
+                    >
+                      <span>{chunks}</span>
+                    </Button>
+                  ),
+                })}
               </Label>
             </div>
 
@@ -128,12 +169,20 @@ export const SignupForm = () => {
               type="submit"
               className="w-full"
               size="lg"
-              disabled={!acceptedTerms || !nickname.trim() || !selectedLibrary}>
-                {t("create-account")}
+              disabled={!acceptedTerms || !nickname.trim() || !selectedLibrary}
+            >
+              {t("create-account")}
             </Button>
           </form>
         </CardContent>
       </Card>
+      <Dialog
+        open={openModal}
+        onOpenChange={setOpenModal}
+        title={t("terms-dialog-title")}
+      >
+        <p className="whitespace-pre-line">{t("terms")}</p>
+      </Dialog>
     </div>
   );
-}
+};

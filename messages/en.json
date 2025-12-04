@@ -47,14 +47,17 @@
     "library-label": "Choose Nearest Library",
     "library-placeholder": "Select library",
     "create-account-button": "Create Account",
-    "terms-label": "I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.",
+    "terms-dialog-title": "Terms of Service",
+    "terms-label": "I accept <guidelines>the terms of service</guidelines>.",
+    "terms": "I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country's copyright laws and confirm that I am allowed to copy books for personal use.",
     "create-account": "Create Account",
     "nickname-required": "Please enter a nickname",
     "library-required": "Please select your nearest library",
     "terms-required": "Please accept the terms of service",
     "create-account-error": "Error while creating profile. ",
     "create-account-error-description": "Please try again.",
-    "loading-message": "Creating account..."
+    "loading-message": "Creating account...",
+    "close": "Close"
   },
   "Search": {
     "title": "Find Rare Books",
