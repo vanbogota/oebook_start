@@ -12,6 +12,7 @@ import PrintRequestForm from "@/components/PrintRequestForm";
 import BookSearch from "@/components/BookSearch";
 import { Printer, Search as SearchIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import WaitingListForm from "@/components/WaitingListForm";
 
 export default function MainPage() {
   const t = useTranslations("MainPage");
@@ -53,11 +54,12 @@ export default function MainPage() {
             </TabsTrigger>
           </TabsList>
 
+          <TabsContent value="print">
+            <WaitingListForm />
+            {/* <PrintRequestForm /> */}
+          </TabsContent>
           <TabsContent value="search">
             <BookSearch />
-          </TabsContent>
-          <TabsContent value="print">
-            <PrintRequestForm />
           </TabsContent>
         </Tabs>
       </div>

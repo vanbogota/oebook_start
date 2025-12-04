@@ -3,26 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/generate-firebase-config.js",
-    "prebuild": "node scripts/generate-firebase-config.js",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
-    "generate-firebase-config": "node scripts/generate-firebase-config.js"
+    "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.86.0",
     "@tailwindcss/forms": "^0.5.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "firebase": "^12.3.0",
     "lucide-react": "^0.552.0",
-    "next": "15.5.4",
+    "next": "^16.0.7",
     "next-intl": "^4.5.5",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "sonner": "^2.0.7"
   },
   "devDependencies": {
