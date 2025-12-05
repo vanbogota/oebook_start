@@ -28,8 +28,6 @@ export const COUNTRIES = [
   'New Zealand',
 ] as const;
 
-
-
 // TypeScript type for country strings
 export type Country = typeof COUNTRIES[number];
 
