@@ -69,7 +69,7 @@ export default function Home() {
             <Button
               size="lg"
               className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-              onClick={() => navigateToSignup()}
+              onClick={() => navigateToMain()}
             >
               {t("get-started")}
             </Button>
