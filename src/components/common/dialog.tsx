@@ -49,7 +49,11 @@ export default function Dialog({
         onClick={() => onOpenChange(false)}
       />
 
-      <div className="relative bg-background border rounded-lg shadow-xl max-w-lg max-h-[80vh] overflow-y-auto p-6">
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="relative bg-background border rounded-lg shadow-xl max-w-lg max-h-[80vh] overflow-y-auto p-6"
+      >
         <button
           onClick={() => onOpenChange(false)}
           aria-label={t("close")}
