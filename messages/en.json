@@ -53,6 +53,7 @@
     "nickname-required": "Please enter a nickname",
     "library-required": "Please select your nearest library",
     "terms-required": "Please accept the terms of service",
+    "countries-required": "Please accept the list of countries",
     "create-account-error": "Error while creating profile. ",
     "create-account-error-description": "Please try again.",
     "loading-message": "Creating account...",

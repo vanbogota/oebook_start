@@ -18,7 +18,13 @@ const CountriesPage = () => {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-8 w-full bg-gradient-to-br from-background via-secondary/30 to-background">
-	  <Button className="absolute font-bold left-[1rem] top-[1rem]" variant="link" onClick={()=>navigateToSignup()}> ← {t("back")}</Button>
+      <Button
+        className="absolute font-bold left-[1rem] top-[1rem]"
+        variant="link"
+        onClick={() => navigateToSignup()}
+      >
+        ← {t("back")}
+      </Button>
       <Card className="w-full shadow-xl max-w-4xl border-0 mt-10">
         <CardHeader className="space-y-4 text-center pb-8">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
@@ -33,8 +39,6 @@ const CountriesPage = () => {
         <CardContent className="space-y-8">
           {/* Countries with Both Systems */}
           <section>
-            <div className="flex items-center gap-3 mb-4">
-            </div>
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
               {COUNTRIES.map((country) => (
                 <div
@@ -47,7 +51,6 @@ const CountriesPage = () => {
               ))}
             </div>
           </section>
-
         </CardContent>
       </Card>
     </main>

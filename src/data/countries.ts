@@ -31,7 +31,6 @@ export const COUNTRIES = [
 
 
 // TypeScript type for country strings
-export type Country =
-  | typeof COUNTRIES[number];
+export type Country = typeof COUNTRIES[number];
 
 export default COUNTRIES;

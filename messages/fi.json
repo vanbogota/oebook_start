@@ -54,6 +54,7 @@
     "nickname-required": "Anna nimimerkki",
     "library-required": "Valitse lähin kirjasto",
     "terms-required": "Hyväksy palveluehdot",
+    "countries-required": "Hyväksy maiden luettelo",
     "create-account-error": "Tilin luominen epäonnistui.",
     "create-account-error-description": "Yritä uudelleen.",
     "loading-message": "Luodaan tiliä...",

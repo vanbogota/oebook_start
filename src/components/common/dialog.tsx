@@ -3,7 +3,7 @@
 import { X } from "lucide-react";
 import { useEffect } from "react";
 import { Button } from "./button";
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 
 type DialogProps = {
   open: boolean;
@@ -19,7 +19,7 @@ export default function Dialog({
   title,
 }: DialogProps) {
   const t = useTranslations("SignUp");
-  
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onOpenChange(false);
@@ -39,7 +39,11 @@ export default function Dialog({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
       <div
         className="absolute inset-0 bg-black/40"
         onClick={() => onOpenChange(false)}
@@ -48,6 +52,7 @@ export default function Dialog({
       <div className="relative bg-background border rounded-lg shadow-xl max-w-lg max-h-[80vh] overflow-y-auto p-6">
         <button
           onClick={() => onOpenChange(false)}
+          aria-label={t("close")}
           className="absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 transition-opacity"
         >
           <X className="h-4 w-4" />

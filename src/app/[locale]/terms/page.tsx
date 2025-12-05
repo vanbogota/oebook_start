@@ -1,5 +1,5 @@
 "use client";
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardHeader,
@@ -21,7 +21,6 @@ const TermsPage = () => {
         variant="link"
         onClick={() => navigateToSignup()}
       >
-        {" "}
         ← {t("back")}
       </Button>
       <Card className="w-full shadow-xl max-w-4xl border-0 mt-10 h-[80vh]">
