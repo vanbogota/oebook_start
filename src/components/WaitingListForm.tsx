@@ -3,7 +3,7 @@
 import { Printer, Upload } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./common/button";
-import { Card, CardHeader, CardTitle, CardContent } from "./common/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "./common/card";
 import { Input } from "./common/input";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "./common/label";
@@ -121,6 +121,9 @@ export default function WaitingListForm() {
             <CardContent className="space-y-4">
                 <div className="space-y-2">
                     <Label htmlFor="email">Your Email</Label>
+                    <CardDescription>
+                        Please avoid showing your real name, for your privacy
+                    </CardDescription>
                     <Input
                         id="email"
                         type="email"
@@ -166,7 +169,10 @@ export default function WaitingListForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="link" className="text-sm font-medium">Link to a Book File From Your Open Storage</Label>
+                    <Label htmlFor="link" className="text-sm font-medium">Add a Link to a Book File From Your Storage</Label>
+                    <CardDescription>
+                        A link to the book file should be publicly accessible for download. Avoid personal data in the link name.
+                    </CardDescription>
                     <Input
                         id="link"
                         placeholder="Enter link to book file here"

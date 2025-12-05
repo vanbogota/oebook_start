@@ -16,13 +16,15 @@ import WaitingListForm from "@/components/WaitingListForm";
 
 export default function MainPage() {
   const t = useTranslations("MainPage");
-  const [activeTab, setActiveTab] = useState<string>("print");
+  const [activeTab, setActiveTab] = useState<string>("waiting");
 
   useEffect(() => {
     const savedTab = sessionStorage.getItem("activeTab");
 
     if (savedTab === "search") {
       setActiveTab("search");
+    } else if (savedTab === "waiting") {
+      setActiveTab("waiting");
     } else {
       setActiveTab("print");
     }
@@ -43,18 +45,22 @@ export default function MainPage() {
           onValueChange={handleTabChange}
           className="w-full"
         >
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-            <TabsTrigger value="print" className="flex items-center gap-2">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-8">
+            <TabsTrigger value="waiting" className="flex items-center gap-2">
               <Printer className="w-4 h-4" />
-              {t("print-book-button")}
+              Join Waiting List
             </TabsTrigger>
             <TabsTrigger value="search" className="flex items-center gap-2">
               <SearchIcon className="w-4 h-4" />
               {t("search-button")}
             </TabsTrigger>
+            <TabsTrigger value="print" className="flex items-center gap-2">
+              <SearchIcon className="w-4 h-4" />
+              Order Paper Book
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="print">
+          <TabsContent value="waiting">
             <WaitingListForm />
             {/* <PrintRequestForm /> */}
           </TabsContent>

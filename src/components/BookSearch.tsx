@@ -178,7 +178,7 @@ const BookSearch = () => {
 					  )}
 					  {book.library && (
 						<p className="text-sm text-muted-foreground">
-						  <span className="font-semibold">Location:</span> {book.library}
+										<span className="font-semibold">Library Name:</span> {book.library}
 						</p>
 					  )}
 					</div>
