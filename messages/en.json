@@ -47,7 +47,7 @@
     "library-label": "Choose Nearest Library",
     "library-placeholder": "Select library",
     "create-account-button": "Create Account",
-    "terms-label1": "1. I confirm that - using this service -  I scan / copy the books for private use only, i.e. in conformity with applicable copyright laws, aka only in the <guidelines>countries</guidelines> where book authors receive fair royalties when I copy books from a public library collection.",
+    "terms-label1": "1. I confirm that, using this service, I scan / copy the books for private use only, i.e. in conformity with applicable copyright laws, aka only in the <guidelines>countries</guidelines> where book authors receive fair royalties when I copy books from a public library collection.",
     "terms-label2": "2. I confirm that I've read <guidelines>The Terms of Services</guidelines> and I consent to them.",
     "create-account": "Create Account",
     "nickname-required": "Please enter a nickname",
