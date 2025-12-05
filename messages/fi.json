@@ -48,8 +48,8 @@
     "library-placeholder": "Valitse kirjasto",
     "create-account-button": "Luo tili",
     "terms-dialog-title": "Palveluehdot",
-    "terms-label": "Hyväksyn <guidelines>palveluehdot</guidelines>.",
-    "terms": "Ymmärrän, että kirjojen kopiointi tällä alustalla on VAIN YKSITYISKÄYTTÖÖN. Olen tarkistanut maani tekijänoikeuslait ja vahvistan, että minulla on lupa kopioida kirjoja henkilökohtaiseen käyttöön.",
+    "terms-label1": "1. Vahvistan, että käytän tätä palvelua vain yksityiseen käyttöön skannatakseni / kopioidakseni kirjoja, eli sovellettavien tekijänoikeuslakien mukaisesti, toisin sanoen vain <guidelines>maissa</guidelines>, joissa kirjan tekijät saavat asianmukaiset rojaltit, kun kopioin kirjoja julkisesta kirjastokokoelmasta.",
+    "terms-label2": "2. Vahvistan, että olen lukenut <guidelines>Palvelun käyttöehdot</guidelines> ja hyväksyn ne.",
     "create-account": "Luo tili",
     "nickname-required": "Anna nimimerkki",
     "library-required": "Valitse lähin kirjasto",
@@ -91,50 +91,38 @@
     "submit-button": "Lähetä skannauspyyntö",
     "submitting": "Lähetetään...",
     "confirmation-message": "Skannauspyyntösi on lähetetty. Käsittelemme sen ja otamme sinuun pian yhteyttä.",
-
     "error-message": "Skannauspyynnön lähettäminen epäonnistui. Yritä uudelleen.",
     "no-book-selected": "Kirjaa ei valittu",
     "no-book-info": "Kirjan tietoja ei ole saatavilla. Palaa hakuun ja valitse kirja.",
     "back-to-search": "Takaisin hakusivulle",
     "back-to-search-results": "Takaisin hakutuloksiin",
     "view-profile": "Näytä profiilisi",
-
     "confirm-scan-request": "Vahvista skannauspyyntö",
     "confirm-details": "Vahvista skannattavaksi pyydettävän kirjan tiedot",
-
     "request-info": "Pyynnön tiedot",
     "request-date": "Pyynnön päivämäärä",
     "year": "Vuosi",
-
     "book-title": "Nimi",
     "book-authors": "Kirjoittajat",
     "book-isbn": "ISBN",
     "book-details": "Kirjan tiedot",
-
     "cancel": "Peruuta",
     "confirm-request": "Vahvista pyyntö"
   },
-
   "PrintRequest": {
     "title": "Paperikirjan tilaus",
     "description": "Täytä lomake tilataksesi paperikirjan",
-
     "phone-label": "Anna puhelinnumerosi",
     "phone-placeholder": "Syötä puhelinnumerosi",
-
     "zip-label": "Toimitusosoitteen postinumero",
     "zip-placeholder": "Syötä postinumero",
-
     "address-label": "Toimitusosoite",
     "address-placeholder": "Katuosoite, asunnon numero, kaupunki",
-
     "upload-label": "Lataa kirjan lähdetiedosto (Word tai PDF)",
     "submit-button": "Lähetä tilaus",
     "submitting": "Lähetetään...",
-
     "success-message": "Tilauksesi on lähetetty onnistuneesti. Käsittelemme sen ja toimitamme kirjan osoitteeseesi pian.",
     "error-message": "Tilauksen lähettämisessä tapahtui virhe. Yritä uudelleen.",
-
     "alert-message": "Valitse ladattavaksi Word- tai PDF-tiedosto.",
     "alert-no-file": "Valitse tiedosto",
     "required-fields": "Täytä kaikki vaaditut kentät",
@@ -158,5 +146,15 @@
     "alert-no-file": "Valitse tiedosto",
     "required-fields": "Täytä kaikki vaaditut kentät",
     "file-ready": "Tiedosto valmis ladattavaksi"
+  },
+  "Terms": {
+    "title": "Palveluehdot",
+    "back": "Takaisin"
+  },
+  "Countries": {
+    "title": "Maat",
+    "description": "Tässä on luettelo maista, joissa on käytössä sekä yksityisen kopioinnin hyvitysmaksujärjestelmä (ei-kaupalliseen yksityiseen käyttöön) että Public Lending Right (PLR) -järjestelmä. Tämä tarkoittaa, että kun luonnollinen henkilö kopioi kirjan omaan käyttöönsä yleisestä kirjastosta, kirjan tekijä saa rojaltit näiden järjestelmien kautta.",
+    "subtitle": "Maat, joissa on sekä yksityisen kopioinnin hyvitysmaksu että Public Lending Right -järjestelmä:",
+    "back": "Takaisin"
   }
 }
