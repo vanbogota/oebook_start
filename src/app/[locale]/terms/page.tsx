@@ -26,7 +26,6 @@ const TermsPage = () => {
       <Card className="w-full shadow-xl max-w-4xl border-0 mt-10 h-[80vh]">
         <CardHeader className="space-y-4 text-center pb-8">
           <CardTitle className="text-2xl text-left">{t("title")}</CardTitle>
-          <CardDescription className="text-base mt-2 max-w-2xl  mx-auto"></CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-8"></CardContent>
