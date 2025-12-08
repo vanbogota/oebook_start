@@ -47,14 +47,48 @@
     "library-label": "Valitse lähin kirjasto",
     "library-placeholder": "Valitse kirjasto",
     "create-account-button": "Luo tili",
-    "terms-label": "Hyväksyn palveluehdot. Ymmärrän, että kirjojen kopiointi tällä alustalla on VAIN YKSITYISKÄYTTÖÖN. Olen tarkistanut maani tekijänoikeuslait ja vahvistan, että minulla on lupa kopioida kirjoja henkilökohtaiseen käyttöön.",
+    "terms-dialog-title": "Palveluehdot",
+    "terms-label1-1": "1. Vahvistan, että käyttäessäni tätä palvelua skannaan tai kopioin kirjoja vain omaan yksityiseen käyttööni, voimassa olevan tekijänoikeuslainsäädännön mukaisesti: ",
+    "terms-label1-2": " , jonka mukaan kirjailijat saavat asianmukaisen korvauksen, kun kopioin kirjoja yleisen kirjaston kokoelmasta.",
+    "terms-label2": "2. Vahvistan, että olen lukenut <guidelines>Palvelun käyttöehdot</guidelines> ja hyväksyn ne.",
     "create-account": "Luo tili",
     "nickname-required": "Anna nimimerkki",
     "library-required": "Valitse lähin kirjasto",
     "terms-required": "Hyväksy palveluehdot",
+    "select-country-error": "Valitse maa",
     "create-account-error": "Tilin luominen epäonnistui.",
     "create-account-error-description": "Yritä uudelleen.",
-    "loading-message": "Luodaan tiliä..."
+    "loading-message": "Luodaan tiliä...",
+    "close": "Sulje",
+    "country-placeholder": "Valitse maa",
+    "Countries": {
+      "Austria": "Itävalta",
+      "Belgium": "Belgia",
+      "Denmark": "Tanska",
+      "Estonia": "Viro",
+      "Finland": "Suomi",
+      "France": "Ranska",
+      "Germany": "Saksa",
+      "Greece": "Kreikka",
+      "Hungary": "Unkari",
+      "Italy": "Italia",
+      "Latvia": "Latvia",
+      "Lithuania": "Liettua",
+      "Malta": "Malta",
+      "Netherlands": "Alankomaat",
+      "Norway": "Norja",
+      "Poland": "Puola",
+      "Portugal": "Portugali",
+      "Romania": "Romania",
+      "Slovakia": "Slovakia",
+      "Slovenia": "Slovenia",
+      "Spain": "Espanja",
+      "Sweden": "Ruotsi",
+      "Australia": "Australia",
+      "Canada": "Kanada",
+      "Israel": "Israel",
+      "New Zealand": "Uusi-Seelanti"
+    }
   },
   "Search": {
     "title": "Etsi harvinaisia kirjoja",
@@ -88,50 +122,38 @@
     "submit-button": "Lähetä skannauspyyntö",
     "submitting": "Lähetetään...",
     "confirmation-message": "Skannauspyyntösi on lähetetty. Käsittelemme sen ja otamme sinuun pian yhteyttä.",
-
     "error-message": "Skannauspyynnön lähettäminen epäonnistui. Yritä uudelleen.",
     "no-book-selected": "Kirjaa ei valittu",
     "no-book-info": "Kirjan tietoja ei ole saatavilla. Palaa hakuun ja valitse kirja.",
     "back-to-search": "Takaisin hakusivulle",
     "back-to-search-results": "Takaisin hakutuloksiin",
     "view-profile": "Näytä profiilisi",
-
     "confirm-scan-request": "Vahvista skannauspyyntö",
     "confirm-details": "Vahvista skannattavaksi pyydettävän kirjan tiedot",
-
     "request-info": "Pyynnön tiedot",
     "request-date": "Pyynnön päivämäärä",
     "year": "Vuosi",
-
     "book-title": "Nimi",
     "book-authors": "Kirjoittajat",
     "book-isbn": "ISBN",
     "book-details": "Kirjan tiedot",
-
     "cancel": "Peruuta",
     "confirm-request": "Vahvista pyyntö"
   },
-
   "PrintRequest": {
     "title": "Paperikirjan tilaus",
     "description": "Täytä lomake tilataksesi paperikirjan",
-
     "phone-label": "Anna puhelinnumerosi",
     "phone-placeholder": "Syötä puhelinnumerosi",
-
     "zip-label": "Toimitusosoitteen postinumero",
     "zip-placeholder": "Syötä postinumero",
-
     "address-label": "Toimitusosoite",
     "address-placeholder": "Katuosoite, asunnon numero, kaupunki",
-
     "upload-label": "Lataa kirjan lähdetiedosto (Word tai PDF)",
     "submit-button": "Lähetä tilaus",
     "submitting": "Lähetetään...",
-
     "success-message": "Tilauksesi on lähetetty onnistuneesti. Käsittelemme sen ja toimitamme kirjan osoitteeseesi pian.",
     "error-message": "Tilauksen lähettämisessä tapahtui virhe. Yritä uudelleen.",
-
     "alert-message": "Valitse ladattavaksi Word- tai PDF-tiedosto.",
     "alert-no-file": "Valitse tiedosto",
     "required-fields": "Täytä kaikki vaaditut kentät",
@@ -155,5 +177,17 @@
     "alert-no-file": "Valitse tiedosto",
     "required-fields": "Täytä kaikki vaaditut kentät",
     "file-ready": "Tiedosto valmis ladattavaksi"
+  },
+  "Terms": {
+    "title": "Palveluehdot",
+    "back": "Takaisin",
+    "section1Title": "1. Johdanto",
+    "section1Body": "Tervetuloa palveluumme. Käyttämällä tätä sovellusta hyväksyt seuraavat ehdot. Lue ne huolellisesti ennen jatkamista.",
+    "section2Title": "2. Palvelun käyttö",
+    "section2Body": "Voit käyttää tätä sovellusta etsiäksesi kirjoja eurooppalaisista kirjastoista Finna-rajapinnan kautta. Sitoudut olemaan käyttämättä palvelua väärin tai yrittämättä päästä käsiksi tietoihin, joihin sinulla ei ole lupaa.",
+    "section3Title": "3. Vastuunrajoitus",
+    "section3Body": "Tarjoamme tämän palvelun sellaisenaan emmekä anna takeita sen saatavuudesta tai tarkkuudesta. Emme ole vastuussa mistään vahingoista, jotka johtuvat tämän sovelluksen käytöstä.",
+    "section4Title": "4. Ehtojen muutokset",
+    "section4Body": "Pidätämme oikeuden päivittää näitä ehtoja milloin tahansa. Palvelun käytön jatkaminen merkitsee uusien ehtojen hyväksymistä."
   }
 }
