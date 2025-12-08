@@ -30,46 +30,20 @@ const TermsPage = () => {
 
         <CardContent className="space-y-8">
           <section className="prose max-w-none">
-            <h2 className="text-xl font-semibold mb-4">{t("section1Title", { default: "1. Introduction" })}</h2>
-            <p>
-              {t(
-                "section1Body",
-                {
-                  default:
-                    "Welcome to our service. By using this application, you agree to the following terms and conditions. Please read them carefully before proceeding."
-                }
-              )}
-            </p>
-            <h2 className="text-xl font-semibold mt-8 mb-4">{t("section2Title", { default: "2. Use of Service" })}</h2>
-            <p>
-              {t(
-                "section2Body",
-                {
-                  default:
-                    "You may use this application to search for books in European libraries via the Finna API. You agree not to misuse the service or attempt to access data you are not authorized to view."
-                }
-              )}
-            </p>
-            <h2 className="text-xl font-semibold mt-8 mb-4">{t("section3Title", { default: "3. Limitation of Liability" })}</h2>
-            <p>
-              {t(
-                "section3Body",
-                {
-                  default:
-                    "We provide this service as-is and make no guarantees regarding its availability or accuracy. We are not responsible for any damages resulting from the use of this application."
-                }
-              )}
-            </p>
-            <h2 className="text-xl font-semibold mt-8 mb-4">{t("section4Title", { default: "4. Changes to Terms" })}</h2>
-            <p>
-              {t(
-                "section4Body",
-                {
-                  default:
-                    "We reserve the right to update these terms at any time. Continued use of the service constitutes acceptance of the new terms."
-                }
-              )}
-            </p>
+            <h2 className="text-xl font-semibold mb-4">{t("section1Title")}</h2>
+            <p>{t("section1Body")}</p>
+            <h2 className="text-xl font-semibold mt-8 mb-4">
+              {t("section2Title")}
+            </h2>
+            <p>{t("section2Body")}</p>
+            <h2 className="text-xl font-semibold mt-8 mb-4">
+              {t("section3Title")}
+            </h2>
+            <p>{t("section3Body")}</p>
+            <h2 className="text-xl font-semibold mt-8 mb-4">
+              {t("section4Title")}
+            </h2>
+            <p>{t("section4Body")}</p>
           </section>
         </CardContent>
       </Card>
