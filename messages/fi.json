@@ -48,17 +48,47 @@
     "library-placeholder": "Valitse kirjasto",
     "create-account-button": "Luo tili",
     "terms-dialog-title": "Palveluehdot",
-    "terms-label1": "1. Vahvistan, että käytän tätä palvelua vain yksityiseen käyttöön skannatakseni / kopioidakseni kirjoja, eli sovellettavien tekijänoikeuslakien mukaisesti, toisin sanoen vain <guidelines>maissa</guidelines>, joissa kirjan tekijät saavat asianmukaiset rojaltit, kun kopioin kirjoja julkisesta kirjastokokoelmasta.",
+    "terms-label1-1": "1. Vahvistan, että käyttäessäni tätä palvelua skannaan tai kopioin kirjoja vain omaan yksityiseen käyttööni, voimassa olevan tekijänoikeuslainsäädännön mukaisesti: ",
+    "terms-label1-2": " , jonka mukaan kirjailijat saavat asianmukaisen korvauksen, kun kopioin kirjoja yleisen kirjaston kokoelmasta.",
     "terms-label2": "2. Vahvistan, että olen lukenut <guidelines>Palvelun käyttöehdot</guidelines> ja hyväksyn ne.",
     "create-account": "Luo tili",
     "nickname-required": "Anna nimimerkki",
     "library-required": "Valitse lähin kirjasto",
     "terms-required": "Hyväksy palveluehdot",
-    "countries-required": "Hyväksy maiden luettelo",
+    "select-country-error": "Valitse maa",
     "create-account-error": "Tilin luominen epäonnistui.",
     "create-account-error-description": "Yritä uudelleen.",
     "loading-message": "Luodaan tiliä...",
-    "close": "Sulje"
+    "close": "Sulje",
+    "country-placeholder": "Valitse maa",
+    "Countries": {
+      "Austria": "Itävalta",
+      "Belgium": "Belgia",
+      "Denmark": "Tanska",
+      "Estonia": "Viro",
+      "Finland": "Suomi",
+      "France": "Ranska",
+      "Germany": "Saksa",
+      "Greece": "Kreikka",
+      "Hungary": "Unkari",
+      "Italy": "Italia",
+      "Latvia": "Latvia",
+      "Lithuania": "Liettua",
+      "Malta": "Malta",
+      "Netherlands": "Alankomaat",
+      "Norway": "Norja",
+      "Poland": "Puola",
+      "Portugal": "Portugali",
+      "Romania": "Romania",
+      "Slovakia": "Slovakia",
+      "Slovenia": "Slovenia",
+      "Spain": "Espanja",
+      "Sweden": "Ruotsi",
+      "Australia": "Australia",
+      "Canada": "Kanada",
+      "Israel": "Israel",
+      "New Zealand": "Uusi-Seelanti"
+    }
   },
   "Search": {
     "title": "Etsi harvinaisia kirjoja",
@@ -150,12 +180,6 @@
   },
   "Terms": {
     "title": "Palveluehdot",
-    "back": "Takaisin"
-  },
-  "Countries": {
-    "title": "Maat",
-    "description": "Tässä on luettelo maista, joissa on käytössä sekä yksityisen kopioinnin hyvitysmaksujärjestelmä (ei-kaupalliseen yksityiseen käyttöön) että Public Lending Right (PLR) -järjestelmä. Tämä tarkoittaa, että kun luonnollinen henkilö kopioi kirjan omaan käyttöönsä yleisestä kirjastosta, kirjan tekijä saa rojaltit näiden järjestelmien kautta.",
-    "subtitle": "Maat, joissa on sekä yksityisen kopioinnin hyvitysmaksu että Public Lending Right -järjestelmä:",
     "back": "Takaisin"
   }
 }

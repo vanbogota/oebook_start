@@ -25,11 +25,13 @@ import LIBRARIES from "@/data/libraries";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from "use-intl";
 import Link from "next/link";
+import COUNTRIES from "@/data/countries";
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
   const [nickname, setNickname] = useState("");
   const [selectedLibrary, setSelectedLibrary] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedCountries, setAcceptedCountries] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,15 +56,15 @@ export const SignupForm = () => {
       setError(t("terms-required"));
       return;
     }
-    if (!acceptedCountries) {
-      setError(t("countries-required"));
-      return;
-    }
 
     setError(null);
 
     try {
-      await createUserProfile(nickname.trim(), selectedLibrary);
+      await createUserProfile(
+        nickname.trim(),
+        selectedLibrary,
+        selectedCountry
+      );
 
       toast({
         title: "Success",
@@ -78,6 +80,21 @@ export const SignupForm = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleAcceptCountries = (checked: boolean) => {
+    if (selectedCountry === "") {
+      setAcceptedCountries(false);
+      setError(t("select-country-error"));
+      return;
+    } else {
+      setAcceptedCountries(checked);
+    }
+  };
+
+  const handleSelectCountry = (country: string) => {
+    setSelectedCountry(country);
+    setError(null);
   };
 
   return (
@@ -139,7 +156,7 @@ export const SignupForm = () => {
                 id="countries"
                 checked={acceptedCountries}
                 onCheckedChange={(checked) =>
-                  setAcceptedCountries(checked as boolean)
+                  handleAcceptCountries(checked as boolean)
                 }
                 className="mt-1"
               />
@@ -147,12 +164,28 @@ export const SignupForm = () => {
                 htmlFor="countries"
                 className="text-sm text-muted-foreground leading-relaxed cursor-pointer flex flex-col"
               >
-                <span>
-                  {t.rich("terms-label1", {
-                    guidelines: (chunks) => (
-                      <Link className="underline" href={`/${locale}/countries`}>{chunks}</Link>
-                    ),
-                  })}
+                <span className="inline w-auto">
+                  {t("terms-label1-1")}
+                  <Select
+                    value={selectedCountry}
+                    onValueChange={handleSelectCountry}
+                    required
+                  >
+                    <SelectTrigger
+                      id="country"
+                      className="transition-all focus:none border-hidden py-0 underline h-6 w-auto inline-flex align-baseline focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 gap-2"
+                    >
+                      <SelectValue placeholder={t("country-placeholder")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover">
+                      {COUNTRIES.map((country) => (
+                        <SelectItem key={country} value={country}>
+                          {t(`Countries.${country}`)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {t("terms-label1-2")}
                 </span>
               </Label>
             </div>
@@ -172,7 +205,9 @@ export const SignupForm = () => {
                 <span>
                   {t.rich("terms-label2", {
                     guidelines: (chunks) => (
-                      <Link className="underline" href={`/${locale}/terms`}>{chunks}</Link>
+                      <Link className="underline" href={`/${locale}/terms`}>
+                        {chunks}
+                      </Link>
                     ),
                   })}{" "}
                 </span>
@@ -189,7 +224,12 @@ export const SignupForm = () => {
               type="submit"
               className="w-full"
               size="lg"
-              disabled={!acceptedTerms || !acceptedCountries || !nickname.trim() || !selectedLibrary}
+              disabled={
+                !acceptedTerms ||
+                !acceptedCountries ||
+                !nickname.trim() ||
+                !selectedLibrary
+              }
             >
               {t("create-account")}
             </Button>

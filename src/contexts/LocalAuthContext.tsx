@@ -21,7 +21,7 @@ type AuthContextType = {
   // signInAnonymous: () => Promise<void>;
   signOut: () => Promise<void>;
   updateUserProfile: (data: Partial<UserProfile>) => Promise<void>;
-  createUserProfile: (nickname: string, library: string) => Promise<void>;
+  createUserProfile: (nickname: string, library: string, country: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -126,7 +126,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const createUserProfile = async (nickname: string, library: string) => {
+  const createUserProfile = async (nickname: string, library: string, country: string) => {
     if (!mounted) return;
 
     const timestamp = Date.now();
@@ -138,6 +138,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         uid: newUid,
         nickname,
         library,
+        country,
         isProfileComplete: true,
         createdAt: new Date(),
         updatedAt: new Date(),

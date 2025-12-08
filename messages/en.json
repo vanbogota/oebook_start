@@ -47,17 +47,47 @@
     "library-label": "Choose Nearest Library",
     "library-placeholder": "Select library",
     "create-account-button": "Create Account",
-    "terms-label1": "1. I confirm that, using this service, I scan / copy the books for private use only, i.e. in conformity with applicable copyright laws, aka only in the <guidelines>countries</guidelines> where book authors receive fair royalties when I copy books from a public library collection.",
+    "terms-label1-1": "1. I confirm that, by using this service, I scan or copy books for my private use only, in accordance with the applicable copyright laws in ",
+    "terms-label1-2": " , under which book authors receive fair compensation when I copy books from a public library collection.",
     "terms-label2": "2. I confirm that I've read <guidelines>The Terms of Service</guidelines> and I consent to them.",
     "create-account": "Create Account",
     "nickname-required": "Please enter a nickname",
     "library-required": "Please select your nearest library",
     "terms-required": "Please accept the terms of service",
-    "countries-required": "Please accept the list of countries",
+    "select-country-error": "Please select a country",
     "create-account-error": "Error while creating profile. ",
     "create-account-error-description": "Please try again.",
     "loading-message": "Creating account...",
-    "close": "Close"
+    "close": "Close",
+    "country-placeholder": "Select country",
+    "Countries": {
+      "Austria": "Austria",
+      "Belgium": "Belgium",
+      "Denmark": "Denmark",
+      "Estonia": "Estonia",
+      "Finland": "Finland",
+      "France": "France",
+      "Germany": "Germany",
+      "Greece": "Greece",
+      "Hungary": "Hungary",
+      "Italy": "Italy",
+      "Latvia": "Latvia",
+      "Lithuania": "Lithuania",
+      "Malta": "Malta",
+      "Netherlands": "Netherlands",
+      "Norway": "Norway",
+      "Poland": "Poland",
+      "Portugal": "Portugal",
+      "Romania": "Romania",
+      "Slovakia": "Slovakia",
+      "Slovenia": "Slovenia",
+      "Spain": "Spain",
+      "Sweden": "Sweden",
+      "Australia": "Australia",
+      "Canada": "Canada",
+      "Israel": "Israel",
+      "New Zealand": "New Zealand"
+    }
   },
   "Search": {
     "title": "Find Rare Books",
@@ -149,12 +179,6 @@
   },
   "Terms": {
     "title": "Terms of Service",
-    "back": "Back"
-  },
-  "Countries": {
-    "title": "Countries",
-    "description": "Here is a list of countries where both a Private Copying Levy system (for non-commercial private use) and a Public Lending Right (PLR) system are in place. This means that when a book is copied by a natural person for their own use from a public library, the library book author receives royalties through these systems:",
-    "subtitle": "Countries with Both Private Copying Levy and Public Lending Right Systems:",
     "back": "Back"
   }
 }
