@@ -113,7 +113,8 @@
   },
   "MainPage": {
     "search-button": "Book Search",
-    "print-book-button": "Order Paper Book"
+    "print-book-button": "Order Paper Book",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
   },
   "ScanRequest": {
     "title": "Request Submitted Successfully!",
@@ -159,15 +160,20 @@
     "file-ready": "File is ready for upload"
   },
   "WaitingListForm": {
-    "title": "Join The Printing Queue",
-    "description": "Be the first one to receive the printed book",
-    "email-label": "Enter Your Email Address",
-    "email-placeholder": "Enter your email address",
-    "zip-label": "Postal Code of Delivery Location",
-    "zip-placeholder": "Enter delivery postal code",
+    "title": "Join The Waiting List",
+    "description1": "Be among the first to receive your printed book!",
+    "description2": "As we`re just starting out, we`re currently collecting our first orders.",
+    "description3": "Join the waiting list by filling out the form below. We'll send you email as soon as we are ready to deliver Œbœks.",
+    "description4": "We will print the book you want. Please provide a correct PDF file. Use the instructions: <guidlines>here</guidlines>",
+    "description5": "Attention: The book, that you scan, must be obtained legally, by EU law. This means you must have a photo of the library checkout receipt. Please upload it below.",
+    "avoid-real-name": " Please avoid showing your real name, for your privacy",
+    "email-label": "Your Email",
+    "email-placeholder": "Enter your email",
+    "zip-label": "Zip Code of Delivery Address",
+    "zip-placeholder": "Enter zip code",
     "link-label": "Add Link to Source With Your Book File",
-    "link-placeholder": "Enter link to the book file",
-    "upload-label": "Add a Photo of The Library Checkout Receipt",
+    "link-placeholder": "Enter link to book file here",
+    "library-receipt": "Add a Photo of The Library Checkout Receipt",
     "submit-button": "Join Queue",
     "submitting": "Submitting...",
     "success-message": "Your scan request has been submitted successfully. We will process it and get back to you soon.",
@@ -175,7 +181,10 @@
     "alert-message": "Please select a picture file.",
     "alert-no-file": "Please select a file",
     "required-fields": "Please fill in all required fields",
-    "file-ready": "File is ready for upload"
+    "file-ready": "File is ready for upload",
+    "add-link": "Add a Link to a Book File From Your Storage",
+    "link-instruction": "A link to the book file should be publicly accessible for download. Avoid personal data in the link name."
+
   },
   "Terms": {
     "title": "Terms of Service",

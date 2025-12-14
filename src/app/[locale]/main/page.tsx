@@ -67,6 +67,11 @@ export default function MainPage() {
           <TabsContent value="search">
             <BookSearch />
           </TabsContent>
+          <TabsContent value="print">
+             <div className="text-center">{t.rich("page-under-construction", {
+              important: (chunks) => <b className="underline" onClick={()=> handleTabChange("waiting")}>{chunks}</b>,
+             })}</div>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
