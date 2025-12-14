@@ -34,7 +34,7 @@ export default function WaitingListForm() {
                 setSelectedFile(file);
             } else {
                 alert(t("alert-message"));
-                e.target.value = '';                
+                e.target.value = '';
             }
         }
     };
@@ -108,26 +108,25 @@ export default function WaitingListForm() {
     return (
         <Card className="shadow-lg">
             <CardHeader>
-                <CardTitle>Join The Waiting List</CardTitle>
+                <CardTitle>{t("title")}</CardTitle>
             </CardHeader>
             <CardContent className="text-sm">
-                    <p>Be among the first to receive your printed book!</p>
-                    <p>As we`re just starting out, we`re currently collecting our first orders.</p>
-                    <p>Join the waiting list by filling out the form below.</p>
-                    <p className="mt-4">We will print the book you want. Please provide a correct PDF file. Use the instructions: <a href="#" target="_blank">here</a></p>
-                    <p className="mt-4 text-red-500">Attention: The book, that you scan, must be obtained legally, by EU law. This means you must have a photo of the library checkout receipt. Please upload it below.</p>
-                    {/* {t("description")} */}
+                    <p>{t("description1")}</p>
+                    <p>{t("description2")}</p>
+                    <p>{t("description3")}</p>
+                    <p className="mt-4">{t.rich("description4", { guidlines: (chunks) => <a href="#" target="_blank">{chunks}</a>})}</p>
+                    <p className="mt-4 text-red-500">{t("description5")}</p>
             </CardContent>
             <CardContent className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="email">Your Email</Label>
+                    <Label htmlFor="email">{t("email-label")}</Label>
                     <CardDescription>
-                        Please avoid showing your real name, for your privacy
+                        {t("avoid-real-name")}
                     </CardDescription>
                     <Input
                         id="email"
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder={t("email-placeholder")}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="transition-all focus:ring-2 focus:ring-primary/20"
@@ -136,11 +135,11 @@ export default function WaitingListForm() {
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="zipCode">Zip Code of Delivery Address</Label>
+                    <Label htmlFor="zipCode">{t("zip-label")}</Label>
                     <Input
                         id="zipCode"
                         type="number"
-                        placeholder="Enter zip code"
+                        placeholder={t("zip-placeholder")}
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
                         className="transition-all focus:ring-2 focus:ring-primary/20"
@@ -150,7 +149,7 @@ export default function WaitingListForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="fileUpload" className="text-sm font-medium">Add a Photo of The Library Checkout Receipt</Label>
+                    <Label htmlFor="fileUpload" className="text-sm font-medium">{t("library-receipt")}</Label>
                     <div className="flex items-center gap-2">
                         <Input
                             id="fileUpload"
@@ -169,13 +168,13 @@ export default function WaitingListForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="link" className="text-sm font-medium">Add a Link to a Book File From Your Storage</Label>
+                    <Label htmlFor="link" className="text-sm font-medium">{t("add-link")}</Label>
                     <CardDescription>
-                        A link to the book file should be publicly accessible for download. Avoid personal data in the link name.
+                        {t("link-instruction")}
                     </CardDescription>
                     <Input
                         id="link"
-                        placeholder="Enter link to book file here"
+                        placeholder={t("link-placeholder")}
                         value={link}
                         onChange={(e) => setLink(e.target.value)}
                         disabled={loading}

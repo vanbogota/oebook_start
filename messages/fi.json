@@ -114,7 +114,8 @@
   },
   "MainPage": {
     "search-button": "Kirjahaku",
-    "print-book-button": "Tilaa paperikirja"
+    "print-book-button": "Tilaa paperikirja",
+    "page-under-construction": "Tämä sivu on rakenteilla. Siirry sivulle <important>Odotuslista</important>."
   },
   "ScanRequest": {
     "title": "Pyyntö lähetetty onnistuneesti!",
@@ -161,14 +162,19 @@
   },
   "WaitingListForm": {
     "title": "Liity tulostusjonoon",
-    "description": "Ole ensimmäinen, joka saa tulostetun kirjan",
+    "description1": "Ole ensimmäisten joukossa vastaanottamassa painettua kirjaasi!",
+    "description2": "Koska olemme vasta aloittamassa, keräämme parhaillaan ensimmäisiä tilauksiamme.",
+    "description3": "Liity jonotuslistalle täyttämällä alla oleva lomake. Lähetämme sinulle sähköpostia heti, kun olemme valmiita toimittamaan Œbœks-kirjoja.",
+    "description4": "Painamme haluamasi kirjan. Varmistathan, että toimitat oikean PDF-tiedoston. Käytä ohjeita: <guidlines>täällä</guidlines>.",
+    "description5": "Huomio: Skannaamasi kirjan on oltava hankittu laillisesti EU-lainsäädännön mukaisesti. Tämä tarkoittaa, että sinulla tulee olla valokuva kirjaston lainauskuitista. Lataa se alle.",
+    "avoid-real-name": "Vältäthän oikean nimesi näyttämistä yksityisyytesi suojaamiseksi",
     "email-label": "Sähköpostiosoitteesi",
     "email-placeholder": "Syötä sähköpostiosoitteesi",
     "zip-label": "Toimitusosoitteen postinumero",
     "zip-placeholder": "Syötä toimitusosoitteen postinumero",
     "link-label": "Lisää linkki kirjatiedostoon",
     "link-placeholder": "Syötä linkki kirjatiedostoon",
-    "upload-label": "Lisää kuva kirjaston lainakuitista",
+    "library-receipt": "Lisää kuva kirjaston lainakuitista",
     "submit-button": "Liity jonoon",
     "submitting": "Lähetetään...",
     "success-message": "Skannauspyyntösi on lähetetty onnistuneesti. Käsittelemme sen ja otamme sinuun pian yhteyttä.",
@@ -176,7 +182,9 @@
     "alert-message": "Valitse kuvatiedosto.",
     "alert-no-file": "Valitse tiedosto",
     "required-fields": "Täytä kaikki vaaditut kentät",
-    "file-ready": "Tiedosto valmis ladattavaksi"
+    "file-ready": "Tiedosto valmis ladattavaksi",
+    "add-link": "Lisää linkki kirjatiedostoon omasta tallennustilastasi",
+    "link-instruction": "Kirjatiedoston linkin tulee olla julkisesti ladattavissa. Vältä henkilökohtaisia tietoja linkin nimessä."
   },
   "Terms": {
     "title": "Palveluehdot",
