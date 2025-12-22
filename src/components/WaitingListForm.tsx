@@ -114,7 +114,7 @@ export default function WaitingListForm() {
                     <p>{t("description1")}</p>
                     <p>{t("description2")}</p>
                     <p>{t("description3")}</p>
-                    <p className="mt-4">{t.rich("description4", { guidlines: (chunks) => <a href="#" target="_blank">{chunks}</a>})}</p>
+                    <p className="mt-4">{t.rich("description4", { guidlines: (chunks) => <a href="/printGuide.pdf" className="underline" target="_blank" rel="noopener noreferrer">{chunks}</a>})}</p>
                     <p className="mt-4 text-red-500">{t("description5")}</p>
             </CardContent>
             <CardContent className="space-y-4">
