@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Label } from "@/components/common/label";
@@ -9,9 +9,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BookOpen } from "lucide-react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useToast } from "@/hooks/use-toast";
-import LIBRARIES from "@/data/libraries";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from 'use-intl';
+
+type Library = {
+  id: string;
+  name: string;
+  count: number;
+};
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
@@ -19,9 +24,45 @@ export const SignupForm = () => {
   const [selectedLibrary, setSelectedLibrary] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [libraries, setLibraries] = useState<Library[]>([]);
+  const [loadingLibraries, setLoadingLibraries] = useState(true);
   const { toast } = useToast();
   const t = useTranslations("SignUp");
   const { navigateToMain, router } = useNavigation();
+
+  useEffect(() => {
+    const fetchLibraries = async () => {
+      try {
+        const response = await fetch('/api/libraries');
+        if (!response.ok) throw new Error('Failed to fetch libraries');
+        const data = await response.json();
+
+        // Filter only libraries (sector === 'library') and sort by name
+        const libraryList = data.libraries
+          .filter((lib: { sector: string | null }) => lib.sector === 'library')
+          .map((lib: { id: string; name: string; city: string | null; sector: string | null }) => ({
+            id: lib.id,
+            name: lib.name,
+            city: lib.city,
+            sector: lib.sector,
+          }))
+          .sort((a: Library, b: Library) => a.name.localeCompare(b.name));
+
+        setLibraries(libraryList);
+      } catch (error) {
+        console.error('Error fetching libraries:', error);
+        toast({
+          title: "Error loading libraries",
+          description: "Please refresh the page.",
+          variant: "destructive"
+        });
+      } finally {
+        setLoadingLibraries(false);
+      }
+    };
+
+    fetchLibraries();
+  }, [toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,12 +134,12 @@ export const SignupForm = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="library">{t("library-label")}</Label>
-                <Select value={selectedLibrary} onValueChange={setSelectedLibrary} required>
+              <Select value={selectedLibrary} onValueChange={setSelectedLibrary} required disabled={loadingLibraries}>
                   <SelectTrigger id="library" className="transition-all focus:ring-2 focus:ring-primary/20">
-                    <SelectValue placeholder={t("library-placeholder")} />
+                  <SelectValue placeholder={loadingLibraries ? "Loading libraries..." : t("library-placeholder")} />
                   </SelectTrigger>
                   <SelectContent className="bg-popover">
-                    {LIBRARIES.map((library) => (
+                  {libraries.map((library) => (
                       <SelectItem key={library.id} value={library.id}>
                         {library.name}
                       </SelectItem>
