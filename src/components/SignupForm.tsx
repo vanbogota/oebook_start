@@ -4,13 +4,27 @@ import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Label } from "@/components/common/label";
 import { Checkbox } from "@/components/common/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/common/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/common/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/common/card";
 import { BookOpen } from "lucide-react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigation } from "@/hooks/useNavigation";
-import { useTranslations } from 'use-intl';
+import { useTranslations } from "use-intl";
+import Link from "next/link";
+import COUNTRIES from "@/data/countries";
 
 type Library = {
   id: string;
@@ -22,13 +36,15 @@ export const SignupForm = () => {
   const { createUserProfile } = useAuth();
   const [nickname, setNickname] = useState("");
   const [selectedLibrary, setSelectedLibrary] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedCountries, setAcceptedCountries] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [libraries, setLibraries] = useState<Library[]>([]);
   const [loadingLibraries, setLoadingLibraries] = useState(true);
   const { toast } = useToast();
   const t = useTranslations("SignUp");
-  const { navigateToMain, router } = useNavigation();
+  const { navigateToMain, router, locale } = useNavigation();
 
   useEffect(() => {
     const fetchLibraries = async () => {
@@ -85,7 +101,11 @@ export const SignupForm = () => {
     setError(null);
 
     try {
-      await createUserProfile(nickname.trim(), selectedLibrary);
+      await createUserProfile(
+        nickname.trim(),
+        selectedLibrary,
+        selectedCountry
+      );
 
       toast({
         title: "Success",
@@ -94,13 +114,28 @@ export const SignupForm = () => {
 
       navigateToMain();
     } catch (error) {
-      console.error('Error creating profile:', error);
+      console.error("Error creating profile:", error);
       toast({
         title: "Error while creating profile",
         description: "Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
+  };
+
+  const handleAcceptCountries = (checked: boolean) => {
+    if (selectedCountry === "") {
+      setAcceptedCountries(false);
+      setError(t("select-country-error"));
+      return;
+    } else {
+      setAcceptedCountries(checked);
+    }
+  };
+
+  const handleSelectCountry = (country: string) => {
+    setSelectedCountry(country);
+    setError(null);
   };
 
   return (
@@ -111,7 +146,9 @@ export const SignupForm = () => {
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
           <div>
-            <CardTitle className="text-3xl">{t("title")} OpenEuropeBooks™</CardTitle>
+            <CardTitle className="text-3xl">
+              {t("title")} OpenEuropeBooks™
+            </CardTitle>
             <CardDescription className="text-base mt-2">
               {t("description")}
             </CardDescription>
@@ -119,18 +156,18 @@ export const SignupForm = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="nickname">{t("nickname-label")}</Label>
-                <Input
-                  id="nickname"
-                  type="text"
-                  placeholder={t("nickname-placeholder")}
-                  value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
-                  className="transition-all focus:ring-2 focus:ring-primary/20"
-                  required
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="nickname">{t("nickname-label")}</Label>
+              <Input
+                id="nickname"
+                type="text"
+                placeholder={t("nickname-placeholder")}
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                className="transition-all focus:ring-2 focus:ring-primary/20"
+                required
+              />
+            </div>
 
               <div className="space-y-2">
                 <Label htmlFor="library">{t("library-label")}</Label>
@@ -148,51 +185,105 @@ export const SignupForm = () => {
                 </Select>
               </div>
 
-              <div className="flex items-start space-x-3">
-                <Checkbox
-                  id="terms"
-                  checked={acceptedTerms}
-                  onCheckedChange={(checked) => setAcceptedTerms(checked as boolean)}
-                  className="mt-1"
-                />
-                <Label
-                  htmlFor="terms"
-                  className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
-                >
-                  {t("terms-label")}
-                </Label>
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="countries"
+                checked={acceptedCountries}
+                onCheckedChange={(checked) =>
+                  handleAcceptCountries(checked as boolean)
+                }
+                className="mt-1"
+              />
+              <Label
+                htmlFor="countries"
+                className="text-sm text-muted-foreground leading-relaxed cursor-pointer flex flex-col"
+              >
+                <span className="inline w-auto">
+                  {t("terms-label1-1")}
+                  <Select
+                    value={selectedCountry}
+                    onValueChange={handleSelectCountry}
+                    required
+                  >
+                    <SelectTrigger
+                      id="country"
+                      className="transition-all focus:none border-hidden py-0 underline h-6 w-auto inline-flex align-baseline focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 gap-2"
+                    >
+                      <SelectValue placeholder={t("country-placeholder")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover">
+                      {COUNTRIES.map((country) => (
+                        <SelectItem key={country} value={country}>
+                          {t(`Countries.${country}`)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {t("terms-label1-2")}
+                </span>
+              </Label>
+            </div>
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="terms"
+                checked={acceptedTerms}
+                onCheckedChange={(checked) =>
+                  setAcceptedTerms(checked as boolean)
+                }
+                className="mt-1"
+              />
+              <Label
+                htmlFor="terms"
+                className="text-sm text-muted-foreground leading-relaxed cursor-pointer flex flex-col"
+              >
+                <span>
+                  {t.rich("terms-label2", {
+                    guidelines: (chunks) => (
+                      <Link className="underline" href={`/${locale}/terms`}>
+                        {chunks}
+                      </Link>
+                    ),
+                  })}{" "}
+                </span>
+              </Label>
+            </div>
+
+            {error && (
+              <div className="text-red-600 dark:text-red-400 text-sm">
+                {error}
               </div>
+            )}
 
-              {error && (
-                <div className="text-red-600 dark:text-red-400 text-sm">
-                  {error}
-                </div>
-              )}
+            <Button
+              type="submit"
+              className="w-full"
+              size="lg"
+              disabled={
+                !acceptedTerms ||
+                !acceptedCountries ||
+                !nickname.trim() ||
+                !selectedLibrary
+              }
+            >
+              {t("create-account")}
+            </Button>
 
+            <div className="text-center pt-4 border-t">
+              <p className="text-sm text-muted-foreground mb-2">
+                Already have an account?
+              </p>
               <Button
-                type="submit"
-                className="w-full"
-                size="lg"
-                disabled={!acceptedTerms || !nickname.trim() || !selectedLibrary}>
-                {t("create-account")}
+                type="button"
+                variant="link"
+                onClick={() => router.push("/restore")}
+                className="text-primary"
+              >
+                Restore from Recovery Code
               </Button>
-
-              <div className="text-center pt-4 border-t">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Already have an account?
-                </p>
-                <Button
-                  type="button"
-                  variant="link"
-                  onClick={() => router.push('/restore')}
-                  className="text-primary"
-                >
-                  Restore from Recovery Code
-                </Button>
-              </div>
+            </div>
           </form>
         </CardContent>
       </Card>
     </div>
   );
-}
+};

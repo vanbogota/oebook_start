@@ -47,14 +47,47 @@
     "library-label": "Choose Nearest Library",
     "library-placeholder": "Select library",
     "create-account-button": "Create Account",
-    "terms-label": "I accept the terms of service. I understand that copying books on this platform is FOR PRIVATE USE ONLY. I checked my country&apos;s copyright laws and confirm that I am allowed to copy books for personal use.",
+    "terms-label1-1": "1. I confirm that, by using this service, I scan or copy books for my private use only, in accordance with the applicable copyright laws in ",
+    "terms-label1-2": " , under which book authors receive fair compensation when I copy books from a public library collection.",
+    "terms-label2": "2. I confirm that I've read <guidelines>The Terms of Service</guidelines> and I consent to them.",
     "create-account": "Create Account",
     "nickname-required": "Please enter a nickname",
     "library-required": "Please select your nearest library",
     "terms-required": "Please accept the terms of service",
+    "select-country-error": "Please select a country",
     "create-account-error": "Error while creating profile. ",
     "create-account-error-description": "Please try again.",
-    "loading-message": "Creating account..."
+    "loading-message": "Creating account...",
+    "close": "Close",
+    "country-placeholder": "Select country",
+    "Countries": {
+      "Austria": "Austria",
+      "Belgium": "Belgium",
+      "Denmark": "Denmark",
+      "Estonia": "Estonia",
+      "Finland": "Finland",
+      "France": "France",
+      "Germany": "Germany",
+      "Greece": "Greece",
+      "Hungary": "Hungary",
+      "Italy": "Italy",
+      "Latvia": "Latvia",
+      "Lithuania": "Lithuania",
+      "Malta": "Malta",
+      "Netherlands": "Netherlands",
+      "Norway": "Norway",
+      "Poland": "Poland",
+      "Portugal": "Portugal",
+      "Romania": "Romania",
+      "Slovakia": "Slovakia",
+      "Slovenia": "Slovenia",
+      "Spain": "Spain",
+      "Sweden": "Sweden",
+      "Australia": "Australia",
+      "Canada": "Canada",
+      "Israel": "Israel",
+      "New Zealand": "New Zealand"
+    }
   },
   "Search": {
     "title": "Find Rare Books",
@@ -80,7 +113,8 @@
   },
   "MainPage": {
     "search-button": "Book Search",
-    "print-book-button": "Order Paper Book"
+    "print-book-button": "Order Paper Book",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
   },
   "ScanRequest": {
     "title": "Request Submitted Successfully!",
@@ -88,7 +122,6 @@
     "submit-button": "Submit Scan Request",
     "submitting": "Submitting...",
     "confirmation-message": "Your scan request has been submitted. We'll process it and get back to you soon.",
-
     "error-message": "There was an error submitting your scan request. Please try again.",
     "no-book-selected": "No Book Selected",
     "no-book-info": "No book information was provided. Please go back to search and select a book.",
@@ -127,15 +160,20 @@
     "file-ready": "File is ready for upload"
   },
   "WaitingListForm": {
-    "title": "Join The Printing Queue",
-    "description": "Be the first one to receive the printed book",
-    "email-label": "Enter Your Email Address",
-    "email-placeholder": "Enter your email address",
-    "zip-label": "Postal Code of Delivery Location",
-    "zip-placeholder": "Enter delivery postal code",
+    "title": "Join The Waiting List",
+    "description1": "Be among the first to receive your printed book!",
+    "description2": "As we`re just starting out, we`re currently collecting our first orders.",
+    "description3": "Join the waiting list by filling out the form below. We'll send you email as soon as we are ready to deliver Œbœks.",
+    "description4": "We will print the book you want. Please provide a correct PDF file. Use the instructions: <guidlines>here</guidlines>",
+    "description5": "Attention: The book, that you scan, must be obtained legally, by EU law. This means you must have a photo of the library checkout receipt. Please upload it below.",
+    "avoid-real-name": " Please avoid showing your real name, for your privacy",
+    "email-label": "Your Email",
+    "email-placeholder": "Enter your email",
+    "zip-label": "Zip Code of Delivery Address",
+    "zip-placeholder": "Enter zip code",
     "link-label": "Add Link to Source With Your Book File",
-    "link-placeholder": "Enter link to the book file",    
-    "upload-label": "Add a Photo of The Library Checkout Receipt",
+    "link-placeholder": "Enter link to book file here",
+    "library-receipt": "Add a Photo of The Library Checkout Receipt",
     "submit-button": "Join Queue",
     "submitting": "Submitting...",
     "success-message": "Your scan request has been submitted successfully. We will process it and get back to you soon.",
@@ -143,6 +181,94 @@
     "alert-message": "Please select a picture file.",
     "alert-no-file": "Please select a file",
     "required-fields": "Please fill in all required fields",
-    "file-ready": "File is ready for upload"
+    "file-ready": "File is ready for upload",
+    "add-link": "Add a Link to a Book File From Your Storage",
+    "link-instruction": "A link to the book file should be publicly accessible for download. Avoid personal data in the link name."
+
+  },
+  "Terms": {
+    "title": "Terms of Service",
+    "back": "Back",
+    "section1": {
+      "title": "1. Introduction",
+      "1": "Welcome to OpenEuropeBooks™ / Œbœks™! <guidelines> These Terms of Use ('Terms') govern your access to and use of our service ('Service'), which allows users to process copyrighted materials for private, non-commercial use in compliance with Finnish and EU copyright law. </guidelines> By using the Service, you agree to these Terms. If you do not agree, do not use the Service."
+    },
+    "section2": {
+      "title": "2. Acceptable Use Policy",
+      "1": "2.1 Permitted Use <guidelines>You may use the Service only to process copyrighted materials for your personal, non-commercial use, provided that:</guidelines>",
+      "1-1": "You have legally obtained the source material (e.g., borrowed from a library or purchased).",
+      "1-2": "You do not share, distribute, or reproduce the materials beyond your personal use.",
+      "1-3": "You comply with all applicable laws, including the Finnish Copyright Act (Section 12) and EU copyright directives.",
+      "2": "2.2 Prohibited Activities",
+      "2-1": "You may not use the Service to:",
+      "2-2": "Upload, share, or distribute materials that infringe any copyright or intellectual property rights.",
+      "2-3": "Circumvent any technological protection measures (e.g., DRM) on copyrighted works.",
+      "2-4": "Use the Service for commercial purposes or to distribute materials to the public.",
+      "2-5": "Engage in any activity that violates Finnish or EU law."
+    },
+    "section3": {
+      "title":"3. User Representations and Warranties",
+      "1":"By using the Service, you represent and warrant that:",
+      "2":"You have the legal right to use the materials you upload or process.",
+      "3":"Your use of the Service complies with all applicable laws and these Terms.",
+      "4":"You will not use the Service to infringe the rights of any third party."
+    },
+    "section4": {
+      "title": "4. Data Privacy and Security",
+      "1": "4.1 Temporary Processing",
+      "1-1":"Any materials you upload to the Service are processed temporarily and deleted immediately after processing. We do not retain or share your materials.",
+      "2": "4.2 Security Measures",
+      "2-1": "All data is transmitted and stored securely in compliance with GDPR and Finnish data protection laws.",
+      "3": "4.3 User Responsibility",
+      "3-1": "You are responsible for ensuring the security and confidentiality of your account and materials."
+    },
+    "section5":
+    {
+      "title": "5. Intellectual Property Rights",
+      "1": "5.1 User Content",
+      "1-1": "You retain all rights to any materials you upload or process using the Service. We do not claim ownership or license rights to your content.",
+      "2": "5.2 Service Content",
+      "2-1": "All content provided by OpenEuropeBooks™ / Œbœks™",
+      "2-2": "(e.g., software, text, logos) is owned by us or our licensors and is protected by copyright and other intellectual property laws. You may not use, reproduce, or distribute our content without our express permission."
+    },
+    "section6":
+    {
+      "title": "6. Disclaimer of Liability",
+      "1": "6.1 No Liability for User Actions",
+      "1-1": "We are not liable for any copyright infringement or legal issues arising from your use of the Service. You agree to use the Service at your own risk.",
+      "2": "6.2 Indemnification",
+      "2-1": "You agree to indemnify and hold harmless OpenEuropeBooks™ / Œbœks™ / Smart Paper Oy, its affiliates, and employees from any claims, damages, or liabilities resulting from your use of the Service or violation of these Terms."
+  },
+    "section7":
+    {
+      "title": "7. Termination",
+      "1": "We reserve the right to suspend or terminate your access to the Service if you violate these Terms or applicable laws, including copyright laws. Violations may result in immediate termination without notice."
+    },
+    "section8":
+    {
+      "title": "8. Governing Law and Jurisdiction",
+      "1": "These Terms are governed by the laws of Finland. Any disputes arising from your use of the Service will be resolved exclusively in the courts of Finland."
+    },
+    "section9":
+    {
+      "title": "9. Amendments and Updates",
+      "1": "We may update these Terms from time to time. We will notify you of any changes by posting the updated Terms on our website or via email. Your continued use of the Service constitutes acceptance of the updated Terms."
+    },
+    "section10":
+    {
+      "title": "10. Contact Information",
+      "1": "For questions or concerns about these Terms or copyright issues, please contact us at:",
+      "2": "Email: <guidelines>boekify@smartpaper.fi</guidelines>."
+    },
+    "contacts": "Contacts & legal info",
+    "address1": "Address: Kavallinmäki 15",
+    "address2": "02710 Espoo Finland",
+    "contact-person": "Contact person: Vladimir Kuparinen",
+    "company": "Group of companies: Peak Control Oy",
+    "company-id": "BUSINESS ID 0948697-5",
+    "link": "legal info link",
+    "final-note": "Final Note",
+    "final-note-body": "By using the Service, you acknowledge that you have read, understood, and agreed to these Terms of Use. If you do not agree, please do not use the Service.",
+    "copyright": "© 2026 OpenEuropeBooks™ / Œbœks™. All rights reserved."
   }
 }

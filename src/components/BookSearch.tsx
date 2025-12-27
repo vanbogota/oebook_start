@@ -9,11 +9,12 @@ import { SearchResult } from "@/utils/searchCache";
 import { useSearchCache } from "@/hooks/useSearchCache";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/contexts/LocalAuthContext";
 
 const BookSearch = () => {
-  // const { userProfile } = useAuth();
+  const { userProfile } = useAuth();
 
-  const { navigateToScan } = useNavigation();
+  const { navigateToScan, navigateToSignup } = useNavigation();
   const {
     query,
     results,
@@ -49,6 +50,10 @@ const BookSearch = () => {
   }
 
   const handleRequestScan = (book: SearchResult) => {
+	if(!userProfile) {
+		navigateToSignup();
+		return;
+	}
     const params = new URLSearchParams({
       id: book.id,
       title: book.title,
@@ -178,7 +183,12 @@ const BookSearch = () => {
 					  )}
 					  {book.library && (
 						<p className="text-sm text-muted-foreground">
-						  <span className="font-semibold">Location:</span> {book.library}
+										<span className="font-semibold">Library Name:</span> {book.library}
+						</p>
+					  )}
+					  {book.isbn && (
+						<p className="text-sm text-muted-foreground">
+										<span className="font-semibold">ISBN:</span> {book.isbn}
 						</p>
 					  )}
 					</div>
