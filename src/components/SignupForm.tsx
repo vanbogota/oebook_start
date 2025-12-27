@@ -25,12 +25,8 @@ import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from "use-intl";
 import Link from "next/link";
 import COUNTRIES from "@/data/countries";
-
-type Library = {
-  id: string;
-  name: string;
-  count: number;
-};
+import LIBRARIES from "@/data/libraries";
+import type { Library } from "@/types/interfaces";
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
@@ -40,45 +36,45 @@ export const SignupForm = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedCountries, setAcceptedCountries] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [libraries, setLibraries] = useState<Library[]>([]);
-  const [loadingLibraries, setLoadingLibraries] = useState(true);
+  const [libraries, setLibraries] = useState<Library[]>(LIBRARIES);
+  const [loadingLibraries, setLoadingLibraries] = useState(false);
   const { toast } = useToast();
   const t = useTranslations("SignUp");
   const { navigateToMain, router, locale } = useNavigation();
 
-  useEffect(() => {
-    const fetchLibraries = async () => {
-      try {
-        const response = await fetch('/api/libraries');
-        if (!response.ok) throw new Error('Failed to fetch libraries');
-        const data = await response.json();
+  // useEffect(() => {
+  //   const fetchLibraries = async () => {
+  //     try {
+  //       const response = await fetch('/api/libraries');
+  //       if (!response.ok) throw new Error('Failed to fetch libraries');
+  //       const data = await response.json();
 
-        // Filter only libraries (sector === 'library') and sort by name
-        const libraryList = data.libraries
-          .filter((lib: { sector: string | null }) => lib.sector === 'library')
-          .map((lib: { id: string; name: string; city: string | null; sector: string | null }) => ({
-            id: lib.id,
-            name: lib.name,
-            city: lib.city,
-            sector: lib.sector,
-          }))
-          .sort((a: Library, b: Library) => a.name.localeCompare(b.name));
+  //       // Filter only libraries (sector === 'library') and sort by name
+  //       const libraryList = data.libraries
+  //         .filter((lib: { sector: string | null }) => lib.sector === 'library')
+  //         .map((lib: { id: string; name: string; city: string | null; sector: string | null }) => ({
+  //           id: lib.id,
+  //           name: lib.name,
+  //           city: lib.city,
+  //           sector: lib.sector,
+  //         }))
+  //         .sort((a: Library, b: Library) => a.name.localeCompare(b.name));
 
-        setLibraries(libraryList);
-      } catch (error) {
-        console.error('Error fetching libraries:', error);
-        toast({
-          title: "Error loading libraries",
-          description: "Please refresh the page.",
-          variant: "destructive"
-        });
-      } finally {
-        setLoadingLibraries(false);
-      }
-    };
+  //       setLibraries(libraryList);
+  //     } catch (error) {
+  //       console.error('Error fetching libraries:', error);
+  //       toast({
+  //         title: "Error loading libraries",
+  //         description: "Please refresh the page.",
+  //         variant: "destructive"
+  //       });
+  //     } finally {
+  //       setLoadingLibraries(false);
+  //     }
+  //   };
 
-    fetchLibraries();
-  }, [toast]);
+  //   fetchLibraries();
+  // }, [toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -5,12 +5,11 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
 
     const email = formData.get("email") as string;
-    const zipCode = formData.get("zipCode") as string;
     const link = formData.get("link") as string;
     const file = formData.get("file") as File;
 
     // Validation
-    if (!email || !zipCode || !link || !file) {
+    if (!email || !link || !file) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -36,7 +35,6 @@ export async function POST(request: NextRequest) {
         },
         body: JSON.stringify({
           email,
-          zipCode,
           link,
           fileName,
           fileBase64: base64File,
@@ -76,7 +74,7 @@ export async function POST(request: NextRequest) {
 
     // Prepare data for Google Sheets
     // const timestamp = new Date().toISOString();
-    // const values = [[timestamp, email, zipCode, link, fileName, fileSize]];
+    // const values = [[timestamp, email, link, fileName, fileSize]];
 
     // Append data to Google Sheet
     // await sheets.spreadsheets.values.append({
