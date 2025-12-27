@@ -18,22 +18,8 @@ export default function MainPage() {
   const t = useTranslations("MainPage");
   const [activeTab, setActiveTab] = useState<string>("waiting");
 
-  useEffect(() => {
-    const savedTab = sessionStorage.getItem("activeTab");
-
-    if (savedTab === "search") {
-      setActiveTab("search");
-    } else if (savedTab === "waiting") {
-      setActiveTab("waiting");
-    } else {
-      setActiveTab("print");
-    }
-  }, []);
-
-  // Save active tab to session storage
   const handleTabChange = (value: string) => {
     setActiveTab(value);
-    sessionStorage.setItem("activeTab", value);
   };
 
   return (
@@ -62,15 +48,15 @@ export default function MainPage() {
 
           <TabsContent value="waiting">
             <WaitingListForm />
-            {/* <PrintRequestForm /> */}
           </TabsContent>
           <TabsContent value="search">
             <BookSearch />
           </TabsContent>
           <TabsContent value="print">
              <div className="text-center">{t.rich("page-under-construction", {
-              important: (chunks) => <b className="underline" onClick={()=> handleTabChange("waiting")}>{chunks}</b>,
+               important: (chunks) => <b className="underline" onClick={() => handleTabChange("waiting")}>{chunks}</b>,
              })}</div>
+            {/* <PrintRequestForm /> */}
           </TabsContent>
         </Tabs>
       </div>
