@@ -12,6 +12,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import HomeHeader from "@/components/HomeHeader";
+import { MainTabProvider } from "@/contexts/MainTabContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -138,9 +139,10 @@ export default async function LocalLayout({
             <Sonner />
             <AuthProvider>
               {/* <AuthWrapper> */}
+              <MainTabProvider>
               <HomeHeader />
               <>{children}</>
-
+              </MainTabProvider>
               {/* </AuthWrapper> */}
             </AuthProvider>
           </TooltipProvider>
