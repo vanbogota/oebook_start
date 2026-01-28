@@ -3,16 +3,20 @@
 import { Button } from "@/components/common/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/common/card";
 import { useAuth } from "@/contexts/LocalAuthContext";
-import { BookOpen, Search, Scan, BookOpenText } from "lucide-react";
+import { BookOpen, Search, Scan, BookOpenText, Printer } from "lucide-react";
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useNavigation } from "@/hooks/useNavigation";
+import { TabContext } from "@/contexts/MainTabContext";
+import type { TabType } from "@/contexts/MainTabContext";
 
 export default function Home() {
   const { userProfile } = useAuth();
   const t = useTranslations("Home");
   const { navigateToSignup, navigateToMain, router } = useNavigation();
+  const { changeTab } = useContext(TabContext);
+
 
   useEffect(() => {
     if (userProfile?.isProfileComplete) {
@@ -21,21 +25,35 @@ export default function Home() {
     }
   }, [userProfile, navigateToMain]);
 
+  const goToMain = (value: TabType) => {
+    changeTab(value);
+    navigateToMain();
+  }
+
   const features = [
     {
       icon: Search,
       title: t("search-title"),
       description: t("search-description"),
+      link: () => goToMain("search"),
     },
     {
       icon: Scan,
       title: t("scan-title"),
       description: t("scan-description"),
+      link: () => goToMain("scan"),
     },
     {
       icon: BookOpenText,
+      title: t("read-title"),
+      description: t("read-description"),
+      link: () => goToMain("read"),
+    },
+    {
+      icon: Printer,
       title: t("print-title"),
       description: t("print-description"),
+      link: () => goToMain("print")
     },
   ];
 
@@ -69,7 +87,7 @@ export default function Home() {
             <Button
               size="lg"
               className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-              onClick={() => navigateToMain()}
+              onClick={() => goToMain("waiting")}
             >
               {t("get-started")}
             </Button>
@@ -100,11 +118,12 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
+              <button key={index} onClick={feature.link} className="w-full h-auto p-0 m-0">
               <Card
                 key={index}
-                className="border-2 hover:border-primary/50 transition-all hover:shadow-lg"
+                className="border-2 h-[100%] hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer"
               >
                 <CardHeader>
                   <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl flex items-center justify-center mb-4">
@@ -118,6 +137,7 @@ export default function Home() {
                   </CardDescription>
                 </CardContent>
               </Card>
+              </button>
             ))}
           </div>
         </div>
@@ -135,10 +155,10 @@ export default function Home() {
                 {t("join-thousands")}
               </CardDescription>
             </CardHeader>
-            <CardContent className="pb-10">
+            <CardContent className="pb-10 flex justify-center">
               <Button
                 size="lg"
-                className="text-lg px-12 py-6 shadow-lg hover:shadow-xl transition-all"
+                className="text-lg md:px-12 md:py-6 shadow-lg hover:shadow-xl transition-all"
                 onClick={() => navigateToSignup()}
               >
                 {t("create-account")}
