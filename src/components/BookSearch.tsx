@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Card, CardContent, CardDescription,  CardHeader, CardTitle } from "@/components/common/card";
+import { Label } from "@/components/common/label";
 import { Search as SearchIcon, BookOpen, BrushCleaning } from "lucide-react";
 import { SearchResult } from "@/utils/searchCache";
 import { useSearchCache } from "@/hooks/useSearchCache";
@@ -71,15 +72,15 @@ const BookSearch = () => {
 		  ? 'opacity-0 max-h-0 overflow-hidden mb-0'
 		  : 'opacity-100 max-h-96 mb-12'}`}
 	  >
-		<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl shadow-lg mb-4">
+		{/* <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl shadow-lg mb-4">
 		  <BookOpen className="w-8 h-8 text-primary-foreground" />
-		</div>
-		<h1 className="text-4xl md:text-5xl font-bold mb-4">
+		</div> */}
+		{/* <h1 className="text-4xl md:text-5xl font-bold mb-4">
 		   {t("title")}
 		</h1>
 		<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
 		  {t("sub-title")}
-		</p>
+		</p> */}
 	  </div>
 	  {/* Search Bar */}
 	  <Card className="mb-12 shadow-lg">
