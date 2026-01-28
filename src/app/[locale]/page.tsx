@@ -120,7 +120,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
-              <button key={index} onClick={feature.link} className="w-full h-auto p-0 m-0">
+              <button key={index} onClick={feature.link} className="w-full h-auto p-0 m-0 text-left">
               <Card
                 key={index}
                 className="border-2 h-[100%] hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer"
