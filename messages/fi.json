@@ -4,8 +4,10 @@
     "hero-subtitle": "Löydä harvinaisia kirjoja Euroopan kirjastoista ja yhdistä lukijoihin, jotka voivat auttaa sinua digitoimaan ne",
     "search-title": "Etsi harvinaisia kirjoja",
     "search-description": "Selaa eurooppalaisten kirjastojen kokoelmia löytääksesi harvinaisia ja vaikeasti löydettäviä kirjoja",
-    "scan-title": "Pyydä skannauksia",
+    "scan-title": "Skannaa kirjoja",
     "scan-description": "Pyydä muita käyttäjiä skannaamaan ja jakamaan sivuja heidän paikallisista kirjastoistaan",
+    "read-title": "Lue kirjoja",
+    "read-description": "Pääset käsiksi skannattuihin kirjoihin digitaalisesti",
     "print-title": "Tulosta kirjasi",
     "print-description": "Tilaa meiltä tulostettu kopio löytämästäsi kirjasta kahdella klikkauksella",
     "how-it-works": "Miten se toimii",
@@ -106,11 +108,17 @@
     "year": "Vuosi"
   },
   "Header": {
-    "title": "Miten se toimii",
+    "title": "Miten se toimii"
+  },
+  "Menu": {
     "myAccount": "Oma tili",
     "profile": "Profiili",
+    "logOut": "Kirjaudu ulos",
+    "logIn": "Kirjaudu sisään",
+    "instructions": "Ohjeet",
     "settings": "Asetukset",
-    "logOut": "Kirjaudu ulos"
+    "incoming-requests": "Saapuvat pyynnöt",
+    "my-requests": "Minun pyynnöt"
   },
   "MainPage": {
     "search-button": "Kirjahaku",
@@ -126,7 +134,7 @@
     "error-message": "Skannauspyynnön lähettäminen epäonnistui. Yritä uudelleen.",
     "no-book-selected": "Kirjaa ei valittu",
     "no-book-info": "Kirjan tietoja ei ole saatavilla. Palaa hakuun ja valitse kirja.",
-    "back-to-search": "Takaisin hakusivulle",
+    "back-to-search": "Takaisin",
     "back-to-search-results": "Takaisin hakutuloksiin",
     "view-profile": "Näytä profiilisi",
     "confirm-scan-request": "Vahvista skannauspyyntö",
@@ -169,7 +177,7 @@
     "description5": "Huomio: Skannaamasi kirjan on oltava hankittu laillisesti EU-lainsäädännön mukaisesti. Tämä tarkoittaa, että sinulla tulee olla valokuva kirjaston lainauskuitista. Lataa se alle.",
     "avoid-real-name": "Vältäthän oikean nimesi näyttämistä yksityisyytesi suojaamiseksi",
     "email-label": "Sähköpostiosoitteesi",
-    "email-placeholder": "Syötä sähköpostiosoitteesi",    
+    "email-placeholder": "Syötä sähköpostiosoitteesi",
     "link-label": "Lisää linkki kirjatiedostoon",
     "link-placeholder": "Syötä linkki kirjatiedostoon",
     "library-receipt": "Lisää kuva kirjaston lainakuitista",
@@ -205,23 +213,22 @@
       "2-5": "Engage in any activity that violates Finnish or EU law."
     },
     "section3": {
-      "title":"3. User Representations and Warranties",
-      "1":"By using the Service, you represent and warrant that:",
-      "2":"You have the legal right to use the materials you upload or process.",
-      "3":"Your use of the Service complies with all applicable laws and these Terms.",
-      "4":"You will not use the Service to infringe the rights of any third party."
+      "title": "3. User Representations and Warranties",
+      "1": "By using the Service, you represent and warrant that:",
+      "2": "You have the legal right to use the materials you upload or process.",
+      "3": "Your use of the Service complies with all applicable laws and these Terms.",
+      "4": "You will not use the Service to infringe the rights of any third party."
     },
     "section4": {
       "title": "4. Data Privacy and Security",
       "1": "4.1 Temporary Processing",
-      "1-1":"Any materials you upload to the Service are processed temporarily and deleted immediately after processing. We do not retain or share your materials.",
+      "1-1": "Any materials you upload to the Service are processed temporarily and deleted immediately after processing. We do not retain or share your materials.",
       "2": "4.2 Security Measures",
       "2-1": "All data is transmitted and stored securely in compliance with GDPR and Finnish data protection laws.",
       "3": "4.3 User Responsibility",
       "3-1": "You are responsible for ensuring the security and confidentiality of your account and materials."
     },
-    "section5":
-    {
+    "section5": {
       "title": "5. Intellectual Property Rights",
       "1": "5.1 User Content",
       "1-1": "You retain all rights to any materials you upload or process using the Service. We do not claim ownership or license rights to your content.",
@@ -229,31 +236,26 @@
       "2-1": "All content provided by OpenEuropeBooks™ / Œbœks™",
       "2-2": "(e.g., software, text, logos) is owned by us or our licensors and is protected by copyright and other intellectual property laws. You may not use, reproduce, or distribute our content without our express permission."
     },
-    "section6":
-    {
+    "section6": {
       "title": "6. Disclaimer of Liability",
       "1": "6.1 No Liability for User Actions",
       "1-1": "We are not liable for any copyright infringement or legal issues arising from your use of the Service. You agree to use the Service at your own risk.",
       "2": "6.2 Indemnification",
       "2-1": "You agree to indemnify and hold harmless OpenEuropeBooks™ / Œbœks™ / Smart Paper Oy, its affiliates, and employees from any claims, damages, or liabilities resulting from your use of the Service or violation of these Terms."
-  },
-    "section7":
-    {
+    },
+    "section7": {
       "title": "7. Termination",
       "1": "We reserve the right to suspend or terminate your access to the Service if you violate these Terms or applicable laws, including copyright laws. Violations may result in immediate termination without notice."
     },
-    "section8":
-    {
+    "section8": {
       "title": "8. Governing Law and Jurisdiction",
       "1": "These Terms are governed by the laws of Finland. Any disputes arising from your use of the Service will be resolved exclusively in the courts of Finland."
     },
-    "section9":
-    {
+    "section9": {
       "title": "9. Amendments and Updates",
       "1": "We may update these Terms from time to time. We will notify you of any changes by posting the updated Terms on our website or via email. Your continued use of the Service constitutes acceptance of the updated Terms."
     },
-    "section10":
-    {
+    "section10": {
       "title": "10. Contact Information",
       "1": "For questions or concerns about these Terms or copyright issues, please contact us at:",
       "2": "Email: <guidelines>boekify@smartpaper.fi</guidelines>."

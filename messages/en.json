@@ -4,10 +4,12 @@
     "hero-subtitle": "Discover rare books across European libraries and connect with readers who can help you digitize them",
     "search-title": "Find Rare Books",
     "search-description": "Search through collections of European libraries to locate rare and hard-to-find books",
-    "scan-title": "Request Scans",
-    "scan-description": "Ask other users to scan and share pages from books in their local libraries",
-    "print-title": "Print Your Book",
-    "print-description": "Order a printed copy of the book you found from us in two clicks",
+    "scan-title": "Scan books",
+    "scan-description": "Request book scans from other users in local libraries and scan books yourself.",
+    "read-title": "Read Books",
+    "read-description": "Read your scanned books digitally",
+    "print-title": "Print Books",
+    "print-description": "Receive your legally compliant, high-quality physical private copy, delivered anonymously to your specified location.",
     "how-it-works": "How It Works",
     "join-community": "Join a community dedicated to preserving and sharing access to rare books",
     "ready-to-start": "Ready to Start?",
@@ -19,7 +21,7 @@
   "Profile": {
     "title": "Profile",
     "manage-profile": "Manage your profile",
-    "back-to-search": "Back to search",
+    "back-to-search": "Back",
     "profile-info": "Profile Information",
     "nickname-label": "Nickname",
     "library-label": "Library",
@@ -92,7 +94,7 @@
   "Search": {
     "title": "Find Rare Books",
     "sub-title": "Search across European library collections",
-    "card-title": "Search for Books",
+    "card-title": "Find Rare Books",
     "card-description": "Enter book title, author name, or ISBN",
     "clear-button": "Clear",
     "search-results": "Search Results",
@@ -105,15 +107,24 @@
     "year": "Year"
   },
   "Header": {
-    "title": "How it works",
+    "title": "How it works"
+  },
+  "Menu": {
     "myAccount": "My Account",
     "profile": "Profile",
     "logOut": "Log out",
-    "settings": "Settings"
+    "logIn": "Log in",
+    "instructions": "Instructions",
+    "settings": "Settings",
+    "incoming-requests": "Incoming Requests",
+    "my-requests": "My Requests"
   },
   "MainPage": {
-    "search-button": "Book Search",
-    "print-book-button": "Order Paper Book",
+    "search-book": "Find Books",
+    "print-book": "Print Books",
+    "waiting-list": "Join Waiting List",
+    "scan-book": "Scan Books",
+    "read-book": "Read Books",
     "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
   },
   "ScanRequest": {
@@ -140,8 +151,21 @@
     "cancel": "Cancel",
     "confirm-request": "Confirm Request"
   },
+  "ScanBook": {
+    "title": "Scan Books",
+    "description": "You can scan books, using Doc Scan App, available for both Android and iOS devices.",
+    "iOS-link": "https://apps.apple.com/us/app/doc-scan-pdf-scanner/id453312964",
+    "android-link": "https://play.google.com/store/apps/details?id=at.ac.tuwien.caa.docscan&hl=en",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
+  },
+  "ReadBook": {
+    "title": "Read Books",
+    "description": "Access the scanned book digitally",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
+  },
   "PrintRequest": {
-    "title": "Paper Book Order",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>.",
+    "title": "Print Books",
     "description": "Fill out the form to order the paper book",
     "phone-label": "Enter Your Phone Number",
     "phone-placeholder": "Enter your phone number",
@@ -182,7 +206,6 @@
     "file-ready": "File is ready for upload",
     "add-link": "Add a Link to a Book File From Your Storage",
     "link-instruction": "A link to the book file should be publicly accessible for download. Avoid personal data in the link name."
-
   },
   "Terms": {
     "title": "Terms of Service",
@@ -205,23 +228,22 @@
       "2-5": "Engage in any activity that violates Finnish or EU law."
     },
     "section3": {
-      "title":"3. User Representations and Warranties",
-      "1":"By using the Service, you represent and warrant that:",
-      "2":"You have the legal right to use the materials you upload or process.",
-      "3":"Your use of the Service complies with all applicable laws and these Terms.",
-      "4":"You will not use the Service to infringe the rights of any third party."
+      "title": "3. User Representations and Warranties",
+      "1": "By using the Service, you represent and warrant that:",
+      "2": "You have the legal right to use the materials you upload or process.",
+      "3": "Your use of the Service complies with all applicable laws and these Terms.",
+      "4": "You will not use the Service to infringe the rights of any third party."
     },
     "section4": {
       "title": "4. Data Privacy and Security",
       "1": "4.1 Temporary Processing",
-      "1-1":"Any materials you upload to the Service are processed temporarily and deleted immediately after processing. We do not retain or share your materials.",
+      "1-1": "Any materials you upload to the Service are processed temporarily and deleted immediately after processing. We do not retain or share your materials.",
       "2": "4.2 Security Measures",
       "2-1": "All data is transmitted and stored securely in compliance with GDPR and Finnish data protection laws.",
       "3": "4.3 User Responsibility",
       "3-1": "You are responsible for ensuring the security and confidentiality of your account and materials."
     },
-    "section5":
-    {
+    "section5": {
       "title": "5. Intellectual Property Rights",
       "1": "5.1 User Content",
       "1-1": "You retain all rights to any materials you upload or process using the Service. We do not claim ownership or license rights to your content.",
@@ -229,31 +251,26 @@
       "2-1": "All content provided by OpenEuropeBooks™ / Œbœks™",
       "2-2": "(e.g., software, text, logos) is owned by us or our licensors and is protected by copyright and other intellectual property laws. You may not use, reproduce, or distribute our content without our express permission."
     },
-    "section6":
-    {
+    "section6": {
       "title": "6. Disclaimer of Liability",
       "1": "6.1 No Liability for User Actions",
       "1-1": "We are not liable for any copyright infringement or legal issues arising from your use of the Service. You agree to use the Service at your own risk.",
       "2": "6.2 Indemnification",
       "2-1": "You agree to indemnify and hold harmless OpenEuropeBooks™ / Œbœks™ / Smart Paper Oy, its affiliates, and employees from any claims, damages, or liabilities resulting from your use of the Service or violation of these Terms."
-  },
-    "section7":
-    {
+    },
+    "section7": {
       "title": "7. Termination",
       "1": "We reserve the right to suspend or terminate your access to the Service if you violate these Terms or applicable laws, including copyright laws. Violations may result in immediate termination without notice."
     },
-    "section8":
-    {
+    "section8": {
       "title": "8. Governing Law and Jurisdiction",
       "1": "These Terms are governed by the laws of Finland. Any disputes arising from your use of the Service will be resolved exclusively in the courts of Finland."
     },
-    "section9":
-    {
+    "section9": {
       "title": "9. Amendments and Updates",
       "1": "We may update these Terms from time to time. We will notify you of any changes by posting the updated Terms on our website or via email. Your continued use of the Service constitutes acceptance of the updated Terms."
     },
-    "section10":
-    {
+    "section10": {
       "title": "10. Contact Information",
       "1": "For questions or concerns about these Terms or copyright issues, please contact us at:",
       "2": "Email: <guidelines>boekify@smartpaper.fi</guidelines>."
