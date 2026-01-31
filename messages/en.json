@@ -21,7 +21,7 @@
   "Profile": {
     "title": "Profile",
     "manage-profile": "Manage your profile",
-    "back-to-search": "Back",
+    "back-to": "Back",
     "profile-info": "Profile Information",
     "nickname-label": "Nickname",
     "library-label": "Library",
@@ -92,9 +92,9 @@
     }
   },
   "Search": {
-    "title": "Find Rare Books",
+    "title": "Find Books",
     "sub-title": "Search across European library collections",
-    "card-title": "Find Rare Books",
+    "card-title": "Find Books",
     "card-description": "Enter book title, author name, or ISBN",
     "clear-button": "Clear",
     "search-results": "Search Results",
@@ -161,10 +161,14 @@
   "ReadBook": {
     "title": "Read Books",
     "description": "Access the scanned book digitally",
+    "register":" To read books, please register:",
+    "register-btn":"Register",
     "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
   },
   "PrintRequest": {
     "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>.",
+    "register":" To print books, please register:",
+    "register-btn":"Register",
     "title": "Print Books",
     "description": "Fill out the form to order the paper book",
     "phone-label": "Enter Your Phone Number",

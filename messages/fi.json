@@ -21,7 +21,7 @@
   "Profile": {
     "title": "Profiili",
     "manage-profile": "Hallitse profiiliasi",
-    "back-to-search": "Takaisin hakuun",
+    "back-to": "Takaisin hakuun",
     "profile-info": "Profiilitiedot",
     "nickname-label": "Nimimerkki",
     "library-label": "Kirjasto",
@@ -121,6 +121,11 @@
     "my-requests": "Minun pyynnöt"
   },
   "MainPage": {
+    "search-book": "Find Books",
+    "print-book": "Print Books",
+    "waiting-list": "Join Waiting List",
+    "scan-book": "Scan Books",
+    "read-book": "Read Books",
     "search-button": "Kirjahaku",
     "print-book-button": "Tilaa paperikirja",
     "page-under-construction": "Tämä sivu on rakenteilla. Siirry sivulle <important>Odotuslista</important>."
@@ -149,8 +154,25 @@
     "cancel": "Peruuta",
     "confirm-request": "Vahvista pyyntö"
   },
+   "ScanBook": {
+    "title": "Scan Books",
+    "description": "You can scan books, using Doc Scan App, available for both Android and iOS devices.",
+    "iOS-link": "https://apps.apple.com/us/app/doc-scan-pdf-scanner/id453312964",
+    "android-link": "https://play.google.com/store/apps/details?id=at.ac.tuwien.caa.docscan&hl=en",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
+  },
+   "ReadBook": {
+    "title": "Read Books",
+    "description": "Access the scanned book digitally",
+    "register":" To read books, please register:",
+    "register-btn":"Register",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
+  },
   "PrintRequest": {
-    "title": "Paperikirjan tilaus",
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>.",
+    "register":" To print books, please register:",
+    "register-btn":"Register",
+    "title": "Print Books",
     "description": "Täytä lomake tilataksesi paperikirjan",
     "phone-label": "Anna puhelinnumerosi",
     "phone-placeholder": "Syötä puhelinnumerosi",
