@@ -64,6 +64,12 @@ const ScanBookPage = () => {
             </li>
             <li>
               <span className="font-bold">How to Scan a Book</span>
+              <div className="ml-4 my-2">
+                <span>Instruction: </span>
+                <a className="text-blue-600" href="https://help.transkribus.org/docscan" target="_blank">
+                  here
+                </a>
+              </div>
               <ol className="list-decimal list-inside my-2 space-y-2">
                 {scanInstructions.map((step, index) => (
                   <li className="ml-4" key={index}>
