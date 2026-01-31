@@ -76,7 +76,7 @@ const BookSearch = () => {
         className={`text-center transition-all duration-500 ease-out ${
           results.length > 0
             ? "opacity-0 max-h-0 overflow-hidden mb-0"
-            : "opacity-100 max-h-96 mb-12"
+            : "opacity-100 max-h-96 mb-0"
         }`}
       >
         {/* <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl shadow-lg mb-4">
