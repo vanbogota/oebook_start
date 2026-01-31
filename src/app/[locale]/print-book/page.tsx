@@ -1,17 +1,22 @@
 "use client";
 
+import { Button } from "@/components/common/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/common/card";
+import { useAuth } from "@/contexts/LocalAuthContext";
 import { TabContext, TabType } from "@/contexts/MainTabContext";
+import { useNavigation } from "@/hooks/useNavigation";
 import { useTranslations } from "next-intl";
 import { useContext } from "react";
 
 const PrintBookPage = () => {
+  const { userProfile } = useAuth();
   const t = useTranslations("PrintRequest");
+  const { navigateToSignup } = useNavigation();
   const { changeTab } = useContext(TabContext);
 
   const handleClick = (value: TabType) => {
@@ -25,15 +30,32 @@ const PrintBookPage = () => {
       </CardHeader>
       <CardContent>
         <div className="flex gap-4 max-[450px]:flex-col max-[450px]:gap-2">
-          <div className="text-center">
-            {t.rich("page-under-construction", {
-              important: (chunks) => (
-                <b className="underline" onClick={() => handleClick("waiting")}>
-                  {chunks}
-                </b>
-              ),
-            })}
-          </div>
+          {/* for registered users for now */}
+          {userProfile ? (
+            <div className="text-center">
+              {t.rich("page-under-construction", {
+                important: (chunks) => (
+                  <b
+                    className="underline cursor-pointer"
+                    onClick={() => handleClick("waiting")}
+                  >
+                    {chunks}
+                  </b>
+                ),
+              })}
+            </div>
+          ) : (
+            <div>
+              <p className="mb-8">{t("register")}</p>
+              <Button
+                size="lg"
+                className="text-lg md:px-12 md:py-6 shadow-lg hover:shadow-xl transition-all"
+                onClick={() => navigateToSignup()}
+              >
+                {t("register-btn")}
+              </Button>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
