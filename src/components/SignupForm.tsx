@@ -22,7 +22,7 @@ import { BookOpen } from "lucide-react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigation } from "@/hooks/useNavigation";
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import COUNTRIES from "@/data/countries";
 import LIBRARIES from "@/data/libraries";
