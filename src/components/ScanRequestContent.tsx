@@ -1,10 +1,10 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/LocalAuthContext";
+// import { useAuth } from "@/contexts/LocalAuthContext";
 import {
   clearSearchCache,
-  hasSavedResults,
+  // hasSavedResults,
   type SearchResult as BookDetails,
 } from "@/utils/searchCache";
 import {
@@ -21,7 +21,7 @@ import { useTranslations } from "next-intl";
 export function ScanRequestContent() {
   const { navigateToMain, navigateToProfile } = useNavigation();
   const searchParams = useSearchParams();
-  const { userProfile } = useAuth();
+  // const { userProfile } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const t = useTranslations("ScanRequest");
