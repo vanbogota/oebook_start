@@ -138,7 +138,7 @@
     "no-book-selected": "No Book Selected",
     "no-book-info": "No book information was provided. Please go back to search and select a book.",
     "back-to-search": "Back to Search Page",
-    "back-to-search-results": "Back to Search Results",
+    "back": "Back",
     "view-profile": "View Your Profile",
     "confirm-scan-request": "Confirm Scan Request",
     "confirm-details": "Please confirm the details of the book you want to request for scanning",
