@@ -26,7 +26,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import COUNTRIES from "@/data/countries";
 import LIBRARIES from "@/data/libraries";
-import type { Library } from "@/types/interfaces";
+// import type { Library } from "@/types/interfaces";
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
@@ -36,8 +36,10 @@ export const SignupForm = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedCountries, setAcceptedCountries] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [libraries, setLibraries] = useState<Library[]>(LIBRARIES);
-  const [loadingLibraries, setLoadingLibraries] = useState(false);
+  // const [libraries, setLibraries] = useState<Library[]>(LIBRARIES);
+  // const [loadingLibraries, setLoadingLibraries] = useState(false);
+  const libraries = LIBRARIES;
+  const loadingLibraries = false;
   const { toast } = useToast();
   const t = useTranslations("SignUp");
   const { navigateToMain, navigateBack, router, locale } = useNavigation();
