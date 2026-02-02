@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useEffect, useRef } from "react";
 
@@ -10,13 +10,7 @@ export const useNavigation = () => {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const previousPathRef = useRef<string | null>(null);
-
-  const search = searchParams.toString();
-  const currentNoLocalePath = `${pathname.replace(/^\/[^/]+/, "")}${
-    search ? `?${search}` : ""
-  }`;
 
   useEffect(() => {
     router.prefetch(`/${locale}/main`);
@@ -25,12 +19,14 @@ export const useNavigation = () => {
   }, [locale, router]);
 
   useEffect(() => {
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    const currentNoLocalePath = `${pathname.replace(/^\/[^/]+/, "")}${search}`;
     const previousNoLocalePath = previousPathRef.current;
     if (previousNoLocalePath && previousNoLocalePath !== currentNoLocalePath) {
       sessionStorage.setItem(LAST_PATH_KEY, previousNoLocalePath);
     }
     previousPathRef.current = currentNoLocalePath;
-  }, [currentNoLocalePath]);
+  }, [pathname]);
 
   const navigateToMain = () => {
     router.push(`/${locale}/main`);
