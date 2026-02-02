@@ -43,6 +43,7 @@
   },
   "SignUp": {
     "title": "Liity",
+    "back": "Takaisin",
     "description": "Yhdisty lukijoihin ympäri Eurooppaa löytääksesi ja jakaaksesi harvinaisia kirjoja",
     "nickname-label": "Luo nimimerkki",
     "nickname-placeholder": "Anna nimimerkkisi",
@@ -121,11 +122,11 @@
     "my-requests": "Minun pyynnöt"
   },
   "MainPage": {
-    "search-book": "Find Books",
-    "print-book": "Print Books",
-    "waiting-list": "Join Waiting List",
-    "scan-book": "Scan Books",
-    "read-book": "Read Books",
+    "search-book": "Etsi kirjoja",
+    "print-book": "Tilaa paperikirja",
+    "waiting-list": "Liity odotuslistalle",
+    "scan-book": "Skannaa kirjoja",
+    "read-book": "Lue kirjoja",
     "search-button": "Kirjahaku",
     "print-book-button": "Tilaa paperikirja",
     "page-under-construction": "Tämä sivu on rakenteilla. Siirry sivulle <important>Odotuslista</important>."
@@ -154,25 +155,25 @@
     "cancel": "Peruuta",
     "confirm-request": "Vahvista pyyntö"
   },
-   "ScanBook": {
+  "ScanBook": {
     "title": "Scan Books",
     "description": "You can scan books, using Doc Scan App, available for both Android and iOS devices.",
     "iOS-link": "https://apps.apple.com/us/app/doc-scan-pdf-scanner/id453312964",
     "android-link": "https://play.google.com/store/apps/details?id=at.ac.tuwien.caa.docscan&hl=en",
     "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
   },
-   "ReadBook": {
-    "title": "Read Books",
-    "description": "Access the scanned book digitally",
-    "register":" To read books, please register:",
-    "register-btn":"Register",
-    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
+  "ReadBook": {
+    "title": "Lue kirjoja",
+    "description": "Pääset käsiksi skannattuihin kirjoihin digitaalisesti",
+    "register": " Kirjojen lukemista varten rekisteröidy:",
+    "register-btn": "Rekisteröidy",
+    "page-under-construction": "Tämä sivu on rakenteilla. Siirry sivulle <important>Odotuslista</important>."
   },
   "PrintRequest": {
-    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>.",
-    "register":" To print books, please register:",
-    "register-btn":"Register",
-    "title": "Print Books",
+    "page-under-construction":  "Tämä sivu on rakenteilla. Siirry sivulle <important>Odotuslista</important>.",
+    "register": " Kirjojen tilaamista varten rekisteröidy:",
+    "register-btn": "Rekisteröidy",
+    "title": "Tilaa paperikirja",
     "description": "Täytä lomake tilataksesi paperikirjan",
     "phone-label": "Anna puhelinnumerosi",
     "phone-placeholder": "Syötä puhelinnumerosi",
@@ -195,8 +196,9 @@
     "description1": "Ole ensimmäisten joukossa vastaanottamassa painettua kirjaasi!",
     "description2": "Koska olemme vasta aloittamassa, keräämme parhaillaan ensimmäisiä tilauksiamme.",
     "description3": "Liity jonotuslistalle täyttämällä alla oleva lomake. Lähetämme sinulle sähköpostia heti, kun olemme valmiita toimittamaan Œbœks-kirjoja.",
-    "description4": "Painamme haluamasi kirjan. Varmistathan, että toimitat oikean PDF-tiedoston. Käytä ohjeita: <guidlines>täällä</guidlines>.",
-    "description5": "Huomio: Skannaamasi kirjan on oltava hankittu laillisesti EU-lainsäädännön mukaisesti. Tämä tarkoittaa, että sinulla tulee olla valokuva kirjaston lainauskuitista. Lataa se alle.",
+    "description4": "Painamme YHDEN AINOAN KAPPALEEN haluamastasi kirjasta – <guidelines>Suomen tekijänoikeuslain 12 §:n</guidelines> mukaisesti (kirjojen kopiointi VAIN YKSITYISEEN KÄYTTÖÖN).",
+    "description5": "Painamme haluamasi kirjan. Varmistathan, että toimitat oikean PDF-tiedoston. Käytä ohjeita: <guidelines>täällä</guidelines>.",
+    "description6": "Huomio: Skannaamasi kirjan on oltava hankittu laillisesti EU-lainsäädännön mukaisesti. Tämä tarkoittaa, että sinulla tulee olla valokuva kirjaston lainauskuitista. Lataa se alle.",
     "avoid-real-name": "Vältäthän oikean nimesi näyttämistä yksityisyytesi suojaamiseksi",
     "email-label": "Sähköpostiosoitteesi",
     "email-placeholder": "Syötä sähköpostiosoitteesi",
