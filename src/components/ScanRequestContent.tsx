@@ -1,5 +1,5 @@
 "use client";
-import {  useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import {
@@ -33,8 +33,6 @@ export function ScanRequestContent() {
       return;
     }
   }, []);
-
-
 
   // Извлекаем данные книги из URL параметров
   const bookData: BookDetails = {
@@ -75,7 +73,6 @@ export function ScanRequestContent() {
       // Mark as submitted in sessionStorage to persist across language changes
       sessionStorage.setItem("scanRequestSubmitted", "true");
       setSubmitted(true);
-
     } catch (error) {
       console.error("Error submitting scan request:", error);
     } finally {
@@ -83,66 +80,71 @@ export function ScanRequestContent() {
     }
   };
 
-    if (submitted) {
-        return (
-            <main className="font-sans min-h-screen p-8 mx-auto max-w-2xl">
-                <div className="text-center">
-                    <div className="mb-6">
-                        <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span className="text-2xl">✅</span>
-                        </div>
-                        <h1 className="text-2xl font-semibold mb-2">{t("title")}</h1>
-                        <p className="text-black/70 dark:text-white/70">
-                            {t("confirmation-message")}
-                        </p>
-                    </div>
+  if (submitted) {
+    return (
+      <main className="font-sans min-h-screen p-8 mx-auto max-w-2xl">
+        <div className="text-center">
+          <div className="mb-6">
+            <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">✅</span>
+            </div>
+            <h1 className="text-2xl font-semibold mb-2">{t("title")}</h1>
+            <p className="text-black/70 dark:text-white/70">
+              {t("confirmation-message")}
+            </p>
+          </div>
 
-                    <div className="flex gap-3 justify-center">
-                        <button
-                            onClick={() => handleBackToSearch()}
-                            className="px-4 py-2 bg-black/5 dark:bg-white/10 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
-                        >
-                            {t("back-to-search")}
-                        </button>
-                        <button
-                            onClick={() => handleToProfile()}
-                            className="px-4 py-2 bg-foreground text-background rounded-md hover:opacity-90"
-                        >
-                            {t("view-profile")}
-                        </button>
-                    </div>
-                </div>
-            </main>
-        );
-    }
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={() => handleBackToSearch()}
+              className="px-4 py-2 bg-black/5 dark:bg-white/10 rounded-md hover:bg-black/10 dark:hover:bg-white/20"
+            >
+              {t("back-to-search")}
+            </button>
+            <button
+              onClick={() => handleToProfile()}
+              className="px-4 py-2 bg-foreground text-background rounded-md hover:opacity-90"
+            >
+              {t("view-profile")}
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
-    if (!bookData.title) {
-        return (
-            <main className="font-sans min-h-screen p-8 mx-auto max-w-2xl">
-                <div className="text-center">
-                    <h1 className="text-2xl font-semibold mb-4">{t("no-book-selected")}</h1>
-                    <p className="text-black/70 dark:text-white/70 mb-6">
-                        {t("no-book-info")}
-                    </p>
-                    <button
-                        onClick={() => handleBackToSearch()}
-                        className="px-4 py-2 bg-foreground text-background rounded-md hover:opacity-90"
-                    >
-                        {t("back-to-search")}
-                    </button>
-                </div>
-            </main>
-        );
-    }
+  if (!bookData.title) {
+    return (
+      <main className="font-sans min-h-screen p-8 mx-auto max-w-2xl">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold mb-4">
+            {t("no-book-selected")}
+          </h1>
+          <p className="text-black/70 dark:text-white/70 mb-6">
+            {t("no-book-info")}
+          </p>
+          <button
+            onClick={() => handleBackToSearch()}
+            className="px-4 py-2 bg-foreground text-background rounded-md hover:opacity-90"
+          >
+            {t("back-to-search")}
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
-      <button
-        onClick={() => handleBackToSearch()}
-        className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white mb-4"
-      >
-        ← {t("back-to-search-results")}
-      </button>
+      <div className="w-full max-w">
+        <button
+          onClick={() => handleBackToSearch()}
+          className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white mb-4 font-bold"
+        >
+          ← {t("back")}
+        </button>
+      </div>
+
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-4">
           <CardTitle className="text-3xl">

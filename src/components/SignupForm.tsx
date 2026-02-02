@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
@@ -40,7 +40,7 @@ export const SignupForm = () => {
   const [loadingLibraries, setLoadingLibraries] = useState(false);
   const { toast } = useToast();
   const t = useTranslations("SignUp");
-  const { navigateToMain, router, locale } = useNavigation();
+  const { navigateToMain, navigateBack, router, locale } = useNavigation();
 
   // useEffect(() => {
   //   const fetchLibraries = async () => {
@@ -100,7 +100,7 @@ export const SignupForm = () => {
       await createUserProfile(
         nickname.trim(),
         selectedLibrary,
-        selectedCountry
+        selectedCountry,
       );
 
       toast({
@@ -135,8 +135,17 @@ export const SignupForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
-      <Card className="w-full max-w-md shadow-xl">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
+      <div className="w-full max-w">
+        <button
+          onClick={() => navigateBack()}
+          className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white my-2 font-bold"
+        >
+          ← {t("back")}
+        </button>
+      </div>
+
+      <Card className="w-full max-w-md shadow-xl mt-2">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
             <BookOpen className="w-8 h-8 text-primary-foreground" />
@@ -165,21 +174,35 @@ export const SignupForm = () => {
               />
             </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="library">{t("library-label")}</Label>
-              <Select value={selectedLibrary} onValueChange={setSelectedLibrary} required disabled={loadingLibraries}>
-                  <SelectTrigger id="library" className="transition-all focus:ring-2 focus:ring-primary/20">
-                  <SelectValue placeholder={loadingLibraries ? "Loading libraries..." : t("library-placeholder")} />
-                  </SelectTrigger>
-                  <SelectContent className="bg-popover">
+            <div className="space-y-2">
+              <Label htmlFor="library">{t("library-label")}</Label>
+              <Select
+                value={selectedLibrary}
+                onValueChange={setSelectedLibrary}
+                required
+                disabled={loadingLibraries}
+              >
+                <SelectTrigger
+                  id="library"
+                  className="transition-all focus:ring-2 focus:ring-primary/20"
+                >
+                  <SelectValue
+                    placeholder={
+                      loadingLibraries
+                        ? "Loading libraries..."
+                        : t("library-placeholder")
+                    }
+                  />
+                </SelectTrigger>
+                <SelectContent className="bg-popover">
                   {libraries.map((library) => (
-                      <SelectItem key={library.id} value={library.id}>
-                        {library.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+                    <SelectItem key={library.id} value={library.id}>
+                      {library.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
             <div className="flex items-start space-x-3">
               <Checkbox
