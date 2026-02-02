@@ -35,7 +35,7 @@ export default function MainPage() {
           onValueChange={handleTabChange}
           className="w-full"
         >
-          <TabsList className="grid w-full max-w-3xl mx-auto grid-cols-5 mb-8">
+          <TabsList className="grid w-full max-w-4xl mx-auto grid-cols-5 mb-8">
             <TabsTrigger value="waiting" className="flex items-center gap-2">
               <ListIcon className="w-4 h-4" />
               <span className="hidden md:inline">{t("waiting-list")}</span>
