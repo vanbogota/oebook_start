@@ -6,12 +6,10 @@ import { Input } from "@/components/common/input";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/common/card";
-import { Label } from "@/components/common/label";
-import { Search as SearchIcon, BookOpen, BrushCleaning } from "lucide-react";
+import { Search as SearchIcon, BrushCleaning } from "lucide-react";
 import { SearchResult } from "@/utils/searchCache";
 import { useSearchCache } from "@/hooks/useSearchCache";
 import { useNavigation } from "@/hooks/useNavigation";

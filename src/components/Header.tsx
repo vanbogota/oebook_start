@@ -4,6 +4,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useLocale } from "next-intl";
 import Link from "next/link";
 import Menu from "./Menu";
+import Image from "next/image";
 
 export const Header: React.FC = () => {
   const locale = useLocale();
@@ -15,9 +16,7 @@ export const Header: React.FC = () => {
           href={`/${locale}/`}
           className="flex items-center gap-2 cursor-pointer"
         >
-          {/* <BookOpen className="w-6 h-6 text-primary" />
-          <h2 className="text-lg font-semibold">{t("title")}</h2> */}
-          <img className="h-5" src="/logo.png" alt="Open Europe Book Logo"/>
+          <Image src="/logo.png" alt="Open Europe Book Logo" width={90} height={90} />
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />

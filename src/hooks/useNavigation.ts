@@ -22,7 +22,11 @@ export const useNavigation = () => {
     const search = typeof window !== "undefined" ? window.location.search : "";
     const currentNoLocalePath = `${pathname.replace(/^\/[^/]+/, "")}${search}`;
     const previousNoLocalePath = previousPathRef.current;
-    if (previousNoLocalePath && previousNoLocalePath !== currentNoLocalePath) {
+    if (
+      typeof window !== "undefined" &&
+      previousNoLocalePath &&
+      previousNoLocalePath !== currentNoLocalePath
+    ) {
       sessionStorage.setItem(LAST_PATH_KEY, previousNoLocalePath);
     }
     previousPathRef.current = currentNoLocalePath;
@@ -45,11 +49,17 @@ export const useNavigation = () => {
   };
 
   const navigateToScan = (params?: string) => {
-    const url = params ? `/${locale}/scan-request?${params}` : `/${locale}/scan-request`;
+    const url = params
+      ? `/${locale}/scan-request?${params}`
+      : `/${locale}/scan-request`;
     router.push(url);
   };
 
   const navigateBack = () => {
+    if (typeof window === "undefined") {
+      router.push(`/${locale}`);
+      return;
+    }
     const lastPath = sessionStorage.getItem(LAST_PATH_KEY);
     router.push(lastPath ? `/${locale}${lastPath}` : `/${locale}`);
   };

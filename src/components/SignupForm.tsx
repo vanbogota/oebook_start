@@ -138,7 +138,7 @@ export const SignupForm = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
-      <div className="w-full max-w">
+      <div className="w-full max-w-6xl mx-auto mb-2">
         <button
           onClick={() => navigateBack()}
           className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white my-2 font-bold"
@@ -153,7 +153,7 @@ export const SignupForm = () => {
             <BookOpen className="w-8 h-8 text-primary-foreground" />
           </div>
           <div>
-            <CardTitle className="text-3xl">
+            <CardTitle className="text-2xl md:text-3xl">
               {t("title")} OpenEuropeBooks™
             </CardTitle>
             <CardDescription className="text-base mt-2">

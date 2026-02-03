@@ -29,10 +29,10 @@ const PrintBookPage = () => {
         <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex gap-4 max-[450px]:flex-col max-[450px]:gap-2">
+         <div className="flex gap-4 flex-col w-[60rem] max-w-full mx-auto">
           {/* for registered users for now */}
           {userProfile ? (
-            <div className="text-center">
+            <div className="text-left">
               {t.rich("page-under-construction", {
                 important: (chunks) => (
                   <b

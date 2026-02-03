@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import {
   Tabs,
   TabsContent,
@@ -8,7 +8,7 @@ import {
   TabsTrigger,
 } from "@/components/common/tabs";
 import { Header } from "@/components/Header";
-import PrintRequestForm from "@/components/PrintRequestForm";
+// import PrintRequestForm from "@/components/PrintRequestForm";
 import BookSearch from "@/components/BookSearch";
 import { PrinterIcon, Search as SearchIcon, ListIcon,  ScanIcon, BookOpenIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -29,7 +29,7 @@ export default function MainPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/30">
       <Header />
-      <div className="container mx-auto px-2 md:px-10 lg:px-40 py-12 max-w-[6xl]">
+      <div className="container mx-auto px-2 md:px-10 lg:px-40 py-12 max-w-6xl">
         <Tabs
           value={activeTab}
           onValueChange={handleTabChange}

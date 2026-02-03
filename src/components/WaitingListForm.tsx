@@ -163,7 +163,7 @@ export default function WaitingListForm() {
                     <p>{t("description3")}</p>
                     <p className="mt-4">{t.rich("description4", { guidelines: (chunks) => <a href="https://www.finlex.fi/api/media/statute-foreign-language-translation/689238/mainPdf/main.pdf?timestamp=1961-07-07T22%3A00%3A00.000Z" className="underline" target="_blank" rel="noopener noreferrer">{chunks}</a>
                 })}</p>
-                    <p className="mt-4">{t.rich("description5", { guidelines: (chunks) => <a href="/printGuide.pdf" className="underline text-red" target="_blank" rel="noopener noreferrer">{chunks}</a>
+                    <p className="mt-4">{t.rich("description5", { guidelines: (chunks) => <a href="/printGuide.pdf" className="underline" target="_blank" rel="noopener noreferrer">{chunks}</a>
                 })}</p>
                     <p className="mt-4 text-red-500">{t("description6")}</p>
             </CardContent>

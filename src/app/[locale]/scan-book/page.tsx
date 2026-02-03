@@ -6,16 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/common/card";
-import { TabContext, TabType } from "@/contexts/MainTabContext";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useContext } from "react";
 import { LinkIcon } from "lucide-react";
 import { Button } from "@/components/common/button";
 
 const ScanBookPage = () => {
   const t = useTranslations("ScanBook");
-  const { changeTab } = useContext(TabContext);
   const linkArr = [
     {
       name: "Download for iOS",
@@ -66,7 +63,7 @@ const ScanBookPage = () => {
               <span className="font-bold">How to Scan a Book</span>
               <div className="ml-4 my-2">
                 <span>Instruction: </span>
-                <a className="text-blue-600" href="https://help.transkribus.org/docscan" target="_blank">
+                <a className="text-blue-600" href="https://help.transkribus.org/docscan" target="_blank" rel="noopener noreferrer">
                   here
                 </a>
               </div>
@@ -94,7 +91,6 @@ const ScanBookPage = () => {
               </div>
             </li>
           </ol>
-          <div></div>
         </div>
       </CardContent>
     </Card>
