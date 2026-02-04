@@ -140,7 +140,6 @@ export default async function LocalLayout({
               {/* <AuthWrapper> */}
               <HomeHeader />
               <>{children}</>
-
               {/* </AuthWrapper> */}
             </AuthProvider>
           </TooltipProvider>
