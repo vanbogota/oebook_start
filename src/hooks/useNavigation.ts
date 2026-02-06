@@ -12,7 +12,8 @@ export const useNavigation = () => {
   const saveCurrentPath = () => {
     if (typeof window === "undefined") return;
     if (pathname) {
-      sessionStorage.setItem(LAST_PATH_KEY, pathname);
+      const currentPath = `${pathname}${window.location.search ?? ""}`
+      sessionStorage.setItem(LAST_PATH_KEY, currentPath)
     }
   };
 
@@ -45,7 +46,7 @@ export const useNavigation = () => {
     }
     const lastPath = sessionStorage.getItem(LAST_PATH_KEY);
     router.push(lastPath || `/`);
-    sessionStorage.setItem(LAST_PATH_KEY, "");
+    sessionStorage.removeItem(LAST_PATH_KEY);
   };
 
   return {

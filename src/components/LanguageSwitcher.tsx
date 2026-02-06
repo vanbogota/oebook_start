@@ -23,10 +23,7 @@ export default function LanguageSwitcher() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const switchLanguage = () => {
-    const newLocale = locale === "en" ? "fi" : "en";
-
+  const switchLanguage = (newLocale: string) => {
     if (isLoading || newLocale === locale) return;
 
     setIsLoading(true);
@@ -37,7 +34,7 @@ export default function LanguageSwitcher() {
 
     const newUrl = `${pathname}${currentSearchParams}`;
 
-    router.replace(newUrl,{ locale: newLocale } );
+    router.replace(newUrl, { locale: newLocale });
     setTimeout(() => setIsLoading(false), 500);
   };
 
@@ -64,7 +61,7 @@ export default function LanguageSwitcher() {
         {locales.map((loc) => (
           <DropdownMenuItem
             key={loc.code}
-            onClick={() => switchLanguage()}
+            onClick={() => switchLanguage(loc.code)}
             className={`flex items-center gap-2 cursor-pointer transition-colors hover:bg-primary data-[highlighted]:bg-primary/80 data-[highlighted]:text-primary-foreground hover:text-primary-foreground  ${
               loc.code === locale ? "bg-primary text-primary-foreground" : ""
             }`}
