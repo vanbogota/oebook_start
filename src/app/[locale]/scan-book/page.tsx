@@ -10,9 +10,16 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { LinkIcon } from "lucide-react";
 import { Button } from "@/components/common/button";
+import { useAuth } from "@/contexts/LocalAuthContext";
+import { useNavigation } from "@/hooks/useNavigation";
+import { useState } from "react";
 
 const ScanBookPage = () => {
   const t = useTranslations("ScanBook");
+  const { userProfile } = useAuth();
+  const { navigateToSignup } = useNavigation();
+  const [file, setFile] = useState<File | null>(null);
+
   const linkArr = [
     {
       name: "Download for iOS",
@@ -63,7 +70,12 @@ const ScanBookPage = () => {
               <span className="font-bold">How to Scan a Book</span>
               <div className="ml-4 my-2">
                 <span>Instruction: </span>
-                <a className="text-blue-600" href="https://help.transkribus.org/docscan" target="_blank" rel="noopener noreferrer">
+                <a
+                  className="text-blue-600"
+                  href="https://help.transkribus.org/docscan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   here
                 </a>
               </div>
@@ -77,18 +89,46 @@ const ScanBookPage = () => {
             </li>
             <li>
               <span className="font-bold">Upload Your Scan</span>
-              <div className="my-4 ml-4 ">
-                When your scan is ready, upload it here:
-              </div>
-              <div className="ml-4 flex max-[450px]:justify-center">
-                <Button
-                  size="lg"
-                  className="text-md md:px-12 py-6 shadow-lg hover:shadow-xl transition-all"
-                  onClick={() => uploadScan()}
-                >
-                  Upload scan
-                </Button>
-              </div>
+              {userProfile ? (
+                <>
+                  <div className="my-4 ml-4 ">
+                    When your scan is ready, upload it here:
+                  </div>
+                  <div
+                    className="ml-4 flex flex-col max-[450px]:justify-center"
+                    id="upload-scan"
+                  >
+                    <input
+                      type="file"
+                      className="my-4"
+                      onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                    />
+                    <div
+                      className="flex max-[450px]:flex-col"
+                      id="upload-scan"
+                    >
+                      <Button
+                        size="lg"
+                        className="text-md md:px-10 py-4 shadow-lg hover:shadow-xl transition-all"
+                        onClick={() => uploadScan()}
+                      >
+                        Upload scan
+                      </Button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <p className="my-4">{t("register")}</p>
+                  <Button
+                    size="lg"
+                    className="shadow-lg hover:shadow-xl transition-all"
+                    onClick={() => navigateToSignup()}
+                  >
+                    {t("register-btn")}
+                  </Button>
+                </div>
+              )}
             </li>
           </ol>
         </div>

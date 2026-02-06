@@ -38,7 +38,7 @@ export const useNavigation = () => {
     router.push(url);
   };
 
-  const navigateBack = () => {
+  const navigateFromSignUp = () => {
     if (typeof window === "undefined") {
       router.push(`/`);
       return;
@@ -54,7 +54,7 @@ export const useNavigation = () => {
     navigateToHome,
     navigateToScan,
     navigateToSignup,
-    navigateBack,
+    navigateFromSignUp,
     router,
     locale,
   };
