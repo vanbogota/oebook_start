@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
 All colors MUST be HSL.
 */
 
@@ -37,7 +37,7 @@ All colors MUST be HSL.
     --ring: 165 45% 35%;
 
     --radius: 0.75rem;
-    
+
     --gradient-warm: linear-gradient(135deg, hsl(42 60% 88%) 0%, hsl(38 85% 92%) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(165 45% 35%) 0%, hsl(165 55% 45%) 100%);
     --shadow-elegant: 0 10px 40px -15px hsl(165 45% 35% / 0.15);
@@ -88,7 +88,7 @@ All colors MUST be HSL.
     --border: 165 20% 18%;
     --input: 165 20% 18%;
     --ring: 42 85% 62%;
-    
+
     --gradient-warm: linear-gradient(135deg, hsl(165 20% 18%) 0%, hsl(165 25% 22%) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(42 85% 62%) 0%, hsl(38 90% 68%) 100%);
     --shadow-elegant: 0 10px 40px -15px hsl(42 85% 62% / 0.2);
@@ -162,3 +162,32 @@ All colors MUST be HSL.
   color: #888;
 }
 
+#upload-scan input::file-selector-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid hsl(var(--primary));
+  border-radius: 0.375rem;
+  color: hsl(var(--primary));
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  margin-right: 2rem;
+}
+#upload-scan input::file-selector-button:hover {
+  cursor: pointer;
+  color:hsl(var(--accent-foreground));
+}
+#upload-scan input:focus-visible::file-selector-button {
+  outline: none;
+}
+#upload-scan input:focus::file-selector-button {
+  outline: none;
+}
+
+#upload-scan [type='file']:focus {
+  outline: none
+}
