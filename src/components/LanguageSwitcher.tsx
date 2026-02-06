@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { Globe, Loader2 } from "lucide-react";
 import {
@@ -20,9 +20,13 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const switchLanguage = (newLocale: string) => {
+
+  const switchLanguage = () => {
+    const newLocale = locale === "en" ? "fi" : "en";
+
     if (isLoading || newLocale === locale) return;
 
     setIsLoading(true);
@@ -31,12 +35,9 @@ export default function LanguageSwitcher() {
     const currentSearchParams =
       typeof window !== "undefined" ? window.location.search : "";
 
-    // Preserve all search parameters when switching language
-    const newPathname = pathname.replace(/^\/[^/]+/, "");
+    const newUrl = `${pathname}${currentSearchParams}`;
 
-    const newUrl = `/${newLocale}${newPathname}${currentSearchParams}`;
-
-    router.push(newUrl);
+    router.replace(newUrl,{ locale: newLocale } );
     setTimeout(() => setIsLoading(false), 500);
   };
 
@@ -63,7 +64,7 @@ export default function LanguageSwitcher() {
         {locales.map((loc) => (
           <DropdownMenuItem
             key={loc.code}
-            onClick={() => switchLanguage(loc.code)}
+            onClick={() => switchLanguage()}
             className={`flex items-center gap-2 cursor-pointer transition-colors hover:bg-primary data-[highlighted]:bg-primary/80 data-[highlighted]:text-primary-foreground hover:text-primary-foreground  ${
               loc.code === locale ? "bg-primary text-primary-foreground" : ""
             }`}
