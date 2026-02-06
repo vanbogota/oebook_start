@@ -49,7 +49,7 @@ const PrintBookPage = () => {
               <p className="mb-8">{t("register")}</p>
               <Button
                 size="lg"
-                className="text-lg md:px-12 md:py-6 shadow-lg hover:shadow-xl transition-all"
+                className="shadow-lg hover:shadow-xl transition-all"
                 onClick={() => navigateToSignup()}
               >
                 {t("register-btn")}

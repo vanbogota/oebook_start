@@ -136,7 +136,7 @@ export function ScanRequestContent() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
-      <div className="w-full max-w-6xl mx-auto mb-2">
+      <div className="w-full max-w-full mx-auto mb-2">
         <button
           onClick={() => handleBackToSearch()}
           className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white mb-4 font-bold"
