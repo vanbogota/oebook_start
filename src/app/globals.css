@@ -124,7 +124,7 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
     font-feature-settings: "kern" 1, "liga" 1;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Georgia', 'Times New Roman', serif;
     letter-spacing: -0.02em;
@@ -205,5 +205,5 @@ All colors MUST be HSL.
 }
 
 #upload-scan [type='file']:focus {
-  outline: none
+  outline: none;
 }
