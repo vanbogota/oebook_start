@@ -149,8 +149,8 @@ export const SignupForm = () => {
 
       <Card className="w-full max-w-md shadow-xl mt-2">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
-            <BookOpen className="w-8 h-8 text-primary-foreground" />
+          <div className="hero-icon-gradient mx-auto inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-2xl">
+            <BookOpen className="w-10 h-10 text-primary-foreground" />
           </div>
           <div>
             <CardTitle className="text-2xl md:text-3xl">
