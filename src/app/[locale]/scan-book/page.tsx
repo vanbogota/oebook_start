@@ -105,7 +105,6 @@ const ScanBookPage = () => {
                     />
                     <div
                       className="flex max-[450px]:flex-col"
-                      id="upload-scan"
                     >
                       <Button
                         size="lg"
