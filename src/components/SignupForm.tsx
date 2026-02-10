@@ -42,7 +42,8 @@ export const SignupForm = () => {
   const loadingLibraries = false;
   const { toast } = useToast();
   const t = useTranslations("SignUp");
-  const { navigateToMain, navigateFromSignUp, router, locale } = useNavigation();
+  const { navigateToMain, navigateFromSignUp, router, locale } =
+    useNavigation();
 
   // useEffect(() => {
   //   const fetchLibraries = async () => {
