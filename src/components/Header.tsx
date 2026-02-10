@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
           href={`/`}
           className="flex items-center gap-2 cursor-pointer"
         >
-          <Image src="/logo.png" alt="Open Europe Book Logo" width={90} height={90} />
+          <Image src="/logo-light.png" alt="Open Europe Book Logo" width={90} height={90} />
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
