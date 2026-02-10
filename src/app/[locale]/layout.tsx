@@ -132,7 +132,7 @@ export default async function LocalLayout({
         suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
           <TooltipProvider>
             <Toaster />
             <Sonner />

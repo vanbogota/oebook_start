@@ -42,7 +42,7 @@ export const SignupForm = () => {
   const loadingLibraries = false;
   const { toast } = useToast();
   const t = useTranslations("SignUp");
-  const { navigateToMain, navigateBack, router, locale } = useNavigation();
+  const { navigateToMain, navigateFromSignUp, router, locale } = useNavigation();
 
   // useEffect(() => {
   //   const fetchLibraries = async () => {
@@ -138,9 +138,9 @@ export const SignupForm = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-background via-secondary/30 to-background">
-      <div className="w-full max-w-6xl mx-auto mb-2">
+      <div className="w-full max-w-full mx-auto mb-2">
         <button
-          onClick={() => navigateBack()}
+          onClick={() => navigateFromSignUp()}
           className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white my-2 font-bold"
         >
           ← {t("back")}

@@ -157,7 +157,9 @@
     "description": "You can scan books, using Doc Scan App, available for both Android and iOS devices.",
     "iOS-link": "https://apps.apple.com/us/app/doc-scan-pdf-scanner/id453312964",
     "android-link": "https://play.google.com/store/apps/details?id=at.ac.tuwien.caa.docscan&hl=en",
-    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>."
+    "page-under-construction": "This page is under construction. Please go to the page <important>Join Waiting List</important>.",
+    "register":" To upload books, please register:",
+    "register-btn": "Register"
   },
   "ReadBook": {
     "title": "Read Books",
