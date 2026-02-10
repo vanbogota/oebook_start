@@ -71,7 +71,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 text-center space-y-8 px-4 max-w-4xl mx-auto">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-3xl shadow-2xl mb-4">
+          <div className="hero-icon-gradient inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-2xl mb-4">
             <BookOpen className="w-10 h-10 text-primary-foreground" />
           </div>
 
