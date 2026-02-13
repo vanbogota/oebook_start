@@ -195,7 +195,7 @@
     "description1": "Be among the first to receive your printed book!",
     "description2": "As we`re just starting out, we`re currently collecting our first orders.",
     "description3": "Join the waiting list by filling out the form below. We'll send you email as soon as we are ready to deliver Œbœks.",
-    "description4": "We will print ONE SINGLE COPY of the book you want - according to <guidelines> Section 12 of Finland Copyright Act </guidelines> (copying books FOR YOUR PRIVATE USE ONLY). ",
+    "description4": "We will print <guidelines2>ONE SINGLE COPY</guidelines2> of the book you want - according to <guidelines> Section 12 of Finland Copyright Act </guidelines> (copying books FOR YOUR PRIVATE USE ONLY). ",
     "description5":"Please provide a correct PDF file. Use the instructions to create a correct PDF file: <guidelines>here</guidelines>.",
     "description6": "Attention: The book, that you scan, must be obtained legally, by EU law. This means you must have a photo of the library checkout receipt. Please upload it below.",
     "avoid-real-name": " Please avoid showing your real name, for your privacy",
@@ -213,7 +213,12 @@
     "required-fields": "Please fill in all required fields",
     "file-ready": "File is ready for upload",
     "add-link": "Add a Link to a Book File From Your Storage",
-    "link-instruction": "A link to the book file should be publicly accessible for download. Avoid personal data in the link name."
+    "link-instruction": "A link to the book file should be publicly accessible for download. Avoid personal data in the link name.",
+    "price-info": "A standard book costs only 12 € (plus LOCAL postage to home, for only 3 €), in the EU Member States, eligible for LEGAL copyright PRIVATE COPYING exception.",
+    "book-size": "<guidelines>SIZE:</guidelines> UK Standard B: 198 x 129 mm, e.g. 312 glue-binded pages, coloured soft cover, black & white content. If more pages: +2 cents per page.",
+    "cover": "We do not offer a hardcover option. However, if you would like stronger anti-wear protection, we offer the “DUAL” cover — an eco-friendly wrapped dust jacket — for an additional €0.90 (€12.90 total). It is as durable as a hardcover, while remaining as light as a softcover.",
+    "dual-cover": "Add DUAL Cover for + €0.90"
+
   },
   "Terms": {
     "title": "Terms of Service",
