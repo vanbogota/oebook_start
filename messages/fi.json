@@ -198,7 +198,7 @@
     "description1": "Ole ensimmäisten joukossa vastaanottamassa painettua kirjaasi!",
     "description2": "Koska olemme vasta aloittamassa, keräämme parhaillaan ensimmäisiä tilauksiamme.",
     "description3": "Liity jonotuslistalle täyttämällä alla oleva lomake. Lähetämme sinulle sähköpostia heti, kun olemme valmiita toimittamaan Œbœks-kirjoja.",
-    "description4": "Painamme YHDEN AINOAN KAPPALEEN haluamastasi kirjasta – <guidelines>Suomen tekijänoikeuslain 12 §:n</guidelines> mukaisesti (kirjojen kopiointi VAIN YKSITYISEEN KÄYTTÖÖN).",
+    "description4": "Painamme <guidelines2>YHDEN AINOAN KAPPALEEN</guidelines2> haluamastasi kirjasta – <guidelines>Suomen tekijänoikeuslain 12 §:n</guidelines> mukaisesti (kirjojen kopiointi VAIN YKSITYISEEN KÄYTTÖÖN).",
     "description5": "Painamme haluamasi kirjan. Varmistathan, että toimitat oikean PDF-tiedoston. Käytä ohjeita: <guidelines>täällä</guidelines>.",
     "description6": "Huomio: Skannaamasi kirjan on oltava hankittu laillisesti EU-lainsäädännön mukaisesti. Tämä tarkoittaa, että sinulla tulee olla valokuva kirjaston lainauskuitista. Lataa se alle.",
     "avoid-real-name": "Vältäthän oikean nimesi näyttämistä yksityisyytesi suojaamiseksi",
@@ -216,7 +216,11 @@
     "required-fields": "Täytä kaikki vaaditut kentät",
     "file-ready": "Tiedosto valmis ladattavaksi",
     "add-link": "Lisää linkki kirjatiedostoon omasta tallennustilastasi",
-    "link-instruction": "Kirjatiedoston linkin tulee olla julkisesti ladattavissa. Vältä henkilökohtaisia tietoja linkin nimessä."
+    "link-instruction": "Kirjatiedoston linkin tulee olla julkisesti ladattavissa. Vältä henkilökohtaisia tietoja linkin nimessä.",
+    "price-info": "Standardikirja maksaa vain 12 € (plus PAIKALLINen postitus kotiin, vain 3 €), EU-jäsenmaissa, oikeutettu LAILLISeen tekijänoikeuden YKSITYISEN KOPIOINNIN poikkeukseen.",
+    "book-size": "<guidelines>KOKO:</guidelines> UK Standard B: 198 x 129 mm, esim. 312 liimattua sivua, värillinen pehmeä kansi, mustavalkoinen sisältö. Jos enemmän sivuja: +2 senttiä per sivu.",
+    "cover": "Emme tarjoa kovakantista vaihtoehtoa. Jos kuitenkin haluat vahvemman kulutussuojan, tarjoamme “DUAL”-kannen — ympäristöystävällisen, päällystetyn suojakannen — lisähintaan 0,90 € (yhteensä 12,90 €). Se on yhtä kestävä kuin kovakantinen, mutta yhtä kevyt kuin pehmeäkantinen.",
+    "dual-cover": "Lisää DUAL-kansi hintaan + €0,9"
   },
   "Terms": {
     "title": "Terms of Service",

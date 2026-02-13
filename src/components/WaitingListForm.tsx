@@ -8,6 +8,7 @@ import { Input } from "./common/input";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "./common/label";
 import { useTranslations } from "next-intl";
+import { Checkbox } from "./common/checkbox";
 
 type FileEntry = {
     id: number;
@@ -26,6 +27,7 @@ export default function WaitingListForm() {
         { id: 1, file: null, link: "" }
     ]);
     const [nextId, setNextId] = useState<number>(2);
+    const [dualCover, setDualCover] = useState<boolean>(false);
 
     const handleEmailBlur = () => {
         if (email.trim() === "") {
@@ -114,6 +116,9 @@ export default function WaitingListForm() {
                 formData.append('email', email);
                 formData.append('file', entry.file!);
                 formData.append('link', entry.link);
+                if (dualCover) {
+                formData.append("dualCover", dualCover.toString());
+            }
 
                 return fetch('/api/waiting-list', {
                     method: 'POST',
@@ -152,103 +157,157 @@ export default function WaitingListForm() {
         }
     };
 
-    return (
-        <Card className="shadow-lg">
-            <CardHeader>
-                <CardTitle>{t("title")}</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm">
-                    <p>{t("description1")}</p>
-                    <p>{t("description2")}</p>
-                    <p>{t("description3")}</p>
-                    <p className="mt-4">{t.rich("description4", { guidelines: (chunks) => <a href="https://www.finlex.fi/api/media/statute-foreign-language-translation/689238/mainPdf/main.pdf?timestamp=1961-07-07T22%3A00%3A00.000Z" className="underline" target="_blank" rel="noopener noreferrer">{chunks}</a>
-                })}</p>
-                    <p className="mt-4">{t.rich("description5", { guidelines: (chunks) => <a href="/printGuide.pdf" className="underline" target="_blank" rel="noopener noreferrer">{chunks}</a>
-                })}</p>
-                    <p className="mt-4 text-red-500">{t("description6")}</p>
-            </CardContent>
-            <CardContent className="space-y-4">
-                <div className="space-y-2">
-                    <Label htmlFor="email">{t("email-label")}</Label>
-                    <CardDescription>
-                        {t("avoid-real-name")}
-                    </CardDescription>
-                    <Input
-                        id="email"
-                        type="email"
-                        placeholder={t("email-placeholder")}
-                        value={email}
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                            if (emailError) setEmailError("");
-                        }}
-                        onBlur={handleEmailBlur}
-                        className={`transition-all focus:ring-2 focus:ring-primary/20 ${emailError ? "border-red-500" : ""
-                            }`}
-                        required
-                        disabled={loading}
-                    />
-                    {emailError && (
-                        <p className="text-sm text-red-500">{emailError}</p>
-                    )}
-                </div>
+  return (
+    <Card className="shadow-lg">
+      <CardHeader>
+        <CardTitle>{t("title")}</CardTitle>
+      </CardHeader>
+      <CardContent className="text-sm">
+        <p>{t("description1")}</p>
+        <p>{t("description2")}</p>
+        <p>{t("description3")}</p>
 
-                {fileEntries.map((entry, index) => (
-                    <div key={entry.id} className="space-y-4 p-4 border rounded-lg bg-secondary/20 relative">
-                        {fileEntries.length > 1 && (
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => removeFileEntry(entry.id)}
-                                disabled={loading}
-                                className="absolute top-2 right-2 h-8 w-8 p-0"
-                            >
-                                <X className="h-4 w-4" />
-                            </Button>
-                        )}
+        <p className="mt-4 font-semibold">{t("price-info")}</p>
+        <p className="mt-4">
+          {t.rich("book-size", {
+            guidelines: (chunks) => (
+              <span className="font-semibold">{chunks}</span>
+            ),
+          })}
+        </p>
+        <p className="mt-4">{t("cover")}</p>
+        <p className="mt-4">
+          {t.rich("description4", {
+            guidelines: (chunks) => (
+              <a
+                href="https://www.finlex.fi/api/media/statute-foreign-language-translation/689238/mainPdf/main.pdf?timestamp=1961-07-07T22%3A00%3A00.000Z"
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {chunks}
+              </a>
+            ),
+            guidelines2: (chunks) => (
+              <span className="font-semibold">{chunks}</span>
+            ),
+          })}
+        </p>
+        <p className="mt-4">
+          {t.rich("description5", {
+            guidelines: (chunks) => (
+              <a
+                href="/printGuide.pdf"
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
+        </p>
+        <p className="mt-4 text-red-500">{t("description6")}</p>
+      </CardContent>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="email">{t("email-label")}</Label>
+          <CardDescription>{t("avoid-real-name")}</CardDescription>
+          <Input
+            id="email"
+            type="email"
+            placeholder={t("email-placeholder")}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (emailError) setEmailError("");
+            }}
+            onBlur={handleEmailBlur}
+            className={`transition-all focus:ring-2 focus:ring-primary/20 ${
+              emailError ? "border-red-500" : ""
+            }`}
+            required
+            disabled={loading}
+          />
+          {emailError && <p className="text-sm text-red-500">{emailError}</p>}
+        </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor={`fileUpload-${entry.id}`} className="text-sm font-medium">
-                                {t("library-receipt")}
-                            </Label>
-                            <CardDescription>
-                                Supported files: .jpg, .jpeg, .png, .webp, .heic, .heif.
-                            </CardDescription>
-                            <div className="flex items-center gap-2">
-                                <Input
-                                    id={`fileUpload-${entry.id}`}
-                                    type="file"
-                                    accept=".jpg,.jpeg,.png,.webp,.heic,.heif,image/jpeg,image/png,image/webp,image/heic,image/heif"
-                                    onChange={(e) => handleFileChange(entry.id, e)}
-                                    className="cursor-pointer"
-                                    disabled={loading}
-                                />
-                                {entry.file && (
-                                    <div className="text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
-                                        <Upload className="h-4 w-4" />
-                                        {entry.file.name}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+        {fileEntries.map((entry, index) => (
+          <div
+            key={entry.id}
+            className="space-y-4 p-4 border rounded-lg bg-secondary/20 relative"
+          >
+            {fileEntries.length > 1 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeFileEntry(entry.id)}
+                disabled={loading}
+                className="absolute top-2 right-2 h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
 
-                        <div className="space-y-2">
-                            <Label htmlFor={`link-${entry.id}`} className="text-sm font-medium">
-                                {t("add-link")}
-                            </Label>
-                            <CardDescription>
-                                {t("link-instruction")}
-                            </CardDescription>
-                            <Input
-                                id={`link-${entry.id}`}
-                                placeholder={t("link-placeholder")}
-                                value={entry.link}
-                                onChange={(e) => handleLinkChange(entry.id, e.target.value)}
-                                disabled={loading}
-                            />
-                        </div>
-                    </div>
-                ))}
+            <div className="space-y-2">
+              <Label
+                htmlFor={`fileUpload-${entry.id}`}
+                className="text-sm font-medium"
+              >
+                {t("library-receipt")}
+              </Label>
+              <CardDescription>
+                Supported files: .jpg, .jpeg, .png, .webp, .heic, .heif.
+              </CardDescription>
+              <div className="flex items-center gap-2">
+                <Input
+                  id={`fileUpload-${entry.id}`}
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.webp,.heic,.heif,image/jpeg,image/png,image/webp,image/heic,image/heif"
+                  onChange={(e) => handleFileChange(entry.id, e)}
+                  className="cursor-pointer"
+                  disabled={loading}
+                />
+                {entry.file && (
+                  <div className="text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
+                    <Upload className="h-4 w-4" />
+                    {entry.file.name}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label
+                htmlFor={`link-${entry.id}`}
+                className="text-sm font-medium"
+              >
+                {t("add-link")}
+              </Label>
+              <CardDescription>{t("link-instruction")}</CardDescription>
+              <Input
+                id={`link-${entry.id}`}
+                placeholder={t("link-placeholder")}
+                value={entry.link}
+                onChange={(e) => handleLinkChange(entry.id, e.target.value)}
+                disabled={loading}
+              />
+            </div>
+            <div className="mt-2 flex items-center">
+              <Checkbox
+                id={`dual-cover-${entry.id}`}
+                checked={dualCover}
+                onCheckedChange={(checked) => setDualCover(checked as boolean)}
+              />
+              <Label
+                htmlFor={`dual-cover-${entry.id}`}
+                className="text-sm font-medium ml-2"
+              >
+                {t("dual-cover")}
+              </Label>
+            </div>
+          </div>
+        ))}
 
                 <Button
                     variant="outline"
