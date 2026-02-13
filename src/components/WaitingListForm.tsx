@@ -293,22 +293,21 @@ export default function WaitingListForm() {
                 disabled={loading}
               />
             </div>
-            <div className="mt-2 flex items-center">
+          </div>
+        ))}
+         <div className="mt-2 flex items-center">
               <Checkbox
-                id={`dual-cover-${entry.id}`}
+                id="dual-cover"
                 checked={dualCover}
                 onCheckedChange={(checked) => setDualCover(checked as boolean)}
               />
               <Label
-                htmlFor={`dual-cover-${entry.id}`}
+                htmlFor="dual-cover"
                 className="text-sm font-medium ml-2"
               >
                 {t("dual-cover")}
               </Label>
             </div>
-          </div>
-        ))}
-
                 <Button
                     variant="outline"
                     className="w-full"
