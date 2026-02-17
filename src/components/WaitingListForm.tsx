@@ -194,6 +194,9 @@ export default function WaitingListForm() {
           })}
         </p>
         <p className="mt-4">
+          {t("description7")}
+        </p>
+        <p className="mt-4">
           {t.rich("description5", {
             guidelines: (chunks) => (
               <a
