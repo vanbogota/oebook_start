@@ -3,7 +3,13 @@
 import { Printer, Upload, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./common/button";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "./common/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "./common/card";
 import { Input } from "./common/input";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "./common/label";
@@ -11,151 +17,156 @@ import { useTranslations } from "next-intl";
 import { Checkbox } from "./common/checkbox";
 
 type FileEntry = {
-    id: number;
-    file: File | null;
-    link: string;
+  id: number;
+  file: File | null;
+  link: string;
 };
 
 export default function WaitingListForm() {
-    const { toast } = useToast();
-    const t = useTranslations("WaitingListForm");
+  const { toast } = useToast();
+  const t = useTranslations("WaitingListForm");
 
-    const [email, setEmail] = useState<string>("");
-    const [emailError, setEmailError] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(false);
-    const [fileEntries, setFileEntries] = useState<FileEntry[]>([
-        { id: 1, file: null, link: "" }
-    ]);
-    const [nextId, setNextId] = useState<number>(2);
-    const [dualCover, setDualCover] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [fileEntries, setFileEntries] = useState<FileEntry[]>([
+    { id: 1, file: null, link: "" },
+  ]);
+  const [nextId, setNextId] = useState<number>(2);
+  const [dualCover, setDualCover] = useState<boolean>(false);
 
-    const handleEmailBlur = () => {
-        if (email.trim() === "") {
-            setEmailError("");
-            return;
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            setEmailError("Please enter a valid email address");
-        } else {
-            setEmailError("");
-        }
-    };
+  const handleEmailBlur = () => {
+    if (email.trim() === "") {
+      setEmailError("");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address");
+    } else {
+      setEmailError("");
+    }
+  };
 
-    const handleFileChange = (entryId: number, e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const validTypes = [
-                'image/jpeg',
-                'image/jpg',
-                'image/png',
-                'image/webp',
-                'image/heic',
-                'image/heif',
-            ];
-            if (validTypes.includes(file.type)) {
-                setFileEntries(prev =>
-                    prev.map(entry =>
-                        entry.id === entryId ? { ...entry, file } : entry
-                    )
-                );
-            } else {
-                alert(t("alert-message"));
-                e.target.value = '';
-            }
-        }
-    };
-
-    const handleLinkChange = (entryId: number, value: string) => {
-        setFileEntries(prev =>
-            prev.map(entry =>
-                entry.id === entryId ? { ...entry, link: value } : entry
-            )
+  const handleFileChange = (
+    entryId: number,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const validTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/webp",
+        "image/heic",
+        "image/heif",
+      ];
+      if (validTypes.includes(file.type)) {
+        setFileEntries((prev) =>
+          prev.map((entry) =>
+            entry.id === entryId ? { ...entry, file } : entry,
+          ),
         );
-    };
+      } else {
+        alert(t("alert-message"));
+        e.target.value = "";
+      }
+    }
+  };
 
-    const addFileEntry = () => {
-        setFileEntries(prev => [...prev, { id: nextId, file: null, link: "" }]);
-        setNextId(prev => prev + 1);
-    };
+  const handleLinkChange = (entryId: number, value: string) => {
+    setFileEntries((prev) =>
+      prev.map((entry) =>
+        entry.id === entryId ? { ...entry, link: value } : entry,
+      ),
+    );
+  };
 
-    const removeFileEntry = (entryId: number) => {
-        if (fileEntries.length > 1) {
-            setFileEntries(prev => prev.filter(entry => entry.id !== entryId));
+  const addFileEntry = () => {
+    setFileEntries((prev) => [...prev, { id: nextId, file: null, link: "" }]);
+    setNextId((prev) => prev + 1);
+  };
+
+  const removeFileEntry = (entryId: number) => {
+    if (fileEntries.length > 1) {
+      setFileEntries((prev) => prev.filter((entry) => entry.id !== entryId));
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!email || emailError) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: emailError || t("required-fields"),
+      });
+      return;
+    }
+
+    const validEntries = fileEntries.filter(
+      (entry) => entry.file && entry.link,
+    );
+
+    if (validEntries.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: t("alert-no-file"),
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Send each file entry separately
+      const promises = validEntries.map((entry) => {
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("file", entry.file!);
+        formData.append("link", entry.link);
+        if (dualCover) {
+          formData.append("dualCover", dualCover.toString());
         }
-    };
 
-    const handleSubmit = async () => {
-        if (!email || emailError) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: emailError || t("required-fields"),
-            });
-            return;
-        }
+        return fetch("/api/waiting-list", {
+          method: "POST",
+          body: formData,
+        });
+      });
 
-        const validEntries = fileEntries.filter(entry => entry.file && entry.link);
+      const responses = await Promise.all(promises);
+      const allSuccessful = responses.every((res) => res.ok);
 
-        if (validEntries.length === 0) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: t("alert-no-file"),
-            });
-            return;
-        }
+      if (allSuccessful) {
+        toast({
+          title: "Success!",
+          description: `You were successfully added to the waiting list with ${validEntries.length} file(s)!`,
+        });
 
-
-        setLoading(true);
-
-        try {
-            // Send each file entry separately
-            const promises = validEntries.map(entry => {
-                const formData = new FormData();
-                formData.append('email', email);
-                formData.append('file', entry.file!);
-                formData.append('link', entry.link);
-                if (dualCover) {
-                formData.append("dualCover", dualCover.toString());
-            }
-
-                return fetch('/api/waiting-list', {
-                    method: 'POST',
-                    body: formData,
-                });
-            });
-
-            const responses = await Promise.all(promises);
-            const allSuccessful = responses.every(res => res.ok);
-
-            if (allSuccessful) {
-                toast({
-                    title: "Success!",
-                    description: `You were successfully added to the waiting list with ${validEntries.length} file(s)!`,
-                });
-
-                setEmail('');
-                setFileEntries([{ id: nextId, file: null, link: "" }]);
-                setNextId(prev => prev + 1);
-            } else {
-                toast({
-                    variant: "destructive",
-                    title: "Error",
-                    description: "Some files failed to submit. Please try again.",
-                });
-            }
-        } catch (error) {
-            console.error('Submit error:', error);
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: "Network error. Please check your connection and try again.",
-            });
-        } finally {
-            setLoading(false);
-        }
-    };
+        setEmail("");
+        setFileEntries([{ id: nextId, file: null, link: "" }]);
+        setNextId((prev) => prev + 1);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Some files failed to submit. Please try again.",
+        });
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description:
+          "Network error. Please check your connection and try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Card className="shadow-lg">
@@ -167,7 +178,20 @@ export default function WaitingListForm() {
         <p>{t("description2")}</p>
         <p>{t("description3")}</p>
 
-        <p className="mt-4 font-semibold">{t("price-info")}</p>
+        <p className="mt-4 font-semibold">
+          {t.rich("price-info", {
+            guidelines: (chunks) => (
+              <a
+                href="/AuthorRoyalties_en.pdf"
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
+        </p>
         <p className="mt-4">
           {t.rich("book-size", {
             guidelines: (chunks) => (
@@ -193,9 +217,7 @@ export default function WaitingListForm() {
             ),
           })}
         </p>
-        <p className="mt-4">
-          {t("description7")}
-        </p>
+        <p className="mt-4">{t("description7")}</p>
         <p className="mt-4">
           {t.rich("description5", {
             guidelines: (chunks) => (
@@ -298,34 +320,36 @@ export default function WaitingListForm() {
             </div>
           </div>
         ))}
-         <div className="mt-2 flex items-center">
-              <Checkbox
-                id="dual-cover"
-                checked={dualCover}
-                onCheckedChange={(checked) => setDualCover(checked as boolean)}
-              />
-              <Label
-                htmlFor="dual-cover"
-                className="text-sm font-medium ml-2"
-              >
-                {t("dual-cover")}
-              </Label>
-            </div>
-                <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={addFileEntry}
-                    disabled={loading}
-                >
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add more files
-                </Button>
+        <div className="mt-2 flex items-center">
+          <Checkbox
+            id="dual-cover"
+            checked={dualCover}
+            onCheckedChange={(checked) => setDualCover(checked as boolean)}
+          />
+          <Label htmlFor="dual-cover" className="text-sm font-medium ml-2">
+            {t("dual-cover")}
+          </Label>
+        </div>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={addFileEntry}
+          disabled={loading}
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Add more files
+        </Button>
 
-                <Button className="w-full" size="lg" onClick={handleSubmit} disabled={loading}>
-                    <Printer className="mr-2 h-4 w-4" />
-                    {t("submit-button")}
-                </Button>
-            </CardContent>
-        </Card>
-    );
+        <Button
+          className="w-full"
+          size="lg"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          <Printer className="mr-2 h-4 w-4" />
+          {t("submit-button")}
+        </Button>
+      </CardContent>
+    </Card>
+  );
 }

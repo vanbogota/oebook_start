@@ -218,7 +218,7 @@
     "file-ready": "Tiedosto valmis ladattavaksi",
     "add-link": "Lisää linkki kirjatiedostoon omasta tallennustilastasi",
     "link-instruction": "Kirjatiedoston linkin tulee olla julkisesti ladattavissa. Vältä henkilökohtaisia tietoja linkin nimessä.",
-    "price-info": "Tavallinen painettu kirja maksaa vain 12 € (plus PAIKALLINEN postitus kotiin, vain 3 €), EU-jäsenmaissa, oikeutettu lailliseen tekijänoikeuden yksityiseen kopioinnin poikkeukseen.",
+    "price-info": "Tavallinen painettu kirja maksaa vain 12 € (plus PAIKALLINEN postitus kotiin, vain 3 €), EU-jäsenmaissa, <guidelines>oikeutettu</guidelines> lailliseen tekijänoikeuden yksityiseen kopioinnin poikkeukseen.",
     "book-size": "<guidelines>KOKO:</guidelines> UK Standard B: 198 x 129 mm, esim. 312 liimattua sivua, värillinen pehmeä kansi, mustavalkoinen sisältö. Jos enemmän sivuja: +2 senttiä per sivu.",
     "cover": "Emme tarjoa kovakantista vaihtoehtoa. Jos kuitenkin haluat vahvemman kulutussuojan, tarjoamme “DUAL”-kannen — ympäristöystävällisen, päällystetyn suojakannen — lisähintaan 0,90 € (yhteensä 12,90 €). Se on yhtä kestävä kuin kovakantinen, mutta yhtä kevyt kuin pehmeäkantinen.",
     "dual-cover": "Lisää DUAL-kansi hintaan + €0,90"

@@ -215,7 +215,7 @@
     "file-ready": "File is ready for upload",
     "add-link": "Add a Link to a Book File From Your Storage",
     "link-instruction": "A link to the book file should be publicly accessible for download. Avoid personal data in the link name.",
-    "price-info": "A standard PRINTED book costs only 12 € (plus LOCAL postage to home, for only 3 €), in the EU Member States, eligible for LEGAL copyright PRIVATE COPYING exception.",
+    "price-info": "A standard PRINTED book costs only 12 € (plus LOCAL postage to home, for only 3 €), in the EU Member States, <guidelines>eligible</guidelines> for LEGAL copyright PRIVATE COPYING exception.",
     "book-size": "<guidelines>SIZE:</guidelines> UK Standard B: 198 x 129 mm, e.g. 312 glue-binded pages, coloured soft cover, black & white content. If more pages: +2 cents per page.",
     "cover": "We do not offer a hardcover option. However, if you would like stronger anti-wear protection, we offer the “DUAL” cover — an eco-friendly wrapped dust jacket — for an additional €0.90 (€12.90 total). It is as durable as a hardcover, while remaining as light as a softcover.",
     "dual-cover": "Add DUAL Cover for + €0.90"
