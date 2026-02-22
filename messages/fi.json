@@ -199,7 +199,7 @@
     "description2": "Koska olemme vasta aloittamassa, keräämme parhaillaan ensimmäisiä tilauksiamme.",
     "description3": "Liity jonotuslistalle täyttämällä alla oleva lomake. Lähetämme sinulle sähköpostia heti, kun olemme valmiita toimittamaan Œbœks-kirjoja.",
     "description4": "Painamme <guidelines2>YHDEN AINOAN KAPPALEEN</guidelines2> haluamastasi kirjasta – <guidelines>Suomen tekijänoikeuslain 12 §:n</guidelines> mukaisesti (kirjojen kopiointi VAIN YKSITYISEEN KÄYTTÖÖN).",
-    "description5": "Painamme haluamasi kirjan. Varmistathan, että toimitat oikean PDF-tiedoston. Käytä ohjeita: <guidelines>täällä</guidelines>.",
+    "description5": "Ole hyvä ja toimita oikea PDF-tiedosto ja erikseen KANSIPAPERIN tiedosto. Käytä ohjeita oikean PDF-tiedoston ja KANSIPAPERIN luomiseksi: <guidelines>täällä</guidelines>.",
     "description6": "Huomio: Skannaamasi kirjan on oltava hankittu laillisesti EU-lainsäädännön mukaisesti. Tämä tarkoittaa, että sinulla tulee olla valokuva kirjaston lainauskuitista. Lataa se alle.",
     "description7": "Palvelumme mahdollistaa ainoastaan yksityisen pääsyn kirjan digitaaliseen tiedostoon henkilökohtaisen QR-koodisi kautta, joka on painetun kirjan kannessa.",
     "avoid-real-name": "Vältäthän oikean nimesi näyttämistä yksityisyytesi suojaamiseksi",
@@ -219,8 +219,8 @@
     "add-link": "Lisää linkki kirjatiedostoon omasta tallennustilastasi",
     "link-instruction": "Kirjatiedoston linkin tulee olla julkisesti ladattavissa. Vältä henkilökohtaisia tietoja linkin nimessä.",
     "price-info": "Tavallinen painettu kirja maksaa vain 12 € (plus PAIKALLINEN postitus kotiin, vain 3 €), EU-jäsenmaissa, <guidelines>oikeutettu</guidelines> lailliseen tekijänoikeuden yksityiseen kopioinnin poikkeukseen.",
-    "book-size": "<guidelines>KOKO:</guidelines> UK Standard B: 198 x 129 mm, esim. 312 liimattua sivua, värillinen pehmeä kansi, mustavalkoinen sisältö. Jos enemmän sivuja: +2 senttiä per sivu.",
-    "cover": "Emme tarjoa kovakantista vaihtoehtoa. Jos kuitenkin haluat vahvemman kulutussuojan, tarjoamme “DUAL”-kannen — ympäristöystävällisen, päällystetyn suojakannen — lisähintaan 0,90 € (yhteensä 12,90 €). Se on yhtä kestävä kuin kovakantinen, mutta yhtä kevyt kuin pehmeäkantinen.",
+    "book-size": "<guidelines>KOKO:</guidelines> UK Standard B: 198 x 129 mm, enintään 400 liimasidottua sivua, värillinen pehmeäkantinen, mustavalkoinen sisältö. Jos enemmän sivuja: +2 senttiä per sivu.",
+    "cover": "Emme tarjoa kovakantista vaihtoehtoa. Jos kuitenkin haluat vahvemman kulutussuojan, tarjoamme “DUAL”-kannen — kirjan KANSIPAPERIN ekologinen suojus — lisähintaan 0,90 € (yhteensä 12,90 €). Se on yhtä kestävä kuin kovakantinen, mutta yhtä kevyt kuin pehmeäkantinen.",
     "dual-cover": "Lisää DUAL-kansi hintaan + €0,90"
   },
   "Terms": {
