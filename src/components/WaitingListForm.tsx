@@ -47,12 +47,13 @@ export default function WaitingListForm() {
   const [nextId, setNextId] = useState<number>(2);
   const [dualCover, setDualCover] = useState<boolean>(false);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleEmailBlur = () => {
     if (email.trim() === "") {
       setEmailError("");
       return;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError(t("email-invalid-error"));
     } else {
@@ -86,6 +87,11 @@ export default function WaitingListForm() {
           return next;
         });
       } else {
+        setFileEntries((prev) =>
+          prev.map((entry) =>
+            entry.id === entryId ? { ...entry, file: null } : entry,
+          ),
+        );
         setFileErrorsByEntry((prev) => ({
           ...prev,
           [entryId]: t("alert-message"),
@@ -133,12 +139,15 @@ export default function WaitingListForm() {
       });
     }
   };
+  console.log("File entries", fileEntries);
 
   const handleSubmit = async () => {
-    if (!email || emailError) {
-      setEmailError(email ? t("email-fix-error") : t("email-invalid-error"));
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+      setEmailError(t("email-invalid-error"));
       return;
     }
+    setEmailError("");
 
     const trimmedEntries = fileEntries.map((entry) => ({
       ...entry,
@@ -167,8 +176,12 @@ export default function WaitingListForm() {
       }
 
       if (hasFile !== hasLink) {
-          fileErrors[entry.id] = !hasFile ? t("entry-incomplete-error") : "";
-          linkErrors[entry.id] = !hasLink ? t("entry-incomplete-error") : "";
+        if (!hasFile) {
+          fileErrors[entry.id] = t("entry-incomplete-error");
+        }
+        if (!hasLink) {
+          linkErrors[entry.id] = t("entry-incomplete-error");
+        }
       }
     }
 

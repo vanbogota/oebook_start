@@ -12,13 +12,13 @@ import { LinkIcon } from "lucide-react";
 import { Button } from "@/components/common/button";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useNavigation } from "@/hooks/useNavigation";
-import { useRef } from "react";
+// import { useRef } from "react";
 
 const ScanBookPage = () => {
   const t = useTranslations("ScanBook");
   const { userProfile } = useAuth();
   const { navigateToSignup } = useNavigation();
-  const fileRef = useRef<HTMLInputElement>(null);
+  // const fileRef = useRef<HTMLInputElement>(null);
 
   const linkArr = [
     {
