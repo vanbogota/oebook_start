@@ -139,7 +139,6 @@ export default function WaitingListForm() {
       });
     }
   };
-  console.log("File entries", fileEntries);
 
   const handleSubmit = async () => {
     const trimmedEmail = email.trim();
