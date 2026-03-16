@@ -22,6 +22,12 @@ type FileEntry = {
   link: string;
 };
 
+type CompletedEntry = {
+  id: number;
+  file: File;
+  link: string;
+};
+
 export default function WaitingListForm() {
   const { toast } = useToast();
   const t = useTranslations("WaitingListForm");
@@ -32,6 +38,12 @@ export default function WaitingListForm() {
   const [fileEntries, setFileEntries] = useState<FileEntry[]>([
     { id: 1, file: null, link: "" },
   ]);
+  const [fileErrorsByEntry, setFileErrorsByEntry] = useState<
+    Record<number, string>
+  >({});
+  const [linkErrorsByEntry, setLinkErrorsByEntry] = useState<
+    Record<number, string>
+  >({});
   const [nextId, setNextId] = useState<number>(2);
   const [dualCover, setDualCover] = useState<boolean>(false);
 
@@ -42,7 +54,7 @@ export default function WaitingListForm() {
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError(t("email-invalid-error"));
     } else {
       setEmailError("");
     }
@@ -68,19 +80,37 @@ export default function WaitingListForm() {
             entry.id === entryId ? { ...entry, file } : entry,
           ),
         );
+        setFileErrorsByEntry((prev) => {
+          const next = { ...prev };
+          delete next[entryId];
+          return next;
+        });
       } else {
-        alert(t("alert-message"));
+        setFileErrorsByEntry((prev) => ({
+          ...prev,
+          [entryId]: t("alert-message"),
+        }));
         e.target.value = "";
       }
     }
   };
 
   const handleLinkChange = (entryId: number, value: string) => {
-    setFileEntries((prev) =>
-      prev.map((entry) =>
+    setFileEntries((prev) => {
+      const updated = prev.map((entry) =>
         entry.id === entryId ? { ...entry, link: value } : entry,
-      ),
-    );
+      );
+
+      if (value.trim() !== "") {
+        setLinkErrorsByEntry((prev) => {
+          const next = { ...prev };
+          delete next[entryId];
+          return next;
+        });
+      }
+
+      return updated;
+    });
   };
 
   const addFileEntry = () => {
@@ -91,29 +121,71 @@ export default function WaitingListForm() {
   const removeFileEntry = (entryId: number) => {
     if (fileEntries.length > 1) {
       setFileEntries((prev) => prev.filter((entry) => entry.id !== entryId));
+      setFileErrorsByEntry((prev) => {
+        const next = { ...prev };
+        delete next[entryId];
+        return next;
+      });
+      setLinkErrorsByEntry((prev) => {
+        const next = { ...prev };
+        delete next[entryId];
+        return next;
+      });
     }
   };
 
   const handleSubmit = async () => {
     if (!email || emailError) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: emailError || t("required-fields"),
-      });
+      setEmailError(email ? t("email-fix-error") : t("email-invalid-error"));
       return;
     }
 
-    const validEntries = fileEntries.filter(
-      (entry) => entry.file && entry.link,
-    );
+    const trimmedEntries = fileEntries.map((entry) => ({
+      ...entry,
+      link: entry.link.trim(),
+    }));
 
-    if (validEntries.length === 0) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: t("alert-no-file"),
-      });
+    const fileErrors: Record<number, string> = {};
+    const linkErrors: Record<number, string> = {};
+    let hasAnyInput = false;
+
+    const validEntries: CompletedEntry[] = trimmedEntries
+      .filter((entry): entry is CompletedEntry =>
+        Boolean(entry.file && entry.link),
+      )
+      .map((entry) => ({
+        id: entry.id,
+        file: entry.file,
+        link: entry.link,
+      }));
+
+    for (const entry of trimmedEntries) {
+      const hasFile = Boolean(entry.file);
+      const hasLink = entry.link !== "";
+      if (hasFile || hasLink) {
+        hasAnyInput = true;
+      }
+
+      if (hasFile !== hasLink) {
+          fileErrors[entry.id] = !hasFile ? t("entry-incomplete-error") : "";
+          linkErrors[entry.id] = !hasLink ? t("entry-incomplete-error") : "";
+      }
+    }
+
+    if (!hasAnyInput && trimmedEntries.length > 0) {
+      const firstId = trimmedEntries[0].id;
+      fileErrors[firstId] = t("file-error");
+      linkErrors[firstId] = t("link-error");
+    }
+
+    setFileErrorsByEntry(fileErrors);
+    setLinkErrorsByEntry(linkErrors);
+
+    if (
+      Object.keys(fileErrors).length > 0 ||
+      Object.keys(linkErrors).length > 0 ||
+      validEntries.length === 0
+    ) {
       return;
     }
 
@@ -147,6 +219,8 @@ export default function WaitingListForm() {
 
         setEmail("");
         setFileEntries([{ id: nextId, file: null, link: "" }]);
+        setFileErrorsByEntry({});
+        setLinkErrorsByEntry({});
         setNextId((prev) => prev + 1);
       } else {
         toast({
@@ -257,7 +331,7 @@ export default function WaitingListForm() {
           {emailError && <p className="text-sm text-red-500">{emailError}</p>}
         </div>
 
-        {fileEntries.map((entry, index) => (
+        {fileEntries.map((entry) => (
           <div
             key={entry.id}
             className="space-y-4 p-4 border rounded-lg bg-secondary/20 relative"
@@ -284,7 +358,7 @@ export default function WaitingListForm() {
               <CardDescription>
                 Supported files: .jpg, .jpeg, .png, .webp, .heic, .heif.
               </CardDescription>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col gap-2">
                 <Input
                   id={`fileUpload-${entry.id}`}
                   type="file"
@@ -298,6 +372,11 @@ export default function WaitingListForm() {
                     <Upload className="h-4 w-4" />
                     {entry.file.name}
                   </div>
+                )}
+                {fileErrorsByEntry[entry.id] && (
+                  <p className="text-sm text-red-500">
+                    {fileErrorsByEntry[entry.id]}
+                  </p>
                 )}
               </div>
             </div>
@@ -317,6 +396,11 @@ export default function WaitingListForm() {
                 onChange={(e) => handleLinkChange(entry.id, e.target.value)}
                 disabled={loading}
               />
+              {linkErrorsByEntry[entry.id] && (
+                <p className="text-sm text-red-500">
+                  {linkErrorsByEntry[entry.id]}
+                </p>
+              )}
             </div>
           </div>
         ))}
@@ -347,7 +431,7 @@ export default function WaitingListForm() {
           disabled={loading}
         >
           <Printer className="mr-2 h-4 w-4" />
-          {t("submit-button")}
+          {loading ? t("submitting") : t("submit-button")}
         </Button>
       </CardContent>
     </Card>
