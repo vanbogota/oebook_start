@@ -10,7 +10,8 @@ import { Button } from "@/components/common/button";
 import { Avatar, AvatarFallback } from "@/components/common/avatar";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { User, Settings, LogOut, Info, Mail, MailQuestion } from "lucide-react";
+import { User, LogOut } from "lucide-react";
+// import { User, Settings, LogOut, Info, Mail, MailQuestion } from "lucide-react";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useNavigation } from "@/hooks/useNavigation";
 
@@ -54,22 +55,22 @@ const MenuUser = () => {
             </p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        {/* <DropdownMenuSeparator /> */}
+        {/* <DropdownMenuItem>
           <MailQuestion className="mr-2 h-4 w-4" />
           <Link href="">{t("incoming-requests")}</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
+        </DropdownMenuItem> */}
+        {/* <DropdownMenuItem>
           <Mail className="mr-2 h-4 w-4" />
-          <Link href="">{t("my-requests")}</Link>
-        </DropdownMenuItem>
+          <Link href={`/${locale}/profile/my-requests`}>{t("my-requests")}</Link>
+        </DropdownMenuItem> */}
 
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <User className="mr-2 h-4 w-4" />
           <Link href={`/${locale}/profile`}>{t("profile")}</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        {/* <DropdownMenuItem>
           <Settings className="mr-2 h-4 w-4" />
           <span>{t("settings")}</span>
         </DropdownMenuItem>
@@ -77,7 +78,7 @@ const MenuUser = () => {
         <DropdownMenuItem>
           <Info className="mr-2 h-4 w-4" />
           <span>{t("instructions")}</span>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Button variant="link" onClick={handleSignOut}>

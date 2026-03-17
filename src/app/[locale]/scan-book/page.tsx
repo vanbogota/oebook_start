@@ -12,13 +12,13 @@ import { LinkIcon } from "lucide-react";
 import { Button } from "@/components/common/button";
 import { useAuth } from "@/contexts/LocalAuthContext";
 import { useNavigation } from "@/hooks/useNavigation";
-import { useState } from "react";
+// import { useRef } from "react";
 
 const ScanBookPage = () => {
   const t = useTranslations("ScanBook");
   const { userProfile } = useAuth();
   const { navigateToSignup } = useNavigation();
-  const [file, setFile] = useState<File | null>(null);
+  // const fileRef = useRef<HTMLInputElement>(null);
 
   const linkArr = [
     {
@@ -92,27 +92,28 @@ const ScanBookPage = () => {
               {userProfile ? (
                 <>
                   <div className="my-4 ml-4 ">
-                    When your scan is ready, upload it here:
+                    Uploading scans is coming soon.
+                    {/* When your scan is ready, upload it here: */}
                   </div>
                   <div
                     className="ml-4 flex flex-col max-[450px]:justify-center"
                     id="upload-scan"
                   >
-                    <input
+                    {/* <input
                       type="file"
                       className="my-4"
-                      onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-                    />
+                      ref={fileRef}
+                    /> */}
                     <div
                       className="flex max-[450px]:flex-col"
                     >
-                      <Button
+                      {/* <Button
                         size="lg"
                         className="text-md md:px-10 py-4 shadow-lg hover:shadow-xl transition-all"
                         onClick={() => uploadScan()}
                       >
                         Upload scan
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </>
