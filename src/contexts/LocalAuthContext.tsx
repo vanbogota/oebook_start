@@ -4,16 +4,10 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { User } from "@supabase/supabase-js";
 import { hasSupabaseEnv, supabase } from "@/lib/supabaseClient";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { User } from "@supabase/supabase-js";
-import { hasSupabaseEnv, supabase } from "@/lib/supabaseClient";
-
 export type UserProfile = {
   uid: string;
   email: string;
-  email: string;
   library: string;
-  country: string;
   country: string;
   isProfileComplete: boolean;
   createdAt: Date;
@@ -24,14 +18,6 @@ type AuthContextType = {
   userProfile: UserProfile | null;
   loading: boolean;
   signOut: () => Promise<void>;
-  signInWithEmail: (email: string, password: string) => Promise<void>;
-  updateUserProfile: (data: Partial<Pick<UserProfile, "library" | "country">>) => Promise<void>;
-  createUserProfile: (
-    email: string,
-    password: string,
-    library: string,
-    country: string,
-  ) => Promise<{ needsEmailConfirmation: boolean }>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   updateUserProfile: (data: Partial<Pick<UserProfile, "library" | "country">>) => Promise<void>;
   createUserProfile: (
@@ -100,12 +86,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     let isActive = true;
-    if (!supabase || !hasSupabaseEnv) {
-      setLoading(false);
-      return;
-    }
-
-    let isActive = true;
 
     const init = async () => {
       const { data, error } = await supabase.auth.getSession();
@@ -154,10 +134,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signOut = async () => {
-    const client = getSupabaseClient();
-    const { error } = await client.auth.signOut();
-
-    if (error) {
     const client = getSupabaseClient();
     const { error } = await client.auth.signOut();
 
@@ -233,58 +209,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     if (error) {
-  const updateUserProfile = async (
-    data: Partial<Pick<UserProfile, "library" | "country">>,
-  ) => {
-    const client = getSupabaseClient();
-    const {
-      data: { user },
-      error: getUserError,
-    } = await client.auth.getUser();
-
-    if (getUserError) {
-      throw getUserError;
-    }
-
-    if (!user) {
-      throw new Error("User is not authenticated.");
-    }
-
-    const mergedMetadata = {
-      ...(user.user_metadata ?? {}),
-      ...data,
-    };
-
-    const { data: updated, error: updateError } = await client.auth.updateUser({
-      data: mergedMetadata,
-    });
-
-    if (updateError) {
-      throw updateError;
-    }
-
-    setUserProfile(mapUserToProfile(updated.user));
-  };
-
-  const createUserProfile = async (
-    email: string,
-    password: string,
-    library: string,
-    country: string,
-  ) => {
-    const client = getSupabaseClient();
-    const { data, error } = await client.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          library,
-          country,
-        },
-      },
-    });
-
-    if (error) {
       throw error;
     }
 
@@ -293,26 +217,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return {
       needsEmailConfirmation: !data.session,
     };
-
-    setUserProfile(mapUserToProfile(data.user));
-
-    return {
-      needsEmailConfirmation: !data.session,
-    };
   };
 
-  const value: AuthContextType = {
   const value: AuthContextType = {
     userProfile,
     loading,
     signOut,
     signInWithEmail,
-    signInWithEmail,
     updateUserProfile,
     createUserProfile,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
@@ -320,8 +235,6 @@ export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
-    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
-
