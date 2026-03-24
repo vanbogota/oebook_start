@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Label } from "@/components/common/label";
@@ -17,7 +18,8 @@ import { useNavigation } from "@/hooks/useNavigation";
 
 export const RecoveryForm = () => {
   const { signInWithEmail } = useAuth();
-  const { navigateToMain, navigateFromSignUp } = useNavigation();
+  const { navigateToMain, navigateFromSignUp, router } = useNavigation();
+  const searchParams = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +46,12 @@ export const RecoveryForm = () => {
 
     try {
       await signInWithEmail(email.trim(), password);
-      navigateToMain();
+      const redirectTo = searchParams.get("redirectTo");
+      if (redirectTo && redirectTo.startsWith("/")) {
+        router.push(redirectTo);
+      } else {
+        navigateToMain();
+      }
     } catch (signInError) {
       console.error("Sign-in error:", signInError);
       setError(
@@ -120,7 +127,12 @@ export const RecoveryForm = () => {
               {loading ? "Signing in..." : "Sign In"}
             </Button>
 
-            <Button type="button" variant="link" className="w-full" onClick={navigateFromSignUp}>
+            <Button
+              type="button"
+              variant="link"
+              className="w-full"
+              onClick={navigateFromSignUp}
+            >
               Back
             </Button>
           </form>
