@@ -29,6 +29,20 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const ACCESS_TOKEN_COOKIE_NAME = "oebook-access-token";
+
+const syncAccessTokenCookie = (token: string | null) => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  if (!token) {
+    document.cookie = `${ACCESS_TOKEN_COOKIE_NAME}=; Path=/; Max-Age=0; SameSite=Lax`;
+    return;
+  }
+
+  document.cookie = `${ACCESS_TOKEN_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; Max-Age=604800; SameSite=Lax`;
+};
 
 const mapUserToProfile = (user: User | null): UserProfile | null => {
   if (!user) {
@@ -54,7 +68,7 @@ const mapUserToProfile = (user: User | null): UserProfile | null => {
 const getSupabaseClient = () => {
   if (!supabase || !hasSupabaseEnv) {
     throw new Error(
-      "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+      "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY (or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY).",
     );
   }
 
@@ -82,11 +96,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error) {
         console.error("Failed to initialize auth session:", error);
         setUserProfile(null);
+        syncAccessTokenCookie(null);
         setLoading(false);
         return;
       }
 
       setUserProfile(mapUserToProfile(data.session?.user ?? null));
+      syncAccessTokenCookie(data.session?.access_token ?? null);
       setLoading(false);
     };
 
@@ -94,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error("Unexpected auth initialization error:", error);
       if (isActive) {
         setUserProfile(null);
+        syncAccessTokenCookie(null);
         setLoading(false);
       }
     });
@@ -106,6 +123,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       setUserProfile(mapUserToProfile(session?.user ?? null));
+      syncAccessTokenCookie(session?.access_token ?? null);
       setLoading(false);
     });
 
@@ -124,6 +142,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setUserProfile(null);
+    syncAccessTokenCookie(null);
   };
 
   const signInWithEmail = async (email: string, password: string) => {
