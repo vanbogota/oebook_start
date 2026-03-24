@@ -1,36 +1,52 @@
-import { useRouter } from "next/navigation";
+"use client";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useEffect } from "react";
+
+const LAST_PATH_KEY = "lastPath";
 
 export const useNavigation = () => {
   const router = useRouter();
   const locale = useLocale();
+  const pathname = usePathname();
 
-  useEffect(() => {
-    router.prefetch(`/${locale}/main`);
-    router.prefetch(`/${locale}/profile`);
-    router.prefetch(`/${locale}`);
-  }, [locale, router]);
+  const saveCurrentPath = () => {
+    if (typeof window === "undefined") return;
+    if (pathname) {
+      const currentPath = `${pathname}${window.location.search ?? ""}`
+      sessionStorage.setItem(LAST_PATH_KEY, currentPath)
+    }
+  };
 
   const navigateToMain = () => {
-    router.push(`/${locale}/main`);
+    router.push(`/main`);
   };
 
   const navigateToProfile = () => {
-    router.push(`/${locale}/profile`);
+    router.push(`/profile`);
   };
 
   const navigateToHome = () => {
-    router.push(`/${locale}`);
+    router.push(`/`);
   };
 
   const navigateToSignup = () => {
-    router.push(`/${locale}/signup`);
+    saveCurrentPath();
+    router.push(`/signup`);
   };
 
   const navigateToScan = (params?: string) => {
-    const url = params ? `/${locale}/scan-request?${params}` : `/${locale}/scan-request`;
+    const url = params ? `/scan-request?${params}` : `/scan-request`;
     router.push(url);
+  };
+
+  const navigateFromSignUp = () => {
+    if (typeof window === "undefined") {
+      router.push(`/`);
+      return;
+    }
+    const lastPath = sessionStorage.getItem(LAST_PATH_KEY);
+    router.push(lastPath || `/`);
+    sessionStorage.removeItem(LAST_PATH_KEY);
   };
 
   return {
@@ -39,6 +55,7 @@ export const useNavigation = () => {
     navigateToHome,
     navigateToScan,
     navigateToSignup,
+    navigateFromSignUp,
     router,
     locale,
   };

@@ -7,6 +7,7 @@ export async function POST(request: NextRequest) {
     const email = formData.get("email") as string;
     const link = formData.get("link") as string;
     const file = formData.get("file") as File;
+    const dualCover = formData.get("dualCover") as string | null;
 
     // Validation
     if (!email || !link || !file) {
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const base64File = buffer.toString("base64");
     const fileName = file.name;
+    const hasDualCover = dualCover === "true";
 
     const res = await fetch(
       process.env.GOOGLE_APP_SCRIPT_URL,
@@ -38,6 +40,7 @@ export async function POST(request: NextRequest) {
           link,
           fileName,
           fileBase64: base64File,
+          dualCover: hasDualCover
         }),
       }
     );

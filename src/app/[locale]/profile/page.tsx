@@ -99,7 +99,7 @@ export default function ProfilePage() {
             onClick={navigateToMain}
             className="text-sm text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
           >
-            ← {t("back-to-search")}
+            ← {t("back-to")}
           </button>
         </div>
 
