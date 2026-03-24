@@ -12,10 +12,10 @@ import { User, LogIn, Info } from "lucide-react";
 import { useNavigation } from "@/hooks/useNavigation";
 
 const MenuGuest = () => {
-  const { navigateToSignup } = useNavigation();
+  const { navigateToRestore } = useNavigation();
   const t = useTranslations("Menu");
   const handleSignIn = async () => {
-    navigateToSignup();
+    navigateToRestore();
   };
   return (
     <DropdownMenu>

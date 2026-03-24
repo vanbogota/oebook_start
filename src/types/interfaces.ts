@@ -15,9 +15,10 @@ export interface Library {
 
 export interface UserProfile {
     uid: string;
-    nickname: string;
+    email: string;
     library: string;
-    recoveryCode: string;
+    country: string;
+    isProfileComplete: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

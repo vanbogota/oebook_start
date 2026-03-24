@@ -51,7 +51,7 @@ const MenuUser = () => {
               {t("myAccount")}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {userProfile?.nickname || "User"}
+              {userProfile?.email || "User"}
             </p>
           </div>
         </DropdownMenuLabel>
