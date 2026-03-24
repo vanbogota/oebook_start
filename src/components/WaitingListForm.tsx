@@ -11,7 +11,6 @@ import {
   CardDescription,
 } from "./common/card";
 import { Input } from "./common/input";
-import { useToast } from "@/hooks/use-toast";
 import { Label } from "./common/label";
 import { useTranslations } from "next-intl";
 import { Checkbox } from "./common/checkbox";
@@ -28,8 +27,18 @@ type CompletedEntry = {
   link: string;
 };
 
+type SubmitErrorPayload = {
+  error?: string;
+  details?: string;
+  message?: string;
+};
+
+type SubmitStatus = {
+  type: "success" | "error";
+  message: string;
+} | null;
+
 export default function WaitingListForm() {
-  const { toast } = useToast();
   const t = useTranslations("WaitingListForm");
 
   const [email, setEmail] = useState<string>("");
@@ -46,8 +55,44 @@ export default function WaitingListForm() {
   >({});
   const [nextId, setNextId] = useState<number>(2);
   const [dualCover, setDualCover] = useState<boolean>(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const truncateError = (message: string, maxLength = 220) => {
+    const normalized = message.replace(/\s+/g, " ").trim();
+    if (normalized.length <= maxLength) {
+      return normalized;
+    }
+
+    return `${normalized.slice(0, maxLength - 1)}...`;
+  };
+
+  const getResponseErrorMessage = async (response: Response) => {
+    const contentType = response.headers.get("content-type") ?? "";
+
+    try {
+      if (contentType.includes("application/json")) {
+        const payload = (await response.json()) as SubmitErrorPayload;
+        const details = [payload.error, payload.details, payload.message]
+          .filter((value): value is string => Boolean(value?.trim()))
+          .map((value) => value.trim());
+
+        if (details.length > 0) {
+          return truncateError(details.join(" "));
+        }
+      } else {
+        const text = truncateError(await response.text());
+        if (text) {
+          return text;
+        }
+      }
+    } catch (error) {
+      console.error("Failed to parse waiting list error response:", error);
+    }
+
+    return t("submit-error-status", { status: response.status });
+  };
 
   const handleEmailBlur = () => {
     if (email.trim() === "") {
@@ -65,6 +110,7 @@ export default function WaitingListForm() {
     entryId: number,
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    if (submitStatus) setSubmitStatus(null);
     const file = e.target.files?.[0];
     if (file) {
       const validTypes = [
@@ -207,12 +253,10 @@ export default function WaitingListForm() {
       // Send each file entry separately
       const promises = validEntries.map((entry) => {
         const formData = new FormData();
-        formData.append("email", email);
-        formData.append("file", entry.file!);
+        formData.append("email", trimmedEmail);
+        formData.append("file", entry.file);
         formData.append("link", entry.link);
-        if (dualCover) {
-          formData.append("dualCover", dualCover.toString());
-        }
+        formData.append("dualCover", dualCover ? "true" : "false");
 
         return fetch("/api/waiting-list", {
           method: "POST",
@@ -224,30 +268,47 @@ export default function WaitingListForm() {
       const allSuccessful = responses.every((res) => res.ok);
 
       if (allSuccessful) {
-        toast({
-          title: "Success!",
-          description: `You were successfully added to the waiting list with ${validEntries.length} file(s)!`,
+        setSubmitStatus({
+          type: "success",
+          message: t("submit-success", { count: validEntries.length }),
         });
 
         setEmail("");
         setFileEntries([{ id: nextId, file: null, link: "" }]);
         setFileErrorsByEntry({});
         setLinkErrorsByEntry({});
+        setDualCover(false);
         setNextId((prev) => prev + 1);
       } else {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Some files failed to submit. Please try again.",
+        const failedCount = responses.filter((response) => !response.ok).length;
+        const failedResponses = await Promise.all(
+          responses
+            .filter((response) => !response.ok)
+            .map((response) => getResponseErrorMessage(response)),
+        );
+        const uniqueErrors = [...new Set(failedResponses)].filter(Boolean);
+
+        setSubmitStatus({
+          type: "error",
+          message:
+            uniqueErrors.length > 0
+              ? t("submit-error-details", {
+                  count: failedCount,
+                  details: uniqueErrors.join(" | "),
+                })
+              : t("submit-error-generic"),
         });
       }
     } catch (error) {
       console.error("Submit error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description:
-          "Network error. Please check your connection and try again.",
+      setSubmitStatus({
+        type: "error",
+        message:
+          error instanceof Error && error.message.trim()
+            ? t("network-error-details", {
+                details: truncateError(error.message),
+              })
+            : t("network-error"),
       });
     } finally {
       setLoading(false);
@@ -331,6 +392,7 @@ export default function WaitingListForm() {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
+              if (submitStatus) setSubmitStatus(null);
               if (emailError) setEmailError("");
             }}
             onBlur={handleEmailBlur}
@@ -420,7 +482,10 @@ export default function WaitingListForm() {
           <Checkbox
             id="dual-cover"
             checked={dualCover}
-            onCheckedChange={(checked) => setDualCover(checked as boolean)}
+            onCheckedChange={(checked) => {
+              setDualCover(checked as boolean);
+              if (submitStatus) setSubmitStatus(null);
+            }}
           />
           <Label htmlFor="dual-cover" className="text-sm font-medium ml-2">
             {t("dual-cover")}
@@ -445,7 +510,18 @@ export default function WaitingListForm() {
           <Printer className="mr-2 h-4 w-4" />
           {loading ? t("submitting") : t("submit-button")}
         </Button>
+        {submitStatus && (
+          <p
+            className={`text-sm ${
+              submitStatus.type === "success" ? "text-green-600" : "text-red-500"
+            }`}
+          >
+            {submitStatus.message}
+          </p>
+        )}
       </CardContent>
     </Card>
   );
 }
+
+
