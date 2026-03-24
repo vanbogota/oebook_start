@@ -1,5 +1,6 @@
-'use client'
-import { useState, useEffect } from "react";
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Label } from "@/components/common/label";
@@ -26,64 +27,38 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import COUNTRIES from "@/data/countries";
 import LIBRARIES from "@/data/libraries";
-// import type { Library } from "@/types/interfaces";
 
 export const SignupForm = () => {
   const { createUserProfile } = useAuth();
-  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [selectedLibrary, setSelectedLibrary] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [acceptedCountries, setAcceptedCountries] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const [libraries, setLibraries] = useState<Library[]>(LIBRARIES);
-  // const [loadingLibraries, setLoadingLibraries] = useState(false);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
+
   const libraries = LIBRARIES;
   const loadingLibraries = false;
   const { toast } = useToast();
   const t = useTranslations("SignUp");
-  const { navigateToMain, navigateFromSignUp, router, locale } =
+  const { navigateToMain, navigateFromSignUp, navigateToRestore, locale } =
     useNavigation();
 
-  // useEffect(() => {
-  //   const fetchLibraries = async () => {
-  //     try {
-  //       const response = await fetch('/api/libraries');
-  //       if (!response.ok) throw new Error('Failed to fetch libraries');
-  //       const data = await response.json();
-
-  //       // Filter only libraries (sector === 'library') and sort by name
-  //       const libraryList = data.libraries
-  //         .filter((lib: { sector: string | null }) => lib.sector === 'library')
-  //         .map((lib: { id: string; name: string; city: string | null; sector: string | null }) => ({
-  //           id: lib.id,
-  //           name: lib.name,
-  //           city: lib.city,
-  //           sector: lib.sector,
-  //         }))
-  //         .sort((a: Library, b: Library) => a.name.localeCompare(b.name));
-
-  //       setLibraries(libraryList);
-  //     } catch (error) {
-  //       console.error('Error fetching libraries:', error);
-  //       toast({
-  //         title: "Error loading libraries",
-  //         description: "Please refresh the page.",
-  //         variant: "destructive"
-  //       });
-  //     } finally {
-  //       setLoadingLibraries(false);
-  //     }
-  //   };
-
-  //   fetchLibraries();
-  // }, [toast]);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!nickname.trim()) {
-      setError(t("nickname-required"));
+    if (!emailRegex.test(email.trim())) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
       return;
     }
 
@@ -97,28 +72,40 @@ export const SignupForm = () => {
       return;
     }
 
+    setLoading(true);
     setError(null);
+    setInfoMessage(null);
 
     try {
-      await createUserProfile(
-        nickname.trim(),
+      const result = await createUserProfile(
+        email.trim(),
+        password,
         selectedLibrary,
         selectedCountry,
       );
 
+      if (result.needsEmailConfirmation) {
+        setInfoMessage(
+          "Account created. Please confirm your email, then sign in.",
+        );
+        return;
+      }
+
       toast({
         title: "Success",
-        description: "Successfully created your profile.",
+        description: "Successfully created your account.",
       });
 
       navigateToMain();
-    } catch (error) {
-      console.error("Error creating profile:", error);
-      toast({
-        title: "Error while creating profile",
-        description: "Please try again.",
-        variant: "destructive",
-      });
+    } catch (submitError) {
+      console.error("Error creating profile:", submitError);
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Failed to create account. Please try again.",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -127,9 +114,10 @@ export const SignupForm = () => {
       setAcceptedCountries(false);
       setError(t("select-country-error"));
       return;
-    } else {
-      setAcceptedCountries(checked);
     }
+
+    setAcceptedCountries(checked);
+    setError(null);
   };
 
   const handleSelectCountry = (country: string) => {
@@ -144,7 +132,7 @@ export const SignupForm = () => {
           onClick={() => navigateFromSignUp()}
           className="text-left text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white my-2 font-bold"
         >
-          ← {t("back")}
+          {"<-"} {t("back")}
         </button>
       </div>
 
@@ -155,7 +143,7 @@ export const SignupForm = () => {
           </div>
           <div>
             <CardTitle className="text-2xl md:text-3xl">
-              {t("title")} OpenEuropeBooks™
+              {t("title")} OpenEuropeBooks
             </CardTitle>
             <CardDescription className="text-base mt-2">
               {t("description")}
@@ -165,14 +153,36 @@ export const SignupForm = () => {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="nickname">{t("nickname-label")}</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="nickname"
-                type="text"
-                placeholder={t("nickname-placeholder")}
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(null);
+                  setInfoMessage(null);
+                }}
                 className="transition-all focus:ring-2 focus:ring-primary/20"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="At least 6 characters"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError(null);
+                  setInfoMessage(null);
+                }}
+                className="transition-all focus:ring-2 focus:ring-primary/20"
+                minLength={6}
                 required
               />
             </div>
@@ -245,6 +255,7 @@ export const SignupForm = () => {
                 </span>
               </Label>
             </div>
+
             <div className="flex items-start space-x-3">
               <Checkbox
                 id="terms"
@@ -271,9 +282,11 @@ export const SignupForm = () => {
             </div>
 
             {error && (
-              <div className="text-red-600 dark:text-red-400 text-sm">
-                {error}
-              </div>
+              <div className="text-red-600 dark:text-red-400 text-sm">{error}</div>
+            )}
+
+            {infoMessage && (
+              <div className="text-green-600 dark:text-green-400 text-sm">{infoMessage}</div>
             )}
 
             <Button
@@ -281,13 +294,15 @@ export const SignupForm = () => {
               className="w-full"
               size="lg"
               disabled={
+                loading ||
                 !acceptedTerms ||
                 !acceptedCountries ||
-                !nickname.trim() ||
+                !email.trim() ||
+                !password.trim() ||
                 !selectedLibrary
               }
             >
-              {t("create-account")}
+              {loading ? "Creating..." : t("create-account")}
             </Button>
 
             <div className="text-center pt-4 border-t">
@@ -297,10 +312,10 @@ export const SignupForm = () => {
               <Button
                 type="button"
                 variant="link"
-                onClick={() => router.push("/restore")}
+                onClick={navigateToRestore}
                 className="text-primary"
               >
-                Restore from Recovery Code
+                Sign in with email
               </Button>
             </div>
           </form>

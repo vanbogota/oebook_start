@@ -12,8 +12,8 @@ export const useNavigation = () => {
   const saveCurrentPath = () => {
     if (typeof window === "undefined") return;
     if (pathname) {
-      const currentPath = `${pathname}${window.location.search ?? ""}`
-      sessionStorage.setItem(LAST_PATH_KEY, currentPath)
+      const currentPath = `${pathname}${window.location.search ?? ""}`;
+      sessionStorage.setItem(LAST_PATH_KEY, currentPath);
     }
   };
 
@@ -32,6 +32,11 @@ export const useNavigation = () => {
   const navigateToSignup = () => {
     saveCurrentPath();
     router.push(`/signup`);
+  };
+
+  const navigateToRestore = () => {
+    saveCurrentPath();
+    router.push(`/restore`);
   };
 
   const navigateToScan = (params?: string) => {
@@ -55,6 +60,7 @@ export const useNavigation = () => {
     navigateToHome,
     navigateToScan,
     navigateToSignup,
+    navigateToRestore,
     navigateFromSignUp,
     router,
     locale,

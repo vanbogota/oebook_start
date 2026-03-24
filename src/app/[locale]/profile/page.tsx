@@ -1,48 +1,39 @@
 "use client";
-import { useState } from 'react';
-import { useAuth } from '@/contexts/LocalAuthContext';
-import LIBRARIES from '@/data/libraries';
-import { useTranslations } from 'next-intl';
-import { useNavigation } from '@/hooks/useNavigation';
 
+import { useState } from "react";
+import { useAuth } from "@/contexts/LocalAuthContext";
+import LIBRARIES from "@/data/libraries";
+import { useTranslations } from "next-intl";
+import { useNavigation } from "@/hooks/useNavigation";
 
 export default function ProfilePage() {
   const { userProfile, updateUserProfile, signOut } = useAuth();
-  const t = useTranslations('Profile');
+  const t = useTranslations("Profile");
   const { navigateToMain, navigateToHome } = useNavigation();
 
-
   const [isEditing, setIsEditing] = useState(false);
-  const [nickname, setNickname] = useState(userProfile?.nickname || '');
-  const [library, setLibrary] = useState(userProfile?.library || '');
+  const [library, setLibrary] = useState(userProfile?.library || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const getLibraryName = (libraryId: string) => {
-    const lib = LIBRARIES.find(l => l.id === libraryId);
+    const lib = LIBRARIES.find((item) => item.id === libraryId);
     return lib ? lib.name : libraryId;
   };
 
   const handleEdit = () => {
-    setNickname(userProfile?.nickname || '');
-    setLibrary(userProfile?.library || '');
+    setLibrary(userProfile?.library || "");
     setIsEditing(true);
     setError(null);
   };
 
   const handleCancel = () => {
-    setNickname(userProfile?.nickname || '');
-    setLibrary(userProfile?.library || '');
+    setLibrary(userProfile?.library || "");
     setIsEditing(false);
     setError(null);
   };
 
   const handleSave = async () => {
-    if (!nickname.trim()) {
-      setError(t("nickname-required"));
-      return;
-    }
-
     if (!library) {
       setError(t("library-required"));
       return;
@@ -52,14 +43,11 @@ export default function ProfilePage() {
     setError(null);
 
     try {
-      await updateUserProfile({
-        nickname: nickname.trim(),
-        library,
-      });
+      await updateUserProfile({ library });
       setIsEditing(false);
-    } catch (err) {
+    } catch (saveError) {
       setError(t("error-saving"));
-      console.error('Profile update error:', err);
+      console.error("Profile update error:", saveError);
     } finally {
       setLoading(false);
     }
@@ -69,8 +57,8 @@ export default function ProfilePage() {
     try {
       await signOut();
       navigateToHome();
-    } catch (err) {
-      console.error('Sign out error:', err);
+    } catch (signOutError) {
+      console.error("Sign out error:", signOutError);
     }
   };
 
@@ -87,7 +75,6 @@ export default function ProfilePage() {
   return (
     <main className="font-sans min-h-screen p-8 mx-auto">
       <div className="max-w-2xl mx-auto">
-        {/* Заголовок */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-semibold">{t("title")}</h1>
@@ -99,11 +86,10 @@ export default function ProfilePage() {
             onClick={navigateToMain}
             className="text-sm text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white"
           >
-            ← {t("back-to")}
+            {"<-"} {t("back-to")}
           </button>
         </div>
 
-        {/* Информация о профиле */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-medium">{t("profile-info")}</h2>
@@ -119,22 +105,10 @@ export default function ProfilePage() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">
-                {t("nickname-label")}
-              </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
-                  className="w-full rounded-md border border-black/10 dark:border-white/20 bg-transparent px-3 py-2"
-                  maxLength={50}
-                />
-              ) : (
-                <p className="text-black/70 dark:text-white/70">
-                  {userProfile.nickname}
-                </p>
-              )}
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <p className="text-black/70 dark:text-white/70 break-all">
+                {userProfile.email}
+              </p>
             </div>
 
             <div>
@@ -166,7 +140,7 @@ export default function ProfilePage() {
                 {t("registration-date")}
               </label>
               <p className="text-black/70 dark:text-white/70">
-                {userProfile.createdAt.toLocaleDateString('en-US')}
+                {userProfile.createdAt.toLocaleDateString("en-US")}
               </p>
             </div>
           </div>
@@ -184,7 +158,7 @@ export default function ProfilePage() {
                 disabled={loading}
                 className="rounded-md bg-foreground text-background px-4 py-2 disabled:opacity-50"
               >
-                {loading ? t('saving') : t('save')}
+                {loading ? t("saving") : t("save")}
               </button>
               <button
                 onClick={handleCancel}
@@ -197,7 +171,6 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* Statistics */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6 mb-6">
           <h2 className="text-lg font-medium mb-4">{t("statistics")}</h2>
           <div className="grid grid-cols-2 gap-4 text-center">
@@ -216,7 +189,6 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Actions */}
         <div className="rounded-lg border border-black/10 dark:border-white/15 p-6">
           <h2 className="text-lg font-medium mb-4">Actions</h2>
           <button
