@@ -1,10 +1,22 @@
 "use client";
 
+"use client";
+
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Label } from "@/components/common/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/common/card";
+import { LogIn } from "lucide-react";
+import { useAuth } from "@/contexts/LocalAuthContext";
+import { useNavigation } from "@/hooks/useNavigation";
 import {
   Card,
   CardContent,
@@ -27,10 +39,18 @@ export const RecoveryForm = () => {
   const [error, setError] = useState<string | null>(null);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!emailRegex.test(email.trim())) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Please enter your password");
     if (!emailRegex.test(email.trim())) {
       setError("Please enter a valid email address");
       return;
@@ -70,10 +90,13 @@ export const RecoveryForm = () => {
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
             <LogIn className="w-8 h-8 text-primary-foreground" />
+            <LogIn className="w-8 h-8 text-primary-foreground" />
           </div>
           <div>
             <CardTitle className="text-3xl">Sign In</CardTitle>
+            <CardTitle className="text-3xl">Sign In</CardTitle>
             <CardDescription className="text-base mt-2">
+              Use your email and password to access your account
               Use your email and password to access your account
             </CardDescription>
           </div>
@@ -81,6 +104,23 @@ export const RecoveryForm = () => {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
+              <Label htmlFor="signin-email">Email</Label>
+              <Input
+                id="signin-email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(null);
+                }}
+                className="transition-all focus:ring-2 focus:ring-primary/20"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="signin-password">Password</Label>
               <Label htmlFor="signin-email">Email</Label>
               <Input
                 id="signin-email"
@@ -108,6 +148,15 @@ export const RecoveryForm = () => {
                   setError(null);
                 }}
                 className="transition-all focus:ring-2 focus:ring-primary/20"
+                id="signin-password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError(null);
+                }}
+                className="transition-all focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -122,6 +171,7 @@ export const RecoveryForm = () => {
               type="submit"
               className="w-full"
               size="lg"
+              disabled={loading || !email.trim() || !password.trim()}
               disabled={loading || !email.trim() || !password.trim()}
             >
               {loading ? "Signing in..." : "Sign In"}
@@ -140,4 +190,5 @@ export const RecoveryForm = () => {
       </Card>
     </div>
   );
+};
 };
