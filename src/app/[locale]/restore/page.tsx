@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import { RecoveryForm } from "@/components/RecoveryForm";
 
 export default function RestorePage() {
-  return <RecoveryForm />;
+  return (
+    <Suspense fallback={null}>
+      <RecoveryForm />
+    </Suspense>
+  );
 }

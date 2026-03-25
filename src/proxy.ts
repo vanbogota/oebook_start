@@ -4,7 +4,7 @@ import { routing } from "./i18n/routing";
 import { getAccessTokenFromRequest, validateSupabaseAccessToken } from "./lib/serverAuth";
 
 const intlMiddleware = createMiddleware(routing);
-const localeSet = new Set(routing.locales);
+const localeSet = new Set<string>(routing.locales);
 
 const isProtectedPage = (pathname: string) => {
   const segments = pathname.split("/").filter(Boolean);
