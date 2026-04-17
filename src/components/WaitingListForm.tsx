@@ -369,7 +369,7 @@ export default function WaitingListForm() {
           {t.rich("description5", {
             guidelines: (chunks) => (
               <a
-                href="/printGuide-1.pdf"
+                href="/PrintGuide-1.pdf"
                 className="underline"
                 target="_blank"
                 rel="noopener noreferrer"
